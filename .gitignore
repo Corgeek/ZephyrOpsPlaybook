@@ -1,3 +1,14 @@
+# Tags
+tags
+cscope.*
+
+# Vim files
+*.swp
+*.swo
+
+# VS code
+.vscode/*
+
 # Prerequisites
 *.d
 
@@ -50,3 +61,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Generated files
+build/*
+CMakeCache.txt
+CMakeFiles/*
+
