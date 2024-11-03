@@ -1,9 +1,7 @@
 @echo off
 
-set ZEPHYR_ROOT=%HOMEPATH%\Projects\zephyr-env
-
-set BOARD_TYPE=rpi_pico
-set BOARD_TYPE=bbc_microbit
+call scripts\west_env.bat
+if %ERRORLEVEL% neq 0 exit /b 1
 
 set REBUILD=FALSE
 set FLASH=FALSE
@@ -11,9 +9,6 @@ if "-r" == "%1" set REBUILD=TRUE
 if "-r" == "%2" set REBUILD=TRUE
 if "-f" == "%1" set FLASH=TRUE
 if "-f" == "%2" set FLASH=TRUE
-
-call %ZEPHYR_ROOT%\.venv\Scripts\activate.bat
-call %ZEPHYR_ROOT%\zephyr\zephyr-env.cmd
 
 if "%REBUILD%" == "TRUE" (
   rmdir /S /Q build
@@ -23,7 +18,7 @@ if "%REBUILD%" == "TRUE" (
 west build -b %BOARD_TYPE%
 @echo off
 
-if %ERRORLEVEL% neq 0 exit
+if %ERRORLEVEL% neq 0 exit /b 1
 
 if "%FLASH%" == "TRUE" (
 @echo on
