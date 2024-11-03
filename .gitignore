@@ -7,7 +7,12 @@ cscope.*
 *.swo
 
 # VS code
-.vscode/*
+.vscode/settings.json
+
+# Generated scripts
+scripts/west_env.bat
+scripts/debug.bat
+scripts/build.bat
 
 # Prerequisites
 *.d
