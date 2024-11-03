@@ -1,14 +1,10 @@
-python -m venv .venv
-call .venv\Scripts\activate.bat
-pip install west
-
 @echo off
-copy /Y .vscode\dos\* .vscode
+copy /Y scripts\dos\*.bat scripts
 
 setlocal enabledelayedexpansion
 
 set i=0
-for /f "delims=" %%A in ('dir /o-n /b %HOMEPATH%\zephyr-sdk*') do (
+for /f "delims=" %%A in ('dir /o-n /b %HOMEPATH%\zephyr-sdk-*') do (
     set sdklist[!i!]=%%A
     set /a i+=1
 )

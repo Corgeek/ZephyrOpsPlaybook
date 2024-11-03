@@ -1,9 +1,9 @@
 @echo off
 
-set ZEPHYR_ENV=%HOMEPATH%\Projects\zephyr-env
+set ZEPHYR_ROOT=%HOMEPATH%\Projects\zephyr-env
 
-call %ZEPHYR_ENV%\.venv\Scripts\activate.bat
-call %ZEPHYR_ENV%\zephyr\zephyr-env.cmd
+call %ZEPHYR_ROOT%\.venv\Scripts\activate.bat
+call %ZEPHYR_ROOT%\zephyr\zephyr-env.cmd
 
 if %ERRORLEVEL% neq 0 exit
 
