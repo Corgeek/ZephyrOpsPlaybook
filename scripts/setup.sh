@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cp -f scripts/linux/*.bat scripts
+cp -f scripts/linux/build.sh scripts/build.bat
+cp -f scripts/linux/debug.sh scripts/debug.bat
 
 ZEPHYR_ROOT=/opt/zephyr-env
 BOARD_TYPE=rpi_pico
@@ -28,5 +29,5 @@ if [ -e \${ZEPHYR_ROOT}/.venv/bin/activate ]; then
 fi
 EOF
 
-#SDK_LIST=(`ls -r ${HOME} | grep zephyr-sdk-`)
-#echo "{ \"ZEPHYRSDK\": \"\${env:HOMEPATH}/${SDK_LIST[0]}\" }" > .vscode/settings.json
+SDK_LIST=(`ls -r ${HOME} | grep zephyr-sdk-`)
+echo "{ \"ZEPHYRSDK\": \"\${env:HOMEPATH}/${SDK_LIST[0]}\" }" > .vscode/settings.json
