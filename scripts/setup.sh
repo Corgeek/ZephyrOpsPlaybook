@@ -1,8 +1,5 @@
 #!/bin/bash
 
-cp -f scripts/linux/build.sh scripts/build.bat
-cp -f scripts/linux/debug.sh scripts/debug.bat
-
 ZEPHYR_ROOT=/opt/zephyr-env
 BOARD_TYPE=rpi_pico
 BOARD_TYPE=bbc_microbit
@@ -31,3 +28,13 @@ EOF
 
 SDK_LIST=(`ls -r ${HOME} | grep zephyr-sdk-`)
 echo "{ \"ZEPHYRSDK\": \"\${env:HOMEPATH}/${SDK_LIST[0]}\" }" > .vscode/settings.json
+
+cat > .vscode/settings.json << EOF
+{
+  "ZEPHYRSDK": "\${env:HOMEPATH}/${SDK_LIST[0]}",
+  "CROSS_GDB_PATH": "\${config:ZEPHYRSDK}/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb"
+}
+EOF
+
+cp -f scripts/linux/build.sh scripts/build.bat
+cp -f scripts/linux/debug.sh scripts/debug.bat
