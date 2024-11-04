@@ -4,11 +4,13 @@ source scripts/west_env.bat
 
 FLASH=FALSE
 REBUILD=FALSE
-while getopts fr OPT
-do
+while getopts "-:" OPT; do
 	case $OPT in
-		f) FLASH=TRUE;;
-		r) REBUILD=TRUE;;
+		-)
+			case "${OPTARG}" in
+				rebuild)	REBUILD=TRUE;;
+				flash)		FLASH=TRUE;;
+			esac
 	esac
 done
 

@@ -6,7 +6,7 @@
 
 #pragma once
 
-void InitSampleDatabase(void);
+void init_sample_database(void);
 
-void SetSampleDatabase(const int32_t value);
-void GetSampleDatabase(int32_t *value);
+void set_sample_database(const int32_t value);
+void get_sample_database(int32_t *value);

@@ -17,12 +17,12 @@ static struct SampleData {
 	int32_t value;
 } s_sample_data;
 
-void InitSampleDatabase(void)
+void init_sample_database(void)
 {
 	s_sample_data.value = 0;
 }
 
-void SetSampleDatabase(const int32_t value)
+void set_sample_database(const int32_t value)
 {
 	MUTEX_LOCK();
 
@@ -31,7 +31,7 @@ void SetSampleDatabase(const int32_t value)
 	MUTEX_UNLOCK();
 }
 
-void GetSampleDatabase(int32_t *value)
+void get_sample_database(int32_t *value)
 {
 	if (value == NULL) {
 		printk("%s: invalid arguments", __func__);
@@ -44,4 +44,3 @@ void GetSampleDatabase(int32_t *value)
 
 	MUTEX_UNLOCK();
 }
-
