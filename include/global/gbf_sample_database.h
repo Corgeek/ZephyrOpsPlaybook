@@ -6,7 +6,17 @@
 
 #pragma once
 
+/**
+ * @brief Initialize sample database
+ */
 void init_sample_database(void);
 
+/**
+ * @brief Set data to sample database
+ */
 void set_sample_database(const int32_t value);
+
+/**
+ * @brief Get data from sample database
+ */
 void get_sample_database(int32_t *value);

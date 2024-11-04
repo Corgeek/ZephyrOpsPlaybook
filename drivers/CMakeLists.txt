@@ -3,7 +3,6 @@
 
 cmake_minimum_required(VERSION 3.13.1)
 
-target_sources(app
-PRIVATE
-)
-
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/beep)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/button)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/led)
