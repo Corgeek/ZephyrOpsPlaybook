@@ -12,6 +12,7 @@ PRIVATE
 )
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/drivers)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/utils)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/global)
 
 target_sources(app

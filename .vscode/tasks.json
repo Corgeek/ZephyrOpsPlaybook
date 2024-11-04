@@ -6,8 +6,8 @@
             "type": "shell",
             "command": "${workspaceFolder}/scripts/build.bat",
             "args": [
-                "-r",
-                "-f"
+                "--rebuild",
+                "--flash"
             ],
             "problemMatcher": [],
             "group": {
