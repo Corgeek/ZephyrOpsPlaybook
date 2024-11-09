@@ -1,9 +1,9 @@
 #!/bin/bash
 
-ZEPHYR_ROOT=/opt/zephyr-env
+ZEPHYR_ROOT=`readlink -f ..`
 BOARD_TYPE=rpi_pico
 BOARD_TYPE=nucleo_f401re
-BOARD_TYPE=bbc_microbit
+BOARD_TYPE=bbc_microbit_v2
 
 cat > scripts/west_env.bat << EOF
 ZEPHYR_ROOT=${ZEPHYR_ROOT}
@@ -15,12 +15,12 @@ if [ -z "\${ZEPHYR_ROOT}" ]; then
 	exit 1
 fi
 
-if [ ! -e \${ZEPHYR_ROOT}/zephyr/zephyr-env.sh ]; then
+if [ ! -e \${ZEPHYR_ROOT}/zephyr-env/zephyr/zephyr-env.sh ]; then
 	echo \${ZEPHYR_ROOT}/zephyr/zephyr-env.sh
 	echo "zephyr-env.sh is not found"
 	exit 1
 fi
-source \${ZEPHYR_ROOT}/zephyr/zephyr-env.sh
+source \${ZEPHYR_ROOT}/zephyr-env/zephyr/zephyr-env.sh
 
 if [ -e \${ZEPHYR_ROOT}/.venv/bin/activate ]; then
 	source \${ZEPHYR_ROOT}/.venv/bin/activate
