@@ -4,7 +4,7 @@
         {
             "label": "Rebuild",
             "type": "shell",
-            "command": "${workspaceFolder}/scripts/build.bat",
+            "command": "${config:PROJ_PATH}/scripts/build.bat",
             "args": [
                 "/r",
             ],
@@ -17,7 +17,7 @@
         {
             "label": "Flash",
             "type": "shell",
-            "command": "${workspaceFolder}/scripts/build.bat",
+            "command": "${config:PROJ_PATH}/scripts/build.bat",
             "args": [
                 "/f"
             ],
@@ -30,7 +30,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "${workspaceFolder}/scripts/build.bat",
+            "command": "${config:PROJ_PATH}/scripts/build.bat",
             "args": [],
             "problemMatcher": [],
             "group": {
@@ -41,7 +41,7 @@
         {
             "label": "Debug",
             "type": "shell",
-            "command": "${workspaceFolder}/scripts/debug.bat",
+            "command": "${config:PROJ_PATH}/scripts/debug.bat",
             "args": [],
             "problemMatcher": [],
             "group": {

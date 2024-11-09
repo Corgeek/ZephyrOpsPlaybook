@@ -1,9 +1,13 @@
 #!/bin/bash
 
-ZEPHYR_ROOT=`readlink -f ..`
 BOARD_TYPE=rpi_pico
 BOARD_TYPE=nucleo_f401re
 BOARD_TYPE=bbc_microbit_v2
+
+SCRIPT_PATH=`readlink -f ${0}`
+pushd `dirname ${SCRIPT_PATH}`/.. > /dev/null
+PROJ_PATH=`readlink -f .`
+ZEPHYR_ROOT=`readlink -f ..`
 
 cat > scripts/west_env.bat << EOF
 ZEPHYR_ROOT=${ZEPHYR_ROOT}
@@ -33,9 +37,12 @@ echo "{ \"ZEPHYRSDK\": \"\${env:HOMEPATH}/${SDK_LIST[0]}\" }" > .vscode/settings
 cat > .vscode/settings.json << EOF
 {
   "ZEPHYRSDK": "\${env:HOMEPATH}/${SDK_LIST[0]}",
+  "PROJ_PATH": "${PROJ_PATH}",
   "CROSS_GDB_PATH": "\${config:ZEPHYRSDK}/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb"
 }
 EOF
 
 cp -f scripts/linux/build.sh scripts/build.bat
 cp -f scripts/linux/debug.sh scripts/debug.bat
+
+popd > /dev/null
