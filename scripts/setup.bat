@@ -1,6 +1,8 @@
 @echo off
 
 set ZEPHYR_ROOT=%HOMEPATH%\zephyrproject
+set BOARD_TYPE=rpi_pico
+set BOARD_TYPE=nucleo_f401re
 set BOARD_TYPE=bbc_microbit
 
 copy /Y scripts\dos\*.bat scripts

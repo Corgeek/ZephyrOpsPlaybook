@@ -1,0 +1,91 @@
+# The west manifest file for upstream Zephyr.
+#
+# The per-installation west configuration file, .west/config, sets the
+# path to the project containing this file in the [manifest] section's
+# "path" variable.
+#
+# You are free to create your own manifest files and put them in any
+# repository you want, to create your own custom Zephyr installations.
+# For example, you could create a manifest file in your own out of
+# tree application directory, which would pull this zephyr repository
+# in as an ordinary project.
+#
+# You can pass your manifest repositories to west init when creating a
+# new Zephyr installation. See the west documentation for more
+# information.
+
+west:
+  url: https://github.com/zephyrproject-rtos/west
+
+manifest:
+  remotes:
+    - name: upstream
+      url-base: https://github.com/zephyrproject-rtos
+
+  #
+  # Please add items below based on alphabetical order
+  projects:
+    - name: zephyr_public
+      repo-path: zephyr.git
+      path: zephyr-env/zephyr
+      remote: upstream
+      revision: v3.7.0
+      clone-depth: 1
+      west-commands: scripts/west-commands.yml
+
+    - name: cmsis
+      remote: upstream
+      revision: 4b96cbb174678dcd3ca86e11e1f24bc5f8726da0
+      path: zephyr-env/modules/hal/cmsis
+      groups:
+        - hal
+
+    - name: fatfs
+      remote: upstream
+      revision: 427159bf95ea49b7680facffaa29ad506b42709b
+      path: zephyr-env/modules/fs/fatfs
+      groups:
+        - fs
+
+    - name: hal_nordic
+      remote: upstream
+      revision: ab5cb2e2faeb1edfad7a25286dcb513929ae55da
+      path: zephyr-env/modules/hal/nordic
+      groups:
+        - hal
+
+    - name: hal_rpi_pico
+      remote: upstream
+      revision: fba7162cc7bee06d0149622bbcaac4e41062d368
+      path: zephyr-env/modules/hal/rpi_pico
+      groups:
+        - hal
+
+    - name: hal_stm32
+      remote: upstream
+      revision: f1317150eac951fdd8259337a47cbbc4c2e6d335
+      path: zephyr-env/modules/hal/stm32
+      groups:
+        - hal
+
+    - name: littlefs
+      remote: upstream
+      revision: 408c16a909dd6cf128874a76f21c793798c9e423
+      path: zephyr-env/modules/fs/littlefs
+      groups:
+        - fs
+
+    - name: nrf_hw_models
+      remote: upstream
+      revision: 6c389b9b5fa0a079cd4502e69d375da4c0c289b7
+      path: zephyr-env/modules/bsim_hw_models/nrf_hw_models
+
+    - name: trusted-firmware-m
+      remote: upstream
+      revision: 069455be098383bf96eab73e3ff8e0c66c60fa5a
+      path: zephyr-env/modules/tee/tf-m/trusted-firmware-m
+      groups:
+        - tee
+
+  self:
+    path: zephyr-env
