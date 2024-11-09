@@ -1,9 +1,11 @@
 @echo off
 
-set ZEPHYR_ROOT=%HOMEPATH%\zephyrproject
+pushd ..
+set ZEPHYR_ROOT=%cd%
+popd
 set BOARD_TYPE=rpi_pico
 set BOARD_TYPE=nucleo_f401re
-set BOARD_TYPE=bbc_microbit
+set BOARD_TYPE=bbc_microbit_v2
 
 copy /Y scripts\dos\*.bat scripts
 
@@ -12,7 +14,7 @@ setlocal enabledelayedexpansion
 (
 echo set ZEPHYR_ROOT=%ZEPHYR_ROOT%
 echo set BOARD_TYPE=%BOARD_TYPE%
-echo call %%ZEPHYR_ROOT%%\zephyr\zephyr-env.cmd
+echo call %%ZEPHYR_ROOT%%\zephyr-env\zephyr\zephyr-env.cmd
 echo call %%ZEPHYR_ROOT%%\.venv\Scripts\activate.bat
 echo if %%ERRORLEVEL%% neq 0 ^(
 echo     echo ^"Setup Environment variables failed^"

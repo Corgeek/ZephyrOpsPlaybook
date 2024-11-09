@@ -4,15 +4,12 @@ source scripts/west_env.bat
 
 FLASH=FALSE
 REBUILD=FALSE
-while getopts "-:" OPT; do
-	case $OPT in
-		-)
-			case "${OPTARG}" in
-				rebuild)	REBUILD=TRUE;;
-				flash)		FLASH=TRUE;;
-			esac
-	esac
-done
+if [ "/r" = "${1}" ] || [ "/r" = "${2}" ]; then
+	REBUILD=TRUE
+fi
+if [ "/f" = "${1}" ] || [ "/f" = "${2}" ]; then
+	FLASH=TRUE
+fi
 
 if [ "${REBUILD}" = "TRUE" ]; then
 	rm -rf build
