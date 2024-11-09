@@ -17,21 +17,21 @@
 [Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/3.7.0/develop/getting_started/index.html#install-dependencies)
 
 
-1. 作業用のディレクトリ zephyrproject (場所や名称は変更可)を用意し、その中に本リポジトリをクローン
+1. 作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン (zephyrproject と skeleton は適宜変更してOK)
 ```
 mkdir zephyrproject
 cd zephyrproject
 git clone https://github.com/Corgeek/ZephyrSkeleton.git skeleton
 ```
 
-2. pyenv により本プロジェクト用の python 環境を作成
+2. pyenv によりこのプロジェクト用の python 環境を作成
 ```
 python -m venv .venv
 .venv\Scripts\activate.bat
 pip install west
 ```
 
-3. ターゲットを絞り、v3.7.0 に固定した設定 west.yml を参照させて、本プロジェクト専用の環境を構築
+3. ターゲットを絞り、v3.7.0 に固定した設定 west.yml を参照させて、このプロジェクト専用の環境を構築
 ```
 west init -l skeleton
 west update
@@ -46,15 +46,19 @@ pip install -r zephyr-env\zephyr\scripts\requirements.txt
 5. VS Code やコマンドプロンプト/bash向けのスクリプト生成
 * Windows 向け
 
-ZephyrSkeleton\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更
+skeleton\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更＆保存して実行
+> set BOARD_TYPE=bbc_microbit_v2
 ```
-set BOARD_TYPE=bbc_microbit_v2
+scripts\setup.bat
 ```
 * Ubuntu 向け
-ZephyrSkeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設定を適宜変更
+skeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設定を適宜変更＆保存して実行
+> BOARD_TYPE=bbc_microbit_v2
 ```
-BOARD_TYPE=bbc_microbit_v2
+./scripts/setup.sh
 ```
+
+その後、コマンドにて
 以上で、初回の構築は完了です。
 
 ディレクトリ構成は以下のようになっており、SDK 以外はすべてこの中に内包しています。
@@ -96,3 +100,8 @@ BOARD_TYPE=bbc_microbit_v2
 | Debug | ./scripts/debug.bat |
 
 Debug 時は、port 3333 で待機しているので sdk 内にある gdb を用いてアタッチ
+
+
+## 要調査
+
+zephyrproject/skeleton/.vscode に置いてある設定を zephyrproject/.vscode に複製して、zephyrproject 全体をワークスペースとして VS Code で作業したいのに、なぜか正常に Rebuild / Build / Flash が実行できなくなる。(なぜか各項目の label 名を変えると動く)
