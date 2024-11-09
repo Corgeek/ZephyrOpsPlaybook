@@ -1,5 +1,9 @@
 #!/bin/bash
 
+SCRIPT_PATH=`readlink -f ${0}`
+pushd `dirname ${SCRIPT_PATH}`/.. > /dev/null
+PROJ_PATH=`readlink -f .`
+
 source scripts/west_env.bat
 
 FLASH=FALSE
@@ -19,3 +23,5 @@ west build -b ${BOARD_TYPE}
 if [ ${?} = 0 ] && [ "${FLASH}" = "TRUE" ]; then
 	west flash
 fi
+
+popd > /dev/null
