@@ -9,6 +9,9 @@ pushd `dirname ${SCRIPT_PATH}`/.. > /dev/null
 PROJ_PATH=`readlink -f .`
 ZEPHYR_ROOT=`readlink -f ..`
 
+cp -f scripts/linux/build.sh scripts/build.bat
+cp -f scripts/linux/debug.sh scripts/debug.bat
+
 cat > scripts/west_env.bat << EOF
 ZEPHYR_ROOT=${ZEPHYR_ROOT}
 BOARD_TYPE=${BOARD_TYPE}
@@ -32,8 +35,6 @@ fi
 EOF
 
 SDK_LIST=(`ls -r ${HOME} | grep zephyr-sdk-`)
-echo "{ \"ZEPHYRSDK\": \"\${env:HOMEPATH}/${SDK_LIST[0]}\" }" > .vscode/settings.json
-
 cat > .vscode/settings.json << EOF
 {
   "ZEPHYRSDK": "\${env:HOMEPATH}/${SDK_LIST[0]}",
@@ -42,7 +43,9 @@ cat > .vscode/settings.json << EOF
 }
 EOF
 
-cp -f scripts/linux/build.sh scripts/build.bat
-cp -f scripts/linux/debug.sh scripts/debug.bat
+mkdir -p ${ZEPHYR_ROOT}/.vscode
+cp -f ${PROJ_PATH}/.vscode/settings.json ${ZEPHYR_ROOT}/.vscode
+cp -f ${PROJ_PATH}/.vscode/launch.json ${ZEPHYR_ROOT}/.vscode
+cp -f ${PROJ_PATH}/.vscode/tasks.json ${ZEPHYR_ROOT}/.vscode
 
 popd > /dev/null
