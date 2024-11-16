@@ -9,9 +9,6 @@ pushd `dirname ${SCRIPT_PATH}`/.. > /dev/null
 PROJ_PATH=`readlink -f .`
 ZEPHYR_ROOT=`readlink -f ..`
 
-cp -f scripts/linux/build.sh scripts/build.bat
-cp -f scripts/linux/debug.sh scripts/debug.bat
-
 cat > scripts/west_env.bat << EOF
 ZEPHYR_ROOT=${ZEPHYR_ROOT}
 BOARD_TYPE=${BOARD_TYPE}
@@ -44,8 +41,8 @@ cat > .vscode/settings.json << EOF
 EOF
 
 mkdir -p ${ZEPHYR_ROOT}/.vscode
-cp -f ${PROJ_PATH}/.vscode/settings.json ${ZEPHYR_ROOT}/.vscode
-cp -f ${PROJ_PATH}/.vscode/launch.json ${ZEPHYR_ROOT}/.vscode
-cp -f ${PROJ_PATH}/.vscode/tasks.json ${ZEPHYR_ROOT}/.vscode
+cp -f ${PROJ_PATH}/.vscode/*.json ${ZEPHYR_ROOT}/.vscode
+cp -f scripts/linux/build.sh scripts/build.bat
+cp -f scripts/linux/debug.sh scripts/debug.bat
 
 popd > /dev/null

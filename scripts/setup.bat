@@ -17,8 +17,6 @@ set "ZEPHYR_ROOT=!ZEPHYR_ROOT:\=/!"
 set "SCRIPT_DIR=!SCRIPT_DIR:\=/!"
 set "PROJ_PATH=!PROJ_PATH:\=/!"
 
-copy /Y scripts\dos\*.bat scripts
-
 (
 echo set ZEPHYR_ROOT=%ZEPHYR_ROOT%
 echo set BOARD_TYPE=%BOARD_TYPE%
@@ -43,5 +41,9 @@ echo   ^"PROJ_PATH^": ^"%PROJ_PATH%^",
 echo   ^"CROSS_GDB_PATH^": ^"${config:ZEPHYRSDK}/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb.exe^"
 echo }
 ) > .vscode\settings.json
+
+md ..\.vscode > NUL 2>&1
+copy /Y .vscode\*.json ..\.vscode
+copy /Y scripts\dos\*.bat scripts
 
 popd
