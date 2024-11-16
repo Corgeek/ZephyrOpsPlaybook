@@ -1,0 +1,76 @@
+# The west manifest file for upstream Zephyr.
+#
+# The per-installation west configuration file, .west/config, sets the
+# path to the project containing this file in the [manifest] section's
+# "path" variable.
+#
+# You are free to create your own manifest files and put them in any
+# repository you want, to create your own custom Zephyr installations.
+# For example, you could create a manifest file in your own out of
+# tree application directory, which would pull this zephyr repository
+# in as an ordinary project.
+#
+# You can pass your manifest repositories to west init when creating a
+# new Zephyr installation. See the west documentation for more
+# information.
+
+manifest:
+  defaults:
+    remote: upstream
+
+  remotes:
+    - name: upstream
+      url-base: https://github.com/zephyrproject-rtos
+
+  group-filter: [-optional]
+
+  #
+  # Please add items below based on alphabetical order
+  projects:
+    - name: zephyr_public
+      repo-path: zephyr.git
+      path: zephyr
+      remote: upstream
+      revision: v4.0.0
+      clone-depth: 1
+      west-commands: scripts/west-commands.yml
+
+    - name: cmsis
+      revision: 4b96cbb174678dcd3ca86e11e1f24bc5f8726da0
+      path: modules/hal/cmsis
+      groups:
+        - hal
+    - name: fatfs
+      revision: 427159bf95ea49b7680facffaa29ad506b42709b
+      path: modules/fs/fatfs
+      groups:
+        - fs
+    - name: hal_stm32
+      revision: 019d8255333f96bdd47d26b44049bd3e7af8ef55
+      path: modules/hal/stm32
+      groups:
+        - hal
+    - name: littlefs
+      path: modules/fs/littlefs
+      groups:
+        - fs
+      revision: 009bcff0ed4853a53df8256039fa815bda6854dd
+    - name: mbedtls
+      revision: a78176c6ff0733ba08018cba4447bd3f20de7978
+      path: modules/crypto/mbedtls
+      groups:
+        - crypto
+    - name: mcuboot
+      revision: f74b77cf7808919837c0ed14c2ead3918c546349
+      path: bootloader/mcuboot
+      groups:
+        - bootloader
+    - name: trusted-firmware-m
+      revision: 8134106ef9cb3df60e8bd22b172532558e936bd2
+      path: modules/tee/tf-m/trusted-firmware-m
+      groups:
+        - tee
+
+  self:
+    path: zephyr
+    west-commands: scripts/west-commands.yml
