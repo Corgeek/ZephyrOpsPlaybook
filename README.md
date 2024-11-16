@@ -3,15 +3,13 @@
 ## 1. 機能概要
 公式の手順を簡略・軽量化して、手軽に開発を始められる環境を目的としています。
 * 開発の際はターゲットが決まっていることが多く、データ削減やCIの短縮化などを想定した環境を用意
-* バージョンやリビジョンを固定して足並みをそろえた開発が必要で、その固定させた環境を用意(現時点で最新のLTS v3.7.0)
+* バージョンやリビジョンを固定して足並みをそろえた開発が必要で、その固定させた環境を用意
 * コマンドプロンプトと bash 両方で使えるようにしておき、VSCode によるデバッグ環境も用意
-
-> 注意：Nov.2024 時点で LTS v3.7.0 と Zephyr-SDK-1.7.0 は相性が悪く一部ビルド時にエラーが出ます。エラーが発生する場合は、Zephyr-SDK-1.6.8 の使用を推奨です。
 
 ## 2. 使い方
 ### 2.1. 事前準備
 開発に必要なツール群のインストールを行う。うまく行かない場合は、下記公式ページを参照<br>
-[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/3.7.0/develop/getting_started/index.html#install-dependencies)
+[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
 
 ---
 #### 2.1.1. Windows 向け
@@ -52,7 +50,7 @@ git clone https://github.com/Corgeek/ZephyrSkeleton.git skeleton
 #### 2.3.1. Windows 向け
 ```
 python -m venv .venv
-.venv\Scripts\activate.bat
+.venv\Scripts\activate
 pip install west
 ```
 ---
@@ -73,10 +71,11 @@ pip install -r zephyr-env\zephyr\scripts\requirements.txt
 ```
 
 ### 2.5. SDK のダウンロードと設定
-. v3.7.0 向けに Zephyr-SDK-1.6.8 をダウンロードして適宜配置。複数の SDK が存在する場合、新しい方を自動的に利用するため、バージョンの組み合わせに注意
-
-* [Windows 向け SDK](https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_windows-x86_64.7z) 解凍先は %homepath% 推奨。解凍後 setup.cmd を実行
-* [Linux 向け SDK](https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-x86_64.tar.xz) 解凍先は /opt 推奨。解凍後 setup.sh を実行
+1. Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになった
+```
+cd zephyr
+west sdk install
+```
 
 ### 2.6. west コマンドの簡略用スクリプトの作成
 ---
@@ -105,6 +104,7 @@ skeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設
 └── zephyrproject/
     ├── .venv
     ├── .west
+    ├── modules/
     ├── skeleton/
     │   ├── .vscode
     │   ├── boards
@@ -116,9 +116,7 @@ skeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設
     │   ├── scripts
     │   ├── utils
     │   └── west.yml
-    └── zephyr-env/
-        ├── modules
-        └── zephyr
+    └── zephyr/
 ```
 
 3. ## 開発フロー
