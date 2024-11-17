@@ -1,5 +1,6 @@
 #!/bin/bash
 
+BOARD_TYPE=rpi_pico
 BOARD_TYPE=nucleo_f401re
 BOARD_TYPE=bbc_microbit_v2
 
