@@ -6,14 +6,14 @@
 #include <zephyr/kernel.h>
 #include "drivers/led/display/drv_disp_microbit.h"
 
-static struct mb_display *s_disp_microbit;
-
 /**
  * @brief singleton of display instance
  */
 static
 struct mb_display *get_disp_instance(void)
 {
+    static struct mb_display *s_disp_microbit;
+
     if (s_disp_microbit == NULL)
         s_disp_microbit = mb_display_get();
 

@@ -11,6 +11,7 @@ PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/boards)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/drivers)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/utils)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/global)
