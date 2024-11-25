@@ -8,8 +8,7 @@
 
 ## 2. 使い方
 ### 2.1. 事前準備
-開発に必要なツール群のインストールを行う。うまく行かない場合は、下記公式ページを参照<br>
-[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
+開発に必要なツール群のインストールを行う。
 
 ---
 #### 2.1.1. Windows 向け
@@ -35,6 +34,9 @@ sudo apt install --no-install-recommends git cmake ninja-build gperf \
   make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
 ```
 ---
+
+うまく行かなかった場合は、下記公式ページを参照<br>
+[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
 
 ### 2.2.リポジトリのクローン
 1. 作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン (zephyrproject と skeleton は適宜変更してOK)
@@ -77,7 +79,7 @@ cd zephyr
 west sdk install
 ```
 
-### 2.6. west コマンドの簡略用スクリプトの作成
+### 2.6. west コマンドの簡略用スクリプトを準備
 ---
 #### 2.6.1. Windows 向け
 
@@ -94,6 +96,9 @@ skeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設
 ./scripts/setup.sh
 ```
 ---
+
+問題がなければ、.vscode 用の設定と scripts 以下に west_env.bat, build.bat, debug.bat が生成されています。
+
 以上で、初回の構築は完了です。
 
 ### 2.7. 最終的なディレクトリ構成
@@ -102,19 +107,19 @@ skeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設
 ```
 .
 └── zephyrproject/
-    ├── .venv
-    ├── .west
+    ├── .venv/
+    ├── .west/
     ├── modules/
     ├── skeleton/
-    │   ├── .vscode
-    │   ├── boards
+    │   ├── .vscode/
+    │   ├── boards/
     │   ├── CMakeLists.txt
-    │   ├── drivers
-    │   ├── include
+    │   ├── drivers/
+    │   ├── include/
     │   ├── main.c
     │   ├── prj.conf
-    │   ├── scripts
-    │   ├── utils
+    │   ├── scripts/
+    │   ├── utils/
     │   └── west.yml
     └── zephyr/
 ```
