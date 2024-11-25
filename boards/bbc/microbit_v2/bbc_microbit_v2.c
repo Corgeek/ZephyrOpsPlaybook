@@ -7,18 +7,12 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/device.h>
+
+#include "drivers/button/drv_button_microbit.h"
 #include "drivers/led/display/drv_disp_microbit.h"
-#include "boards/bbc/microbit_v2/bbc_microbit_v2.h"
 
-int main(void)
+void board_init(void)
 {
-	board_init();
-
-	drv_disp_print(MB_DISPLAY_MODE_SINGLE, 150, "Hello world");
-
-	while (true) {
-		k_msleep(1000);
-	}
-
-	return 0;
+	drv_init_button();
+	drv_init_display();
 }
