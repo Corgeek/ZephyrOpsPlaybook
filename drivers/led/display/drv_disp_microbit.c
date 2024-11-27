@@ -20,9 +20,11 @@ struct mb_display *get_disp_instance(void)
     return s_disp_microbit;
 }
 
-void drv_init_display(void)
+bool drv_init_display(void)
 {
     get_disp_instance();
+
+    return true;
 }
 
 void drv_disp_image(uint32_t mode, int32_t duration, const struct mb_image *img, uint8_t img_count)

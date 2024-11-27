@@ -11,7 +11,7 @@
 /**
  * @brief Initialize display-driver for microbit
  */
-void drv_init_display(void);
+bool drv_init_display(void);
 
 /**
  * @brief display image data

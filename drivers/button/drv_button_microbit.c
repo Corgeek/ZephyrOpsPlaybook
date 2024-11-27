@@ -7,6 +7,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/device.h>
+#include "drivers/button/drv_button_microbit.h"
 
 static struct gpio_callback s_button_callback;
 const struct gpio_dt_spec s_sw0_spec = GPIO_DT_SPEC_GET(DT_ALIAS(sw0), gpios);
@@ -18,11 +19,11 @@ void drv_button_callback(const struct device *dev, struct gpio_callback *cb, uin
 	printf(__func__);
 }
 
-void drv_init_button(void)
+bool drv_init_button(void)
 {
 	if (!gpio_is_ready_dt(&s_sw0_spec)) {
 		printk("%s: device not ready.\n", s_sw0_spec.port->name);
-		return;
+		return false;
 	}
 
 	gpio_pin_configure_dt(&s_sw0_spec, GPIO_INPUT);
@@ -34,5 +35,6 @@ void drv_init_button(void)
 	gpio_init_callback(&s_button_callback, drv_button_callback, BIT(s_sw0_spec.pin) | BIT(s_sw1_spec.pin));
 
 	gpio_add_callback(s_sw0_spec.port, &s_button_callback);
-}
 
+	return true;
+}
