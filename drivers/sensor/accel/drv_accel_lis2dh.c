@@ -12,54 +12,50 @@
 #include <assert.h>
 #include "drivers/sensor/accel/drv_accel_lis2dh.h"
 
-const struct gpio_dt_spec s_accel0_spec = GPIO_DT_SPEC_GET(DT_ALIAS(accel0), irq_gpios);
-
-int get_accel_xyz(struct sensor_value *ax, struct sensor_value *ay, struct sensor_value *az)
+const struct gpio_dt_spec *const accel_spec(void)
 {
-    assert(ax);
-    assert(ay);
-    assert(az);
+    static struct gpio_dt_spec s_accel0_spec = GPIO_DT_SPEC_GET(DT_ALIAS(accel0), irq_gpios);
+    return &s_accel0_spec;
+}
 
-    struct sensor_value accel[3];
+int get_accel_xyz(struct sensor_3axis *data)
+{
+    assert(data);
     int ret;
 
-    ret = sensor_sample_fetch(s_accel0_spec.port);
+    ret = sensor_sample_fetch(accel_spec()->port);
     if (ret < 0) {
-		printk("%s: sensor_sample_fetch() failed: %d\n", s_accel0_spec.port->name, ret);
+		printk("%s: sensor_sample_fetch() failed: %d\n", accel_spec()->port->name, ret);
 		return ret;
 	}
 
-    ret = sensor_channel_get(s_accel0_spec.port, SENSOR_CHAN_ACCEL_XYZ, accel);
+    ret = sensor_channel_get(accel_spec()->port, SENSOR_CHAN_ACCEL_XYZ, data->array);
     if (ret < 0) {
-        printk("%s: sensor_channel_get(XYZ) failed: %d\n", s_accel0_spec.port->name, ret);
+        printk("%s: sensor_channel_get(XYZ) failed: %d\n", accel_spec()->port->name, ret);
         return ret;
     }
-
-    *ax = accel[0];
-    *ay = accel[1];
-    *az = accel[2];
 
     return 0;
 }
 
 bool drv_init_accel(void)
 {
-    if (device_is_ready(s_accel0_spec.port) == false) {
-        printk("%s: sensor device is not ready.\n", s_accel0_spec.port->name);
+    if (device_is_ready(accel_spec()->port) == false) {
+        printk("%s: sensor device is not ready.\n", accel_spec()->port->name);
         return false;
     }
 
     struct sensor_value odr;
 
-    if (sensor_attr_get(s_accel0_spec.port, SENSOR_CHAN_ACCEL_XYZ, SENSOR_ATTR_SAMPLING_FREQUENCY, &odr) != 0) {
-        printk("%s : failed to get sampling frequency\n", s_accel0_spec.port->name);
+    if (sensor_attr_get(accel_spec()->port, SENSOR_CHAN_ACCEL_XYZ, SENSOR_ATTR_SAMPLING_FREQUENCY, &odr) != 0) {
+        printk("%s : failed to get sampling frequency\n", accel_spec()->port->name);
         return false;
     }
 
     odr.val1 = SENSOR_ACCEL_FREQ_HZ;
     odr.val2 = 0;
-    if (sensor_attr_set(s_accel0_spec.port, SENSOR_CHAN_ACCEL_XYZ, SENSOR_ATTR_SAMPLING_FREQUENCY, &odr) != 0) {
-        printk("%s : failed to set sampling frequency\n", s_accel0_spec.port->name);
+    if (sensor_attr_set(accel_spec()->port, SENSOR_CHAN_ACCEL_XYZ, SENSOR_ATTR_SAMPLING_FREQUENCY, &odr) != 0) {
+        printk("%s : failed to set sampling frequency\n", accel_spec()->port->name);
         return false;
     }
 
