@@ -3,8 +3,9 @@
 
 cmake_minimum_required(VERSION 3.13.1)
 
+if (CONFIG_DT_HAS_ST_LIS2MDL_ENABLED)
 target_sources(app
 PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/gbf_sensor_database.c
+    ${CMAKE_CURRENT_LIST_DIR}/drv_magn_lis2mdl.c
 )
-
+endif()

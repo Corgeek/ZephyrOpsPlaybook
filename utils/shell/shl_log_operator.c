@@ -11,7 +11,7 @@
  * @brief sub command: Log enable
  */
 static
-int sub_log_enable(const struct shell *shell, size_t argc, char *argv[])
+int set_log_enable(const struct shell *shell, size_t argc, char *argv[])
 {
     printk("%s\n", __func__);
 	return 0;
@@ -21,15 +21,15 @@ int sub_log_enable(const struct shell *shell, size_t argc, char *argv[])
  * @brief sub command: Log disable
  */
 static
-int sub_log_disable(const struct shell *shell, size_t argc, char *argv[])
+int set_log_disable(const struct shell *shell, size_t argc, char *argv[])
 {
     printk("%s\n", __func__);
 	return 0;
 }
 
-SHELL_STATIC_SUBCMD_SET_CREATE(log_sub_array,
-	SHELL_CMD_ARG(enable,	NULL, "", sub_log_enable, 1, 1),
-	SHELL_CMD_ARG(disable,	NULL, "", sub_log_disable, 1, 1),
+SHELL_STATIC_SUBCMD_SET_CREATE(s_log_sub_array,
+	SHELL_CMD_ARG(enable,	NULL, "e.g.: log enable LOG_TYPE", set_log_enable, 2, 0),
+	SHELL_CMD_ARG(disable,	NULL, "e.g.: log disable LOG_TYPE", set_log_disable, 2, 0),
 	SHELL_SUBCMD_SET_END
 );
 
@@ -43,4 +43,4 @@ int hndl_log_operator(const struct shell *shell, size_t argc, char **argv)
 	return -EINVAL;
 }
 
-SHELL_CMD_ARG_REGISTER(log, &log_sub_array, "Log operator", hndl_log_operator, 2, 0);
+SHELL_CMD_ARG_REGISTER(log, &s_log_sub_array, "Log operator", hndl_log_operator, 2, 0);
