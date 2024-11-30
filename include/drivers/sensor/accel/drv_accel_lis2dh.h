@@ -10,7 +10,7 @@
 
 #define SENSOR_ACCEL_FREQ_HZ   (20)
 
-const struct gpio_dt_spec *const accel_spec(void);
+const struct device *const accel_device(void);
 
 bool drv_init_accel(void);
 int get_accel_xyz(struct sensor_3axis *data);
