@@ -4,13 +4,7 @@
 cmake_minimum_required(VERSION 3.13.1)
 
 if      (CONFIG_BOARD_BBC_MICROBIT)
-target_sources(app
-PRIVATE
-    bbc/microbit/bbc_microbit.c
-)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/bbc/microbit)
 elseif  (CONFIG_BOARD_BBC_MICROBIT_V2)
-target_sources(app
-PRIVATE
-    bbc/microbit_v2/bbc_microbit_v2.c
-)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/bbc/microbit_v2)
 endif()

@@ -6,3 +6,15 @@
 
 / {
 };
+
+&lsm303agr_magn {
+    status = "okay";
+};
+
+&mma8653fc {
+    status = "disabled";
+};
+
+&lsm303agr_accel {
+    status = "okay";
+};
