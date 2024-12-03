@@ -55,6 +55,11 @@ manifest:
       revision: 79ee0f9e058a6327fc943d2f2a19cf3ade107cec
       groups:
         - hal
+    - name: hal_st
+      revision: b2f548fe672f24122c7f92027b2c9eeea8a0483a
+      path: modules/hal/st
+      groups:
+        - hal
     - name: hal_stm32
       revision: 019d8255333f96bdd47d26b44049bd3e7af8ef55
       path: modules/hal/stm32
