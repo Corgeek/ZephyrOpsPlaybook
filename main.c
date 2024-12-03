@@ -17,21 +17,11 @@
 int main(void)
 {
 	board_init();
-
 	gbf_init_sensor();
 
-	struct sensor_3axis sensor;
+	while (true) {
 #if 0
-	uint32_t curr_cycle = 0;
-	uint32_t last_cycle = 0;
-
-	while (true) {
-		last_cycle = curr_cycle;
-		curr_cycle = k_cycle_get_32();
-		printk("cycle: %d\n", k_ticks_to_us_floor32(curr_cycle - last_cycle));
-#else
-	while (true) {
-#endif
+		struct sensor_3axis sensor;
 		memset(&sensor, 0, sizeof(sensor));
 
 		get_accel_xyz(&sensor);
@@ -39,7 +29,7 @@ int main(void)
 
 		get_magnet_xyz(&sensor);
 		gbf_set_sensor(SENSOR_MAGNET, &sensor);
-
+#endif
 		k_msleep(1000 / SENSOR_ACCEL_FREQ_HZ);
 	}
 

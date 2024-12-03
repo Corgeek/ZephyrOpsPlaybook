@@ -14,7 +14,7 @@
 
 const struct device *const accel_device(void)
 {
-    static const struct device *s_accel0_dev = DEVICE_DT_GET(DT_ALIAS(accel0));
+    static const struct device *s_accel0_dev = DEVICE_DT_GET(DT_NODELABEL(lsm303agr_accel));
     return s_accel0_dev;
 }
 
