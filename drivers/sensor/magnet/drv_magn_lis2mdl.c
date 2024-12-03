@@ -12,10 +12,10 @@
 #include <assert.h>
 #include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
 
-const struct gpio_dt_spec *const magnet_spec(void)
+const struct device *const magnet_device(void)
 {
-    static struct gpio_dt_spec s_magn0_spec = GPIO_DT_SPEC_GET(DT_ALIAS(magn0), irq_gpios);
-    return &s_magn0_spec;
+    static const struct device *s_magn0_dev = DEVICE_DT_GET(DT_ALIAS(magn0));
+    return s_magn0_dev;
 }
 
 int get_magnet_xyz(struct sensor_3axis *data)
@@ -23,15 +23,15 @@ int get_magnet_xyz(struct sensor_3axis *data)
     assert(data);
     int ret;
 
-    ret = sensor_sample_fetch(magnet_spec()->port);
+    ret = sensor_sample_fetch(magnet_device());
     if (ret < 0) {
-		printk("%s: sensor_sample_fetch() failed: %d\n", magnet_spec()->port->name, ret);
+		printk("%s: sensor_sample_fetch() failed: %d\n", magnet_device()->name, ret);
 		return ret;
 	}
 
-    ret = sensor_channel_get(magnet_spec()->port, SENSOR_CHAN_MAGN_XYZ, data->array);
+    ret = sensor_channel_get(magnet_device(), SENSOR_CHAN_MAGN_XYZ, data->array);
     if (ret < 0) {
-        printk("%s: sensor_channel_get(XYZ) failed: %d\n", magnet_spec()->port->name, ret);
+        printk("%s: sensor_channel_get(XYZ) failed: %d\n", magnet_device()->name, ret);
         return ret;
     }
 
@@ -40,8 +40,8 @@ int get_magnet_xyz(struct sensor_3axis *data)
 
 bool drv_init_magnet(void)
 {
-    if (device_is_ready(magnet_spec()->port) == false) {
-        printk("%s: sensor device is not ready.\n", magnet_spec()->port->name);
+    if (device_is_ready(magnet_device()) == false) {
+        printk("%s: sensor device is not ready.\n", magnet_device()->name);
         return false;
     }
 

@@ -74,10 +74,21 @@ int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
 static
 int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
 {
+    int32_t count = 3;
+
+    if (argc == 2) {
+        errno = 0;
+        count = strtol(argv[argc - 1], NULL, 10);
+        if (errno == EINVAL) {
+            printk("e.g.: exec magnet 5\n");
+            return EINVAL;
+        }
+    }
+
     struct sensor_3axis magnet;
     int ret;
 
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < count; ++i) {
         ret = get_magnet_xyz(&magnet);
         if (ret != 0) {
             return ret;
@@ -94,7 +105,7 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
 SHELL_STATIC_SUBCMD_SET_CREATE(s_exec_sub_array,
 	SHELL_CMD_ARG(print,    NULL, "exec print text, [duration]", exec_print_display, 2, 1),
 	SHELL_CMD_ARG(accel,    NULL, "exec accel [loop_times]", exec_accel_sensor, 1, 1),
-	SHELL_CMD_ARG(magnet,   NULL, "exec accel", exec_magnet_sensor, 1, 0),
+	SHELL_CMD_ARG(magnet,   NULL, "exec accel", exec_magnet_sensor, 1, 1),
 	SHELL_SUBCMD_SET_END
 );
 

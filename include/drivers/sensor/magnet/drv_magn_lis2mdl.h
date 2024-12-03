@@ -10,7 +10,7 @@
 
 #define SENSOR_MAGNET_FREQ_HZ   (20)
 
-const struct gpio_dt_spec *const magnet_spec(void);
+const struct device *const magnet_device(void);
 
 bool drv_init_magnet(void);
 int get_magnet_xyz(struct sensor_3axis *data);
