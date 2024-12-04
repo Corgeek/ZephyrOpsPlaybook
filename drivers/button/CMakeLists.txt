@@ -8,4 +8,10 @@ target_sources(app
 PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/drv_button_microbit.c
 )
+
+elseif (CONFIG_BOARD_NUCLEO_F401RE)
+target_sources(app
+PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/drv_button_nucleo.c
+)
 endif()

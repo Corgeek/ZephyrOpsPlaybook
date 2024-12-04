@@ -12,7 +12,4 @@
 void uni_board_init(void)
 {
 	drv_init_button();
-	drv_init_display();
-	drv_init_accel();
-	drv_init_magnet();
 }

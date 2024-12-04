@@ -8,9 +8,7 @@
 #include <zephyr/shell/shell.h>
 #include <stdlib.h>
 #include "global/gbf_sensor_database.h"
-#include "drivers/led/display/drv_disp_microbit.h"
-#include "drivers/sensor/accel/drv_accel_lis2dh.h"
-#include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
+#include "boards/unique.h"
 
 /**
  * @brief sub command: exec print display
@@ -28,7 +26,7 @@ int exec_print_display(const struct shell *shell, size_t argc, char *argv[])
             return EINVAL;
         }
     }
-#if defined(CONFIG_BOARD_BBC_MICROBIT) || defined(CONFIG_BOARD_BBC_MICROBIT_V2)
+#if defined(CONFIG_MICROBIT_DISPLAY)
   	drv_disp_print(MB_DISPLAY_MODE_SINGLE, duration, argv[1]);
 #endif
     return 0;
@@ -38,8 +36,21 @@ int exec_print_display(const struct shell *shell, size_t argc, char *argv[])
  * @brief sub command: exec acceleration sensor
  */
 static
+int exec_beep_play(const struct shell *shell, size_t argc, char *argv[])
+{
+#ifdef CONFIG_BEEP
+    drv_beep_play();
+#endif // CONFIG_BEEP
+    return 0;
+}
+
+/**
+ * @brief sub command: exec acceleration sensor
+ */
+static
 int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
 {
+#ifdef CONFIG_LIS2DH
     int32_t count = 3;
 
     if (argc == 2) {
@@ -63,10 +74,9 @@ int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
 
         k_msleep(1000 / SENSOR_ACCEL_FREQ_HZ);
     }
-
+#endif // CONFIG_LIS2DH
     return 0;
 }
-
 
 /**
  * @brief sub command: exec magnetic sensor
@@ -74,6 +84,7 @@ int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
 static
 int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
 {
+#ifdef CONFIG_LIS2MDL
     int32_t count = 3;
 
     if (argc == 2) {
@@ -98,12 +109,13 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
 
         k_msleep(1000 / SENSOR_MAGNET_FREQ_HZ);
     }
-
+#endif // CONFIG_LIS2MDL
     return 0;
 }
 
 SHELL_STATIC_SUBCMD_SET_CREATE(s_exec_sub_array,
 	SHELL_CMD_ARG(print,    NULL, "exec print text, [duration]", exec_print_display, 2, 1),
+	SHELL_CMD_ARG(beep,     NULL, "exec beep", exec_beep_play, 1, 0),
 	SHELL_CMD_ARG(accel,    NULL, "exec accel [loop_times]", exec_accel_sensor, 1, 1),
 	SHELL_CMD_ARG(magnet,   NULL, "exec accel [loop_times]", exec_magnet_sensor, 1, 1),
 	SHELL_SUBCMD_SET_END
