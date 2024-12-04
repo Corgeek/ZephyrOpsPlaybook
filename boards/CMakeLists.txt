@@ -3,8 +3,10 @@
 
 cmake_minimum_required(VERSION 3.13.1)
 
-if      (CONFIG_BOARD_BBC_MICROBIT)
+if     (CONFIG_BOARD_BBC_MICROBIT)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/bbc/microbit)
-elseif  (CONFIG_BOARD_BBC_MICROBIT_V2)
+elseif (CONFIG_BOARD_BBC_MICROBIT_V2)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/bbc/microbit_v2)
+elseif (CONFIG_BOARD_NUCLEO_F401RE)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/st)
 endif()

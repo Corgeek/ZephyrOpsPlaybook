@@ -7,12 +7,9 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/device.h>
-#include "boards/unique.h"
+#include "drivers/button/drv_button_nucleo.h"
 
-void uni_board_init(void)
+bool drv_init_button(void)
 {
-	drv_init_button();
-	drv_init_display();
-	drv_init_accel();
-	drv_init_magnet();
+    return true;
 }

@@ -8,15 +8,12 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/device.h>
 #include <zephyr/sys/time_units.h>
+#include "boards/unique.h"
 #include "global/gbf_sensor_database.h"
-#include "drivers/led/display/drv_disp_microbit.h"
-#include "drivers/sensor/accel/drv_accel_lis2dh.h"
-#include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
-#include "boards/bbc/microbit_v2/bbc_microbit_v2.h"
 
 int main(void)
 {
-	board_init();
+	uni_board_init();
 	gbf_init_sensor();
 
 	while (true) {
@@ -30,7 +27,7 @@ int main(void)
 		get_magnet_xyz(&sensor);
 		gbf_set_sensor(SENSOR_MAGNET, &sensor);
 #endif
-		k_msleep(1000 / SENSOR_ACCEL_FREQ_HZ);
+		k_msleep(1000);
 	}
 
 	return 0;
