@@ -5,6 +5,16 @@
  */
 #pragma once
 
+#include <zephyr/device.h>
+#include <zephyr/drivers/gpio.h>
+
+struct gpio_port_pin {
+    const struct device *const port;
+    const gpio_pin_t pin;
+};
+
+#define GPIO_PORT_PIN(_port, _pin)          ((struct gpio_port_pin){ .port = DEVICE_DT_GET(DT_NODELABEL(_port)), .pin = (_pin) })
+
 #if   defined(CONFIG_BOARD_BBC_MICROBIT)
 #include "boards/bbc/microbit/bbc_microbit.h"
 #elif defined(CONFIG_BOARD_BBC_MICROBIT_V2)
