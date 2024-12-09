@@ -14,7 +14,7 @@ enum SENSOR_DATA_TYPE {
     SENSOR_TYPE_MAX
 };
 
-struct sensor_3axis {
+struct sensor_3d {
     union {
         struct sensor_value array[3];
         struct sensor_value x;
@@ -31,9 +31,9 @@ void gbf_init_sensor(void);
 /**
  * @brief Set data to sensor database
  */
-void gbf_set_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3axis *const data);
+void gbf_set_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3d *const data);
 
 /**
  * @brief Get data from sensor database
  */
-void gbf_get_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3axis *data);
+void gbf_get_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3d *data);

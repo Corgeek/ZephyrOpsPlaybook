@@ -62,7 +62,7 @@ int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
         }
     }
 
-    struct sensor_3axis accel;
+    struct sensor_3d accel;
     int ret;
     for (int i = 0; i < count; ++i) {
         ret = get_accel_xyz(&accel);
@@ -96,7 +96,7 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
         }
     }
 
-    struct sensor_3axis magnet;
+    struct sensor_3d magnet;
     int ret;
 
     for (int i = 0; i < count; ++i) {

@@ -18,7 +18,7 @@ int main(void)
 
 	while (true) {
 #if 0
-		struct sensor_3axis sensor;
+		struct sensor_3d sensor;
 		memset(&sensor, 0, sizeof(sensor));
 
 		get_accel_xyz(&sensor);

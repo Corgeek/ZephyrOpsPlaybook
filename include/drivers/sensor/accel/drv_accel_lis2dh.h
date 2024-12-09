@@ -13,4 +13,4 @@
 const struct device *const accel_device(void);
 
 bool drv_init_accel(void);
-int get_accel_xyz(struct sensor_3axis *data);
+int get_accel_xyz(struct sensor_3d *data);

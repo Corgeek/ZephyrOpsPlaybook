@@ -18,7 +18,7 @@ const struct device *const accel_device(void)
     return s_accel0_dev;
 }
 
-int get_accel_xyz(struct sensor_3axis *data)
+int get_accel_xyz(struct sensor_3d *data)
 {
     assert(data);
     int ret;

@@ -20,7 +20,7 @@ int main(void)
 
 	gbf_init_sensor();
 
-	struct sensor_3axis sensor;
+	struct sensor_3d sensor;
 	uint32_t curr_cycle = 0;
 	uint32_t last_cycle = 0;
 
