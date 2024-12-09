@@ -16,8 +16,8 @@
 MUTEX_DEFINE();
 
 static struct SampleData {
-	struct sensor_3axis accel;
-	struct sensor_3axis magnet;
+	struct sensor_3d accel;
+	struct sensor_3d magnet;
 } s_sensor_data;
 
 void gbf_init_sensor(void)
@@ -25,7 +25,7 @@ void gbf_init_sensor(void)
 	memset(&s_sensor_data, 0, sizeof(s_sensor_data));
 }
 
-void gbf_set_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3axis *const data)
+void gbf_set_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3d *const data)
 {
 	assert(data);
 
@@ -40,7 +40,7 @@ void gbf_set_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3axis *const data)
 	MUTEX_UNLOCK();
 }
 
-void gbf_get_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3axis *data)
+void gbf_get_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3d *data)
 {
 	assert(data);
 

@@ -18,7 +18,7 @@ const struct device *const magnet_device(void)
     return s_magn0_dev;
 }
 
-int get_magnet_xyz(struct sensor_3axis *data)
+int get_magnet_xyz(struct sensor_3d *data)
 {
     assert(data);
     int ret;

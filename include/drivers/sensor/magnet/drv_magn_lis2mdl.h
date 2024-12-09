@@ -13,4 +13,4 @@
 const struct device *const magnet_device(void);
 
 bool drv_init_magnet(void);
-int get_magnet_xyz(struct sensor_3axis *data);
+int get_magnet_xyz(struct sensor_3d *data);
