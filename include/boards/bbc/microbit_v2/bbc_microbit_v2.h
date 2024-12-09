@@ -37,6 +37,8 @@
 #define GPIO1_PIN00                 GPIO_PORT_PIN(gpio1,  0)        // P1.00, TRACEDATA0
 
 // Aliases
+#define	BUTTON_A					GPIO0_PIN14
+#define	BUTTON_B					GPIO0_PIN23
 #define GPIO_RING_0                 GPIO0_PIN02
 #define GPIO_RING_1                 GPIO0_PIN03
 #define GPIO_RING_2                 GPIO0_PIN04
