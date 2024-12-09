@@ -9,4 +9,3 @@ PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/drv_disp_microbit.c
 )
 endif()
-
