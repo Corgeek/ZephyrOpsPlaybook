@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #include <zephyr/kernel.h>
-#include "drivers/led/display/drv_disp_microbit.h"
+#include "drivers/display/drv_disp_microbit.h"
 
 /**
  * @brief singleton of display instance
