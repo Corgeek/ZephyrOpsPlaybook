@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
+#include "drivers/beep/drv_beep_manipulator.h"
 #include "drivers/button/drv_button_microbit.h"
 #include "drivers/display/drv_disp_microbit.h"
 #include "drivers/sensor/accel/drv_accel_lis2dh.h"
@@ -37,8 +38,8 @@
 #define GPIO0_PIN30                 GPIO_PORT_PIN(gpio0, 30)        // P0.30
 
 // Aliases
-#define	BUTTON_A					GPIO0_PIN17
-#define	BUTTON_B					GPIO0_PIN26
+#define	BUTTON_A                    GPIO0_PIN17
+#define	BUTTON_B                    GPIO0_PIN26
 #define GPIO_RING_0                 GPIO0_PIN03
 #define GPIO_RING_1                 GPIO0_PIN02
 #define GPIO_RING_2                 GPIO0_PIN01

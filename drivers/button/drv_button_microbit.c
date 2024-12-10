@@ -8,6 +8,7 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/device.h>
 #include "drivers/button/drv_button_microbit.h"
+#include "drivers/beep/drv_beep_manipulator.h"
 
 static struct gpio_callback s_button_callback;
 
@@ -28,7 +29,10 @@ const struct gpio_dt_spec *const sw1_spec()
 static
 void drv_button_callback(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
 {
-	printf(__func__);
+	if (pins & BIT(sw0_spec()->pin))
+		drv_beep_play();
+	else if (pins & BIT(sw1_spec()->pin))
+		drv_beep_raise();
 }
 
 bool drv_init_button(void)

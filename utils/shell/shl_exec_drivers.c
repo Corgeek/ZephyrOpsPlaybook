@@ -38,9 +38,15 @@ int exec_print_display(const struct shell *shell, size_t argc, char *argv[])
 static
 int exec_beep_play(const struct shell *shell, size_t argc, char *argv[])
 {
-#ifdef CONFIG_BEEP
-    drv_beep_play();
-#endif // CONFIG_BEEP
+#if defined (CONFIG_BOARD_BBC_MICROBIT) || defined (CONFIG_BOARD_BBC_MICROBIT_V2)
+    if (strcmp("play", argv[1]) == 0) {
+        drv_beep_play();
+    } else if (strcmp("raise", argv[1]) == 0) {
+        drv_beep_raise();
+    } else if (strcmp("lower", argv[1]) == 0) {
+        drv_beep_lower();
+    }
+#endif
     return 0;
 }
 
@@ -115,7 +121,7 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
 
 SHELL_STATIC_SUBCMD_SET_CREATE(s_exec_sub_array,
 	SHELL_CMD_ARG(print,    NULL, "exec print text, [duration]", exec_print_display, 2, 1),
-	SHELL_CMD_ARG(beep,     NULL, "exec beep", exec_beep_play, 1, 0),
+	SHELL_CMD_ARG(beep,     NULL, "exec beep play/stop/raise/lower", exec_beep_play, 2, 0),
 	SHELL_CMD_ARG(accel,    NULL, "exec accel [loop_times]", exec_accel_sensor, 1, 1),
 	SHELL_CMD_ARG(magnet,   NULL, "exec accel [loop_times]", exec_magnet_sensor, 1, 1),
 	SHELL_SUBCMD_SET_END
