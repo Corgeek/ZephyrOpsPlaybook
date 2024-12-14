@@ -9,6 +9,7 @@
 #include "drivers/display/drv_disp_microbit.h"
 #include "drivers/sensor/accel/drv_accel_lis2dh.h"
 #include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
+#include "drivers/ble/drv_ble_peripheral.h"
 
 // Around 0 Ring
 #define GPIO0_PIN31                 GPIO_PORT_PIN(gpio0, 31)        // P0.31, AIN7
