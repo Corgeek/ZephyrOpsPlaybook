@@ -1,14 +1,14 @@
 # ZephyrSkeleton
 
 ## 1. 機能概要
-公式の手順を簡略・軽量化して、手軽に開発を始められる環境を目的としています。
-* 開発の際はターゲットが決まっていることが多く、データ削減やCIの短縮化などを想定した環境を用意
-* バージョンやリビジョンを固定して足並みをそろえた開発が必要で、その固定させた環境を用意
-* コマンドプロンプトと bash 両方で使えるようにしておき、VSCode によるデバッグ環境も用意
+公式の手順を簡略・軽量化して、手軽に開発を始められる環境を提供することを目的としています。
+* 開発の際はターゲットが決まっていることが多く、大部分が未使用になる公式環境を削減
+* バージョンやリビジョンを固定して足並みをそろえた開発が必要で、その固定させる方法を提供
+* コマンドプロンプトと bash 両方で使えるようにしておき、VSCode によるデバッグ環境を提供
 
 ## 2. 使い方
 ### 2.1. 事前準備
-開発に必要なツール群のインストールを行う。
+開発に必要なツール群のインストールを行います。
 
 ---
 #### 2.1.1. Windows 向け
@@ -73,9 +73,8 @@ pip install -r zephyr-env\zephyr\scripts\requirements.txt
 ```
 
 ### 2.5. SDK のダウンロードと設定
-1. Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになった
+1. Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。
 ```
-cd zephyr
 west sdk install
 ```
 
@@ -103,28 +102,30 @@ skeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設
 
 ### 2.7. 最終的なディレクトリ構成
 
-ディレクトリ構成は以下のようになっており、SDK 以外はすべてこの中に内包しています。
+ディレクトリ構成(一部)は以下のようになっており、SDK 以外はすべてこの中に内包しています。
 ```
 .
 └── zephyrproject/
-    ├── .venv/
-    ├── .west/
-    ├── modules/
-    ├── skeleton/
-    │   ├── .vscode/
-    │   ├── boards/
-    │   ├── CMakeLists.txt
-    │   ├── drivers/
-    │   ├── include/
-    │   ├── main.c
-    │   ├── prj.conf
-    │   ├── scripts/
-    │   ├── utils/
-    │   └── west.yml
-    └── zephyr/
+    ├── .venv/                    # venv 環境のファイル群
+    ├── .vscode/                  # vscode 用のファイル群
+    ├── .west/                    # このリポジトリ用の west 設定
+    ├── modules/                  # 各ベンダーの HAL 等
+    ├── skeleton/                 # 本リポジトリ
+    │   ├── CMakeLists.txt        # CMake の先頭
+    │   ├── README.md             # このドキュメント
+    │   ├── .vscode/              # vscode 用のファイル群
+    │   ├── boards/               # ターゲット依存のファイル群
+    │   ├── core/                 # main.c やスレッドや共有メモリ関連
+    │   ├── drivers/              # ドライバ関連
+    │   ├── include/              # ヘッダーファイルはここに集約
+    │   ├── prj.conf              # 汎用的な prj.conf
+    │   ├── scripts/              # Bash / Command Prompt 用のスクリプト群
+    │   ├── utils/                # shell 等の補助機能群
+    │   └── west.yml              # west init -l で参照する設定
+    └── zephyr/                   # 公式の Zephyr リポジトリ
 ```
 
-3. ## 開発フロー
+## 3. 開発フロー
 ### 3.1. VS Code による開発
 1. VS Code で zephyrproject、もしくは skeleton ディレクトリを開く
 2. Ctrl + Shift + B で、「Rebuild」もしくは「Build」を選びビルドを実施
