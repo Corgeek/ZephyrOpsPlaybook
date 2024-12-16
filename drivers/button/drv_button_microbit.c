@@ -29,10 +29,13 @@ const struct gpio_dt_spec *const sw1_spec()
 static
 void drv_button_callback(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
 {
-	if (pins & BIT(sw0_spec()->pin))
+	if (pins & BIT(sw0_spec()->pin)) {
+		drv_beep_lower();
 		drv_beep_play();
-	else if (pins & BIT(sw1_spec()->pin))
+	} else if (pins & BIT(sw1_spec()->pin)) {
 		drv_beep_raise();
+		drv_beep_play();
+	}
 }
 
 bool drv_init_button(void)
