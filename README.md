@@ -69,7 +69,7 @@ pip install west
 ```
 west init -l playbook
 west update
-pip install -r zephyr-env/zephyr/scripts/requirements.txt
+pip install -r zephyr/scripts/requirements.txt
 ```
 
 ### 2.5. SDK のダウンロードと設定
