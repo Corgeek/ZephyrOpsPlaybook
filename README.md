@@ -1,4 +1,4 @@
-# ZephyrSkeleton
+# ZephyrOpsPlaybook
 
 ## 1. 機能概要
 公式の手順を簡略・軽量化して、手軽に開発を始められる環境を提供することを目的としています。
@@ -39,11 +39,11 @@ sudo apt install --no-install-recommends git cmake ninja-build gperf \
 [Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
 
 ### 2.2.リポジトリのクローン
-1. 作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン (zephyrproject と skeleton は適宜変更してOK)
+1. 作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン (zephyrproject と playbook は適宜変更してOK)
 ```
 mkdir zephyrproject
 cd zephyrproject
-git clone https://github.com/Corgeek/ZephyrSkeleton.git skeleton
+git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
 ```
 
 ### 2.3. このリポジトリ用の python 環境を構築
@@ -67,9 +67,9 @@ pip install west
 ### 2.4. このリポジトリ用の Zephyr 環境を構築
 1. west.yml の設定をもとに、このプロジェクト専用の環境を構築
 ```
-west init -l skeleton
+west init -l playbook
 west update
-pip install -r zephyr-env\zephyr\scripts\requirements.txt
+pip install -r zephyr-env/zephyr/scripts/requirements.txt
 ```
 
 ### 2.5. SDK のダウンロードと設定
@@ -82,14 +82,14 @@ west sdk install
 ---
 #### 2.6.1. Windows 向け
 
-skeleton\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更＆保存して実行
+playbook\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更＆保存して実行
 > set BOARD_TYPE=bbc_microbit_v2
 ```
 scripts\setup.bat
 ```
 ---
 #### 2.6.2. Ubuntu 向け
-skeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設定を適宜変更＆保存して実行
+playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設定を適宜変更＆保存して実行
 > BOARD_TYPE=bbc_microbit_v2
 ```
 ./scripts/setup.sh
@@ -110,7 +110,7 @@ skeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設
     ├── .vscode/                  # vscode 用のファイル群
     ├── .west/                    # このリポジトリ用の west 設定
     ├── modules/                  # 各ベンダーの HAL 等
-    ├── skeleton/                 # 本リポジトリ
+    ├── playbook/                 # 本リポジトリ
     │   ├── CMakeLists.txt        # CMake の先頭
     │   ├── README.md             # このドキュメント
     │   ├── .vscode/              # vscode 用のファイル群
@@ -127,13 +127,17 @@ skeleton\scripts\setup.sh をエディタで開き、下記ターゲットの設
 
 ## 3. 開発フロー
 ### 3.1. VS Code による開発
-1. VS Code で zephyrproject、もしくは skeleton ディレクトリを開く
+1. VS Code で zephyrproject ディレクトリを開く
+   ```
+   cd zephyrproject
+   code .
+   ```
 2. Ctrl + Shift + B で、「Rebuild」もしくは「Build」を選びビルドを実施
 3. 正常にビルドが完了したら Ctrl + Shift + B で出てくる「Flash」を選択し、実機に書き込む
 4. gdb デバッガを用いたデバッグを行う場合は、Ctrl + Shift + B で出てくる「Debug」を選び gdbserver で待機状態に入る。その状態のまま F5 を押すことでアタッチ
 
 ### 3.2. コマンドによる開発
-1. skeleton に移動しそれぞれ以下のコマンドを実行
+1. playbook に移動しそれぞれ以下のコマンドを実行
 
 | 機能 | コマンド |
 |-----|----|
