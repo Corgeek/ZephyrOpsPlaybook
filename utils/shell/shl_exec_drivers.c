@@ -120,10 +120,10 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
 }
 
 SHELL_STATIC_SUBCMD_SET_CREATE(s_exec_sub_array,
-	SHELL_CMD_ARG(print,    NULL, "exec print text, [duration]", exec_print_display, 2, 1),
+	SHELL_CMD_ARG(print,    NULL, "exec print text [duration]", exec_print_display, 2, 1),
 	SHELL_CMD_ARG(beep,     NULL, "exec beep play/stop/raise/lower", exec_beep_play, 2, 0),
 	SHELL_CMD_ARG(accel,    NULL, "exec accel [loop_times]", exec_accel_sensor, 1, 1),
-	SHELL_CMD_ARG(magnet,   NULL, "exec accel [loop_times]", exec_magnet_sensor, 1, 1),
+	SHELL_CMD_ARG(magnet,   NULL, "exec magnet [loop_times]", exec_magnet_sensor, 1, 1),
 	SHELL_SUBCMD_SET_END
 );
 
