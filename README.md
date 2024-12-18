@@ -47,9 +47,10 @@ git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
 ```
 
 ### 2.3. このリポジトリ用の python 環境を構築
-1. pyenv によりこのプロジェクト用の python 環境を作成
+1. venv によりこのプロジェクト用の python 環境を作成
 ---
 #### 2.3.1. Windows 向け
+ここで行っている .venv\Scripts\activate は、これを実行したコマンドプロンプト内でしか効果がありません。別のウィンドウで以降の作業を行いたい場合は、そのウィンドウでも同じフォルダに移動して .venv\Scripts\activate を実行する必要があります。
 ```
 python -m venv .venv
 .venv\Scripts\activate
@@ -57,6 +58,7 @@ pip install west
 ```
 ---
 #### 2.3.2. Ubuntu 向け
+ここで行っている source .venv\bin\activate は、これを実行したコマンドプロンプト内でしか効果がありません。別のウィンドウで以降の作業を行いたい場合は、そのウィンドウでも同じフォルダに移動して source .venv\bin\activate を実行する必要があります。
 ```
 python3 -m venv .venv
 source .venv/bin/activate
@@ -82,14 +84,14 @@ west sdk install
 ---
 #### 2.6.1. Windows 向け
 
-playbook\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更＆保存して実行
+playbook\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.bat を実行
 > set BOARD_TYPE=bbc_microbit_v2
 ```
 scripts\setup.bat
 ```
 ---
 #### 2.6.2. Ubuntu 向け
-playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設定を適宜変更＆保存して実行
+playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.sh を実行
 > BOARD_TYPE=bbc_microbit_v2
 ```
 ./scripts/setup.sh

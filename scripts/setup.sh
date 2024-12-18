@@ -2,6 +2,7 @@
 
 BOARD_TYPE=rpi_pico
 BOARD_TYPE=nucleo_f401re
+BOARD_TYPE=bbc_microbit
 BOARD_TYPE=bbc_microbit_v2
 
 SCRIPT_PATH=`readlink -f ${0}`
