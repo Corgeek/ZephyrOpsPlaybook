@@ -13,11 +13,12 @@
 ---
 #### 2.1.1. Windows 向け
 1. chocolatery のインストール ([公式参照](https://chocolatey.org/install))
-2. 管理者権限でコマンドプロンプトを開き、下記実行により必要なツールをインストール
+2. **管理者権限**でコマンドプロンプトを開き、下記実行により必要なツールをインストール(これが完了すれば管理者権限のコマンドプロンプトは閉じる)
 ```
 choco feature enable -n allowGlobalConfirmation
 choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
 choco install ninja gperf python311 git dtc-msys2 wget 7zip
+exit
 ```
 ---
 #### 2.1.2. Ubuntu 向け
@@ -39,7 +40,7 @@ sudo apt install --no-install-recommends git cmake ninja-build gperf \
 [Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
 
 ### 2.2.リポジトリのクローン
-1. 作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン (zephyrproject と playbook は適宜変更してOK)
+作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン (zephyrproject と playbook は適宜変更してOK)
 ```
 mkdir zephyrproject
 cd zephyrproject
@@ -47,7 +48,8 @@ git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
 ```
 
 ### 2.3. このリポジトリ用の python 環境を構築
-1. venv によりこのプロジェクト用の python 環境を作成
+venv によりこのプロジェクト用の python 環境を作成
+
 ---
 #### 2.3.1. Windows 向け
 ここで行っている .venv\Scripts\activate は、これを実行したコマンドプロンプト内でしか効果がありません。別のウィンドウで以降の作業を行いたい場合は、そのウィンドウでも同じフォルダに移動して .venv\Scripts\activate を実行する必要があります。
@@ -67,7 +69,8 @@ pip install west
 ---
 
 ### 2.4. このリポジトリ用の Zephyr 環境を構築
-1. west.yml の設定をもとに、このプロジェクト専用の環境を構築
+west.yml の設定をもとに、このプロジェクト専用の環境を構築
+
 ```
 west init -l playbook
 west update
@@ -75,9 +78,10 @@ pip install -r zephyr/scripts/requirements.txt
 ```
 
 ### 2.5. SDK のダウンロードと設定
-1. Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。
+Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。今の所本リポジトリでは ARM 系向けに絞っているため、ツールチェインも ARM 向けに絞っています。(-t arm-zephyr-eabi を無くせば全アーキテクチャ向けをインストールできます(約9.2GB))
+
 ```
-west sdk install
+west sdk install -t arm-zephyr-eabi
 ```
 
 ### 2.6. west コマンドの簡略用スクリプトを準備
@@ -139,7 +143,7 @@ playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設
 4. gdb デバッガを用いたデバッグを行う場合は、Ctrl + Shift + B で出てくる「Debug」を選び gdbserver で待機状態に入る。その状態のまま F5 を押すことでアタッチ
 
 ### 3.2. コマンドによる開発
-1. playbook に移動しそれぞれ以下のコマンドを実行
+playbook に移動しそれぞれ以下のコマンドを実行
 
 | 機能 | コマンド |
 |-----|----|
