@@ -15,7 +15,7 @@ struct gpio_spec {
 };
 
 static const struct gpio_spec s_gpio_list[] = {
-    { GREEN_LED, GPIO_OUTPUT }
+    { GREEN_LED, GPIO_OUTPUT_ACTIVE }
 };
 
 void gpio_init_pin(void)
@@ -32,6 +32,4 @@ void uni_board_init(void)
 {
 	gpio_init_pin();
 	drv_init_button();
-
-    gpio_pin_set(GREEN_LED.port, GREEN_LED.pin, 1);
 }
