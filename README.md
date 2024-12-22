@@ -18,7 +18,6 @@
 choco feature enable -n allowGlobalConfirmation
 choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
 choco install ninja gperf python311 git dtc-msys2 wget 7zip
-exit
 ```
 ---
 #### 2.1.2. Ubuntu 向け
