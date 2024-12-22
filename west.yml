@@ -22,8 +22,6 @@ manifest:
     - name: upstream
       url-base: https://github.com/zephyrproject-rtos
 
-  group-filter: [-optional]
-
   #
   # Please add items below based on alphabetical order
   projects:
@@ -90,7 +88,3 @@ manifest:
       path: modules/tee/tf-m/trusted-firmware-m
       groups:
         - tee
-
-  self:
-    path: zephyr
-    west-commands: scripts/west-commands.yml
