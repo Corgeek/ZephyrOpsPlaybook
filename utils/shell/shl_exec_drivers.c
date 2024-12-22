@@ -75,9 +75,13 @@ int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
         if (ret != 0) {
             return ret;
         }
+#ifdef CONFIG_CBPRINTF_FP_SUPPORT
+    	printk("accel:    (%12.6f, %12.6f, %12.6f)\n",
+	       sensor_value_to_double(&accel.x), sensor_value_to_double(&accel.y), sensor_value_to_double(&accel.z));
+#else  // CONFIG_CBPRINTF_FP_SUPPORT
         printk("accel:    (%6d.%6d, %6d.%6d, %6d.%6d)\n",
             accel.x.val1, accel.x.val2, accel.y.val1, accel.y.val2, accel.z.val1, accel.z.val2);
-
+#endif // CONFIG_CBPRINTF_FP_SUPPORT
         k_msleep(1000 / SENSOR_ACCEL_FREQ_HZ);
     }
 #endif // CONFIG_LIS2DH
@@ -110,9 +114,13 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
         if (ret != 0) {
             return ret;
         }
-        printk("magnet:    (%6d.%6d, %6d.%6d, %6d.%6d)\n",
+#ifdef CONFIG_CBPRINTF_FP_SUPPORT
+    	printk("magnet:   (%12.6f, %12.6f, %12.6f)\n",
+	       sensor_value_to_double(&magnet.x), sensor_value_to_double(&magnet.y), sensor_value_to_double(&magnet.z));
+#else  // CONFIG_CBPRINTF_FP_SUPPORT
+        printk("magnet:   (%6d.%6d, %6d.%6d, %6d.%6d)\n",
             magnet.x.val1, magnet.x.val2, magnet.y.val1, magnet.y.val2, magnet.z.val1, magnet.z.val2);
-
+#endif // CONFIG_CBPRINTF_FP_SUPPORT
         k_msleep(1000 / SENSOR_MAGNET_FREQ_HZ);
     }
 #endif // CONFIG_LIS2MDL
