@@ -28,7 +28,7 @@ EOF
 SDK_LIST=(`ls -r ${HOME} | grep zephyr-sdk-`)
 cat > .vscode/settings.json << EOF
 {
-  "ZEPHYRSDK": "\${env:HOMEPATH}/${SDK_LIST[0]}",
+  "ZEPHYRSDK": "${HOME}/${SDK_LIST[0]}",
   "PROJ_PATH": "${PROJ_PATH}",
   "CROSS_GDB_PATH": "\${config:ZEPHYRSDK}/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb"
 }
