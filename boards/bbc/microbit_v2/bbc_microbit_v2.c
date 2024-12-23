@@ -34,10 +34,10 @@ void uni_board_init(void)
 {
 	gpio_init_pin();
 
+//	drv_init_bleperiph();
 	drv_init_beep();
 	drv_init_button();
 	drv_init_display();
 	drv_init_accel();
 	drv_init_magnet();
-//	drv_init_bleperiph();
 }
