@@ -21,4 +21,6 @@ struct gpio_port_pin {
 #include "boards/bbc/microbit_v2/bbc_microbit_v2.h"
 #elif defined(CONFIG_BOARD_NUCLEO_F401RE)
 #include "boards/st/nucleo_f401re.h"
+#else
+#include "boards/generic/generic_board.h"
 #endif
