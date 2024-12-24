@@ -20,25 +20,28 @@ WSL は USB 機器の制御を理由に公式で推奨されていませんが�
 
 ## 2. 使い方
 ### 2.1. 事前準備
-Ubuntu 22.04 より古い Ubuntu の場合、下記コマンドで apt 用のリポジトリの追加を行います。<br>
-うまく行かなかった場合は、下記公式ページを参照<br>
+開発に必要なツール群のインストールを行います。<br>
+うまく行かなかった場合は、下記公式ページを参照。<br>
 [Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
 
-```
-wget https://apt.kitware.com/kitware-archive.sh
-sudo bash kitware-archive.sh
-```
-
 ### 2.2. 必要なツールのインストール
+1. chocolatery のインストール ([公式参照](https://chocolatey.org/install))
+2. **管理者権限**でコマンドプロンプトを開き、下記実行により必要なツールをインストール。
+
+> [!IMPORTANT]
+**管理者権限**は、「コマンドプロンプトを右クリック」から「管理者として実行」、もしくは「スタートキーを押しながら + X」 で出てくるコンテキストメニューから、「ターミナル(管理者)」でも開けます。また、**管理者権限**で行う作業はここで終わりです。ミスを避けるため閉じておきましょう。
+
 ```
-sudo apt install --no-install-recommends git cmake ninja-build gperf \
-  ccache dfu-util device-tree-compiler wget \
-  python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
-  make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
+choco feature enable -n allowGlobalConfirmation
+choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+choco install ninja gperf python311 git dtc-msys2 wget 7zip
 ```
 
 ### 2.3.リポジトリのクローン
-作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン (zephyrproject と playbook は適宜変更してOK)
+> [!IMPORTANT]
+ここからは通常のコマンドプロンプトを開いて作業をします。
+
+作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン。<br>(zephyrproject と playbook は適宜変更してOK)
 ```
 mkdir zephyrproject
 cd zephyrproject
@@ -49,10 +52,10 @@ git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
 venv によりこのプロジェクト用の python 環境を作成
 
 > [!IMPORTANT]
-ここで行っている source .venv/bin/activate は、これを実行したコマンドプロンプト内でしか効果がありません。別のウィンドウで以降の作業を行いたい場合は、そのウィンドウでも同じフォルダに移動して source .venv/bin/activate を実行する必要があります。
+ここで行っている .venv\Scripts\activate は、これを実行したコマンドプロンプト内でしか効果がありません。<br>別のウィンドウで以降の作業を行いたい場合は、そのウィンドウでも同じフォルダに移動して .venv\Scripts\activate を実行する必要があります。
 ```
-python3 -m venv .venv
-source .venv/bin/activate
+python -m venv .venv
+.venv\Scripts\activate
 pip install west
 ```
 
@@ -77,17 +80,17 @@ west sdk install -t arm-zephyr-eabi
 
 ### 2.7. west コマンドの簡略用スクリプトを準備
 
-playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.sh を実行
-> BOARD_TYPE=bbc_microbit_v2
+playbook\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.bat を実行
+> set BOARD_TYPE=bbc_microbit_v2
 ```
-./scripts/setup.sh
+scripts\setup.bat
 ```
 
 問題がなければ、.vscode 用の設定と scripts 以下に west_env.bat, build.bat, debug.bat が生成されています。
 
 以上で、初回の構築は完了です。
 
-### 2.7. 最終的なディレクトリ構成
+### 2.8. 最終的なディレクトリ構成
 
 ディレクトリ構成(一部)は以下のようになっており、SDK 以外はすべてこの中に内包しています。
 ```
