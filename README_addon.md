@@ -15,6 +15,7 @@
 |------|------|
 | [Ubuntu 向け](README.md) | Ubuntu ネイティブやWSLを含む仮想環境 |
 | [Windows 向け](README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
+| [Addon 向け](README_addon.md) | 公式の Zephyr 環境を既に構築済みで、それを流用したい場合(現在のページ) |
 | [公式 Zephyr 手順](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) | まずは公式の Zephyr 環境を構築したい場合(約16GB) |
 
 > [!TIP]

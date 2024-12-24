@@ -11,7 +11,7 @@
 | 目的 | 概要 |
 |------|------|
 | [Ubuntu 向け](README.md) | Ubuntu ネイティブやWSLを含む仮想環境 |
-| [Windows 向け](README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
+| [Windows 向け](README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境(現在のページ) |
 | [Addon 向け](README_addon.md) | 公式の Zephyr 環境を既に構築済みで、それを流用したい場合 |
 
 > [!TIP]
