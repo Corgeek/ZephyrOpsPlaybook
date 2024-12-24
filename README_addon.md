@@ -4,17 +4,27 @@
 こちらの README は、既に公式の環境を構築済みで、アドオン形式で本リポジトリを利用したい方に向けた手順となります。
 以降は公式環境が zephyrproject にある場合の説明になりますが、ディレクトリ名を変えている場合は適宜それに合わせてください。
 
-軽量環境を構築したい場合や、チーム開発等の運用例を理解したい場合は README.md に沿って進めてください。
-
 アドオン形式で進めた場合、以下の部分的な機能が使えます。
 * VS Code を使った Rebuild / Flash / Debug
 * Zephyr 公式環境と分離した開発環境
 * ディレクトリ構成案や CMakeList.txt の管理方法案
 
+公式の Zephyr 環境が未構築の場合、下記 Ubuntu 向けか Windows 向けかを選んで作業を進めてください。
+
+| 目的 | 概要 |
+|------|------|
+| [Ubuntu 向け](README.md) | Ubuntu ネイティブやWSLを含む仮想環境 |
+| [Windows 向け](README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
+| [公式 Zephyr 手順](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) | まずは公式の Zephyr 環境を構築したい場合(約16GB) |
+
+> [!TIP]
+WSL は USB 機器の制御を理由に公式で推奨されていませんが、デバイスの管理等の知識がある方は一通り利用できます。<br>
+また、そもそもターゲットをUSB経由で制御できる仕組みがない場合などは、Windows ネイティブより断然軽量な WSL を選択肢として考慮に入れて良いかもしれません。
+
 ## 2. 使い方
 
 ### 2.1.リポジトリのクローン
-作業用のディレクトリ zephyrproject の中に本リポジトリをクローン (playbook は適宜変更してOK)
+作業用のディレクトリ zephyrproject の中に本リポジトリをクローン(playbook は適宜変更してOK)
 ```
 cd zephyrproject
 git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
