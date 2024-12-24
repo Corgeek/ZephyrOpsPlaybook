@@ -18,11 +18,10 @@
 WSL は USB 機器の制御を理由に公式で推奨されていませんが、デバイスの管理等の知識がある方は一通り利用できます。<br>
 また、そもそもターゲットをUSB経由で制御できる仕組みがない場合などは、Windows ネイティブより断然軽量な WSL を選択肢として考慮に入れて良いかもしれません。
 
-## 2. 使い方
+## 2. 環境構築
+
 ### 2.1. 事前準備
 開発に必要なツール群のインストールを行います。<br>
-うまく行かなかった場合は、下記公式ページを参照。<br>
-[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
 
 ### 2.2. 必要なツールのインストール
 1. chocolatery のインストール ([公式参照](https://chocolatey.org/install))
@@ -36,6 +35,9 @@ choco feature enable -n allowGlobalConfirmation
 choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
 choco install ninja gperf python311 git dtc-msys2 wget 7zip
 ```
+
+うまく行かなかった場合は、下記公式ページを参照。<br>
+[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
 
 ### 2.3.リポジトリのクローン
 > [!IMPORTANT]
