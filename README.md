@@ -18,11 +18,9 @@
 WSL は USB 機器の制御を理由に公式で推奨されていませんが、デバイスの管理等の知識がある方は一通り利用できます。<br>
 また、そもそもターゲットをUSB経由で制御できる仕組みがない場合などは、Windows ネイティブより断然軽量な WSL を選択肢として考慮に入れて良いかもしれません。
 
-## 2. 使い方
+## 2. 環境構築
 ### 2.1. 事前準備
-Ubuntu 22.04 より古い Ubuntu の場合、下記コマンドで apt 用のリポジトリの追加を行います。<br>
-うまく行かなかった場合は、下記公式ページを参照<br>
-[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
+**Ubuntu 22.04 より古い Ubuntu の場合**、下記コマンドで apt 用リポジトリの追加を行います。
 
 ```
 wget https://apt.kitware.com/kitware-archive.sh
@@ -36,6 +34,8 @@ sudo apt install --no-install-recommends git cmake ninja-build gperf \
   python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
   make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
 ```
+うまく行かなかった場合は、下記公式ページを参照<br>
+[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
 
 ### 2.3.リポジトリのクローン
 作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン (zephyrproject と playbook は適宜変更してOK)
