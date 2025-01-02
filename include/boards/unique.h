@@ -15,7 +15,9 @@ struct gpio_port_pin {
 
 #define GPIO_PORT_PIN(_port, _pin)          ((struct gpio_port_pin){ .port = DEVICE_DT_GET(DT_NODELABEL(_port)), .pin = (_pin) })
 
-#if   defined(CONFIG_BOARD_BBC_MICROBIT)
+#if   defined(CONFIG_BOARD_RPI_PICO)
+#include "boards/raspberrypi/rpi_pico/rpi_pico.h"
+#elif defined(CONFIG_BOARD_BBC_MICROBIT)
 #include "boards/bbc/microbit/bbc_microbit.h"
 #elif defined(CONFIG_BOARD_BBC_MICROBIT_V2)
 #include "boards/bbc/microbit_v2/bbc_microbit_v2.h"

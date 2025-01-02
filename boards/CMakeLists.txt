@@ -3,7 +3,9 @@
 
 cmake_minimum_required(VERSION 3.13.1)
 
-if     (CONFIG_BOARD_BBC_MICROBIT)
+if     (CONFIG_BOARD_RPI_PICO)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/raspberrypi/rpi_pico)
+elseif (CONFIG_BOARD_BBC_MICROBIT)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/bbc/microbit)
 elseif (CONFIG_BOARD_BBC_MICROBIT_V2)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/bbc/microbit_v2)

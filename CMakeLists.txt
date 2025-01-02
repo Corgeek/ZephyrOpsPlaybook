@@ -4,7 +4,9 @@
 cmake_minimum_required(VERSION 3.13.1)
 
 ## Switch by Target 
-if (BOARD STREQUAL "bbc_microbit")
+if     (BOARD STREQUAL "rpi_pico")
+  set(CONF_FILE ${CMAKE_CURRENT_SOURCE_DIR}/boards/raspberrypi/rpi_pico/prj.conf)
+elseif (BOARD STREQUAL "bbc_microbit")
   set(CONF_FILE ${CMAKE_CURRENT_SOURCE_DIR}/boards/bbc/microbit/prj.conf)
 elseif (BOARD STREQUAL "bbc_microbit_v2")
   set(CONF_FILE ${CMAKE_CURRENT_SOURCE_DIR}/boards/bbc/microbit_v2/prj.conf)
