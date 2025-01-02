@@ -38,10 +38,12 @@
 #define GPIO0_PIN30                 GPIO_PORT_PIN(gpio0, 30)        // P0.30
 
 // Aliases
+#define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c0))
 #define	BUTTON_A                    GPIO0_PIN17
 #define	BUTTON_B                    GPIO0_PIN26
 #define GPIO_RING_0                 GPIO0_PIN03
 #define GPIO_RING_1                 GPIO0_PIN02
 #define GPIO_RING_2                 GPIO0_PIN01
+#define TOF_XSHUT                   GPIO_RING_0
 
 void uni_board_init(void);

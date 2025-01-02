@@ -5,8 +5,6 @@
  */
 
 #include <zephyr/kernel.h>
-#include <zephyr/drivers/gpio.h>
-#include <zephyr/device.h>
 #include "boards/unique.h"
 
 struct gpio_spec {
@@ -31,5 +29,8 @@ void gpio_init_pin(void)
 void uni_board_init(void)
 {
 	gpio_init_pin();
+    drv_init_i2c();
+
+//  drv_init_tof(TOF_ID_1ST);
 	drv_init_button();
 }
