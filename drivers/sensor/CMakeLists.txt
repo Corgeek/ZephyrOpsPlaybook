@@ -5,3 +5,4 @@ cmake_minimum_required(VERSION 3.13.1)
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/accel)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/magnet)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/measure)

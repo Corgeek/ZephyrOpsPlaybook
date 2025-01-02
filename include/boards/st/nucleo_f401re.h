@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
+#include "drivers/i2c/drv_i2c_common.h"
+#include "drivers/sensor/measure/drv_tof_sequence.h"
 #include "drivers/button/drv_button_nucleo.h"
 
 // CN7 odd
@@ -90,7 +92,9 @@
                                                                     // -
                                                                     // -
 
+#define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c1))
 #define	GREEN_LED					GPIOA_PIN05
 #define USER_BUTTON                 GPIOC_PIN13
+#define TOF_XSHUT                   GPIOA_PIN00
 
 void uni_board_init(void);
