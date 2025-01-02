@@ -4,11 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
+#include "drivers/i2c/drv_i2c_common.h"
 #include "drivers/beep/drv_beep_manipulator.h"
 #include "drivers/button/drv_button_microbit.h"
 #include "drivers/display/drv_disp_microbit.h"
 #include "drivers/sensor/accel/drv_accel_lis2dh.h"
 #include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
+#include "drivers/sensor/measure/drv_tof_sequence.h"
 #include "drivers/ble/drv_ble_peripheral.h"
 
 // Around 0 Ring
@@ -39,10 +41,12 @@
 #define GPIO1_PIN00                 GPIO_PORT_PIN(gpio1,  0)        // P1.00, TRACEDATA0
 
 // Aliases
+#define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c0))
 #define	BUTTON_A                    GPIO0_PIN14
 #define	BUTTON_B                    GPIO0_PIN23
 #define GPIO_RING_0                 GPIO0_PIN02
 #define GPIO_RING_1                 GPIO0_PIN03
 #define GPIO_RING_2                 GPIO0_PIN04
+#define TOF_XSHUT                   GPIO_RING_0
 
 void uni_board_init(void);
