@@ -128,10 +128,10 @@ static const uint8_t VL53L4CD_DEFAULT_CONFIGURATION[] = {
 int32_t drv_tof_start_ranging(const struct device *const i2c_dev, uint16_t slv_addr)
 {
     int32_t result = 0;
-    int32_t value = 0;
+    uint32_t value = 0;
 
-    result |= i2c_wreg_read_multi(i2c_dev, slv_addr,
-                VL53L4CD_INTERMEASUREMENT_MS, &value, sizeof(value));
+    result |= i2c_wreg_read_dword(i2c_dev, slv_addr,
+                VL53L4CD_INTERMEASUREMENT_MS, &value);
 
     // Sensor runs in continuous mode
     if (value == 0) {
@@ -174,11 +174,12 @@ int32_t drv_tof_stop_ranging(const struct device *const i2c_dev, uint16_t slv_ad
 bool drv_tof_set_range_timing(const struct device *const i2c_dev, uint16_t slv_addr, uint32_t timing_budget_ms, uint32_t inter_measurement_ms)
 {
     int32_t result = 0;
-    uint32_t osc_freq = 0;
+    uint16_t osc_freq = 0;
     uint32_t macro_period_us = 0, timing_budget_us = 0;
     float inter_measurement_factor = (float)1.055;
 
-    result |= i2c_wreg_read_multi(i2c_dev, slv_addr, 0x0006, &osc_freq, 2);
+    result |= i2c_wreg_read_word(i2c_dev, slv_addr,
+                0x0006, &osc_freq);
     if (osc_freq != 0) {
         timing_budget_us = timing_budget_ms * (uint32_t)1000;
         macro_period_us =
@@ -192,16 +193,15 @@ bool drv_tof_set_range_timing(const struct device *const i2c_dev, uint16_t slv_a
 
     // Sensor runs in continuous mode
     if (inter_measurement_ms == 0) {
-        uint8_t wbuf[4] = { 0 };
-        result |= i2c_wreg_write_multi(i2c_dev, slv_addr,
-            VL53L4CD_INTERMEASUREMENT_MS, wbuf, sizeof(wbuf));
+        result |= i2c_wreg_write_dword(i2c_dev, slv_addr,
+            VL53L4CD_INTERMEASUREMENT_MS, 0);
         timing_budget_us -= 2500;
     }
     // Sensor runs in autonomous low power mode
     else if (inter_measurement_ms > timing_budget_ms) {
-        uint32_t clock_pll = 0;
-        result |= i2c_wreg_read_multi(i2c_dev, slv_addr,
-            VL53L4CD_RESULT_OSC_CALIBRATE_VAL, &clock_pll, sizeof(uint16_t));
+        uint16_t clock_pll = 0;
+        result |= i2c_wreg_read_word(i2c_dev, slv_addr,
+            VL53L4CD_RESULT_OSC_CALIBRATE_VAL, &clock_pll);
         clock_pll = clock_pll & (uint16_t)0x3FF;
 
         inter_measurement_factor = inter_measurement_factor
@@ -209,7 +209,7 @@ bool drv_tof_set_range_timing(const struct device *const i2c_dev, uint16_t slv_a
                                 * (float)clock_pll;
 
         result |= i2c_wreg_write_multi(i2c_dev, slv_addr,
-            VL53L4CD_INTERMEASUREMENT_MS, (uint8_t*)&inter_measurement_factor, sizeof(uint32_t));
+            VL53L4CD_INTERMEASUREMENT_MS, (uint8_t*)&inter_measurement_factor, sizeof(inter_measurement_factor));
 
         timing_budget_us -= (uint32_t)4300;
         timing_budget_us /= (uint32_t)2;
@@ -233,8 +233,8 @@ bool drv_tof_set_range_timing(const struct device *const i2c_dev, uint16_t slv_a
         ms_byte++;
     }
     ms_byte = (uint16_t)(ms_byte << 8) + (uint16_t)(ls_byte & (uint32_t)0xFF);
-    result |= i2c_wreg_write_multi(i2c_dev, slv_addr,
-            VL53L4CD_RANGE_CONFIG_A, (uint8_t*)&ms_byte, sizeof(ms_byte));
+    result |= i2c_wreg_write_word(i2c_dev, slv_addr,
+            VL53L4CD_RANGE_CONFIG_A, ms_byte);
 
     tmp = macro_period_us * 12;
     ls_byte = ((timing_budget_us + ((tmp >> 6) >> 1)) / (tmp >> 6)) - 1;
@@ -245,8 +245,8 @@ bool drv_tof_set_range_timing(const struct device *const i2c_dev, uint16_t slv_a
         ms_byte++;
     }
     ms_byte = (uint16_t)(ms_byte << 8) + (uint16_t)(ls_byte & (uint32_t)0xFF);
-    result |= i2c_wreg_write_multi(i2c_dev, slv_addr,
-            VL53L4CD_RANGE_CONFIG_B, (uint8_t*)&ms_byte, sizeof(ms_byte));
+    result |= i2c_wreg_write_word(i2c_dev, slv_addr,
+            VL53L4CD_RANGE_CONFIG_B, ms_byte);
 
     printk("%s() result: %d\n", __func__, result);
 
@@ -313,6 +313,7 @@ uint8_t drv_tof_check_for_data_ready(const struct device *const i2c_dev, uint16_
 int32_t drv_tof_load_defconf(const struct device *const i2c_dev, uint16_t slv_addr)
 {
     int32_t result = 0;
+
     // Load default configuration
     for (uint8_t i = 0; i < ARRAY_SIZE(VL53L4CD_DEFAULT_CONFIGURATION); ++i) {
         result |= i2c_wreg_write_byte(i2c_dev, slv_addr,
@@ -328,11 +329,7 @@ int32_t drv_tof_dev_setting(const struct device *const i2c_dev, uint16_t slv_add
 
     result |= i2c_wreg_write_byte(i2c_dev, slv_addr, VL53L4CD_VHV_CONFIG_TIMEOUT_MACROP_LOOP_BOUND, 0x09);
     result |= i2c_wreg_write_byte(i2c_dev, slv_addr, 0x000B, 0x00);
-
-    k_msleep(10);
-
-    uint8_t data[2] = { 0x500 >> 8, 0x500 & 0xFF };
-    result |= i2c_wreg_write_multi(i2c_dev, slv_addr, 0x0024, data, sizeof(data));
+    result |= i2c_wreg_write_word(i2c_dev, slv_addr, 0x0024, 0x500);
 
     return result;
 }

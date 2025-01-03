@@ -43,6 +43,24 @@ bool drv_init_i2c(void)
     return true;
 }
 
+/* for 8bit size register address */
+int32_t i2c_reg_write_word(const struct device *const i2c_dev, uint16_t slv_addr, uint8_t reg_addr, uint16_t value)
+{
+    uint8_t wbuf[3] = { reg_addr, value >> 8, value & 0xFF };
+    return i2c_write(i2c_dev, wbuf, sizeof(wbuf), slv_addr);
+}
+
+int32_t i2c_reg_write_dword(const struct device *const i2c_dev, uint16_t slv_addr, uint8_t reg_addr, uint32_t value)
+{
+    uint8_t wbuf[5] = { reg_addr,
+        (value >> 24) & 0xFF,
+        (value >> 16) & 0xFF,
+        (value >>  8) & 0xFF,
+        (value      ) & 0xFF,
+    };
+    return i2c_write(i2c_dev, wbuf, sizeof(wbuf), slv_addr);
+}
+
 int32_t i2c_reg_write_multi(const struct device *const i2c_dev, uint16_t slv_addr, uint8_t reg_addr, uint8_t *wbuf, size_t len)
 {
     uint8_t buf[1 + len];
@@ -52,20 +70,40 @@ int32_t i2c_reg_write_multi(const struct device *const i2c_dev, uint16_t slv_add
     return i2c_write(i2c_dev, buf, sizeof(buf), slv_addr);
 }
 
-int32_t i2c_wreg_write_byte(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint8_t value)
+int32_t i2c_reg_read_word(const struct device *const i2c_dev, uint16_t slv_addr, uint8_t reg_addr, uint16_t *rbuf)
 {
-    uint8_t wbuf[3] = { reg_addr >> 8, reg_addr & 0xFF, value };
-    return i2c_write(i2c_dev, wbuf, sizeof(wbuf), slv_addr);
+    int32_t result = 0;
+
+    result = i2c_write(i2c_dev, &reg_addr, sizeof(reg_addr), slv_addr);
+    if (result) {
+        printk("i2c_write() of %s() is failed[%x]\n", __func__, reg_addr);
+        return result;
+    }
+
+    result = i2c_read(i2c_dev, (uint8_t*)rbuf, sizeof(*rbuf), slv_addr);
+    if (result) {
+        printk("i2c_read() of %s() is failed[%x]\n", __func__, reg_addr);
+    }
+
+    return result;
 }
 
-int32_t i2c_wreg_write_multi(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint8_t *wbuf, size_t len)
+int32_t i2c_reg_read_dword(const struct device *const i2c_dev, uint16_t slv_addr, uint8_t reg_addr, uint32_t *rbuf)
 {
-    uint8_t buf[2 + len];
+    int32_t result = 0;
 
-    buf[0] = reg_addr >> 8;
-    buf[1] = reg_addr & 0xFF;
-    memcpy(&buf[2], wbuf, len);
-    return i2c_write(i2c_dev, buf, sizeof(buf), slv_addr);
+    result = i2c_write(i2c_dev, &reg_addr, sizeof(reg_addr), slv_addr);
+    if (result) {
+        printk("i2c_write() of %s() is failed[%x]\n", __func__, reg_addr);
+        return result;
+    }
+
+    result = i2c_read(i2c_dev, (uint8_t*)rbuf, sizeof(*rbuf), slv_addr);
+    if (result) {
+        printk("i2c_read() of %s() is failed[%x]\n", __func__, reg_addr);
+    }
+
+    return result;
 }
 
 int32_t i2c_reg_read_multi(const struct device *const i2c_dev, uint16_t slv_addr, uint8_t reg_addr, uint32_t *rbuf, size_t len)
@@ -94,10 +132,47 @@ int32_t i2c_reg_read_multi(const struct device *const i2c_dev, uint16_t slv_addr
     return result;
 }
 
+/* for 16bit size register address */
+int32_t i2c_wreg_write_byte(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint8_t value)
+{
+    uint8_t wbuf[3] = { reg_addr >> 8, reg_addr & 0xFF, value };
+    return i2c_write(i2c_dev, wbuf, sizeof(wbuf), slv_addr);
+}
+
+int32_t i2c_wreg_write_word(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint16_t value)
+{
+    uint8_t wbuf[4] = { reg_addr >> 8, reg_addr & 0xFF,
+        (value >>  8) & 0xFF,
+        (value      ) & 0xFF,
+    };
+    return i2c_write(i2c_dev, wbuf, sizeof(wbuf), slv_addr);
+}
+
+int32_t i2c_wreg_write_dword(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint32_t value)
+{
+    uint8_t wbuf[6] = { reg_addr >> 8, reg_addr & 0xFF,
+        (value >> 24) & 0xFF,
+        (value >> 16) & 0xFF,
+        (value >>  8) & 0xFF,
+        (value      ) & 0xFF,
+    };
+    return i2c_write(i2c_dev, wbuf, sizeof(wbuf), slv_addr);
+}
+
+int32_t i2c_wreg_write_multi(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint8_t *wbuf, size_t len)
+{
+    uint8_t buf[2 + len];
+
+    buf[0] = reg_addr >> 8;
+    buf[1] = reg_addr & 0xFF;
+    memcpy(&buf[2], wbuf, len);
+    return i2c_write(i2c_dev, buf, sizeof(buf), slv_addr);
+}
+
 int32_t i2c_wreg_read_byte(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint8_t *rbuf)
 {
     int32_t result = 0;
-    uint8_t wbuf[] = { reg_addr >> 8, reg_addr & 0xFF };
+    uint8_t wbuf[2] = { reg_addr >> 8, reg_addr & 0xFF };
 
     result = i2c_write(i2c_dev, wbuf, sizeof(wbuf), slv_addr);
     if (result) {
@@ -105,7 +180,45 @@ int32_t i2c_wreg_read_byte(const struct device *const i2c_dev, uint16_t slv_addr
         return result;
     }
 
-    result = i2c_read(i2c_dev, rbuf, sizeof(uint8_t), slv_addr);
+    result = i2c_read(i2c_dev, (uint8_t*)rbuf, sizeof(*rbuf), slv_addr);
+    if (result) {
+        printk("i2c_read() of %s() is failed[%x]\n", __func__, reg_addr);
+    }
+
+    return result;
+}
+
+int32_t i2c_wreg_read_word(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint16_t *rbuf)
+{
+    int32_t result = 0;
+    uint8_t wbuf[2] = { reg_addr >> 8, reg_addr & 0xFF };
+
+    result = i2c_write(i2c_dev, wbuf, sizeof(wbuf), slv_addr);
+    if (result) {
+        printk("i2c_write() of %s() is failed[%x]\n", __func__, reg_addr);
+        return result;
+    }
+
+    result = i2c_read(i2c_dev, (uint8_t*)rbuf, sizeof(*rbuf), slv_addr);
+    if (result) {
+        printk("i2c_read() of %s() is failed[%x]\n", __func__, reg_addr);
+    }
+
+    return result;
+}
+
+int32_t i2c_wreg_read_dword(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint32_t *rbuf)
+{
+    int32_t result = 0;
+    uint8_t wbuf[2] = { reg_addr >> 8, reg_addr & 0xFF };
+
+    result = i2c_write(i2c_dev, wbuf, sizeof(wbuf), slv_addr);
+    if (result) {
+        printk("i2c_write() of %s() is failed[%x]\n", __func__, reg_addr);
+        return result;
+    }
+
+    result = i2c_read(i2c_dev, (uint8_t*)rbuf, sizeof(*rbuf), slv_addr);
     if (result) {
         printk("i2c_read() of %s() is failed[%x]\n", __func__, reg_addr);
     }
