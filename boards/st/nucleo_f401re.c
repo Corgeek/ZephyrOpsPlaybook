@@ -28,9 +28,17 @@ void gpio_init_pin(void)
 
 void uni_board_init(void)
 {
+#if defined(CONFIG_GPIO)
 	gpio_init_pin();
-    drv_init_i2c();
+#endif // CONFIG_GPIO
+#if defined(CONFIG_I2C)
+	drv_init_i2c();
+#endif // CONFIG_I2C
 
-//  drv_init_tof(TOF_ID_1ST);
+#if defined(CONFIG_BUTTON)
 	drv_init_button();
+#endif // CONFIG_BUTTON
+#if defined(CONFIG_VL53L4CD)
+	drv_init_tof(TOF_ID_1ST);
+#endif // CONFIG_VL53L4CD
 }

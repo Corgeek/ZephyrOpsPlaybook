@@ -30,15 +30,33 @@ void gpio_init_pin(void)
 
 void uni_board_init(void)
 {
+#if defined(CONFIG_GPIO)
 	gpio_init_pin();
+#endif // CONFIG_GPIO
+#if defined(CONFIG_I2C)
 	drv_init_i2c();
+#endif // CONFIG_I2C
 
-//	drv_init_bleperiph();
+#if defined(CONFIG_BT_PERIPHERAL)
+	drv_init_bleperiph();
+#endif // CONFIG_BT_PERIPHERAL
+
+#if defined(CONFIG_BEEP)
 	drv_init_beep();
+#endif // CONFIG_BEEP
+#if defined(CONFIG_BUTTON)
 	drv_init_button();
+#endif // CONFIG_BUTTON
+#if defined(CONFIG_DISPLAY_WRAPPER)
 	drv_init_display();
+#endif // CONFIG_DISPLAY_WRAPPER
+#if defined(CONFIG_ACCEL_SENSOR)
 	drv_init_accel();
+#endif // CONFIG_ACCEL_SENSOR
+#if defined(CONFIG_MANGET_SENSOR)
 	drv_init_magnet();
-
-//	drv_init_tof(TOF_ID_1ST);
+#endif // CONFIG_MANGET_SENSOR
+#if defined(CONFIG_VL53L4CD)
+	drv_init_tof(TOF_ID_1ST);
+#endif // CONFIG_VL53L4CD
 }
