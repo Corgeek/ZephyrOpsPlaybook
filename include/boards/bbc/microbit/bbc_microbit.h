@@ -4,11 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
+#include "drivers/i2c/drv_i2c_common.h"
 #include "drivers/beep/drv_beep_manipulator.h"
 #include "drivers/button/drv_button_microbit.h"
 #include "drivers/display/drv_disp_microbit.h"
 #include "drivers/sensor/accel/drv_accel_lis2dh.h"
 #include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
+#include "drivers/sensor/measure/drv_tof_sequence.h"
 
 // Around 0 Ring
 #define GPIO0_PIN04                 GPIO_PORT_PIN(gpio0,  4)        // P0.04

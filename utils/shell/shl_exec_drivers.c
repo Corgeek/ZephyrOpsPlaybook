@@ -13,6 +13,7 @@
 /**
  * @brief sub command: exec print display
  */
+#if defined(CONFIG_DISPLAY_WRAPPER)
 static
 int exec_print_display(const struct shell *shell, size_t argc, char *argv[])
 {
@@ -26,19 +27,19 @@ int exec_print_display(const struct shell *shell, size_t argc, char *argv[])
             return EINVAL;
         }
     }
-#if defined(CONFIG_MICROBIT_DISPLAY)
   	drv_disp_print(MB_DISPLAY_MODE_SINGLE, duration, argv[1]);
-#endif
+
     return 0;
 }
+#endif // CONFIG_DISPLAY_WRAPPER
 
 /**
  * @brief sub command: exec acceleration sensor
  */
+#if defined (CONFIG_BEEP)
 static
 int exec_beep_play(const struct shell *shell, size_t argc, char *argv[])
 {
-#if defined (CONFIG_BOARD_BBC_MICROBIT) || defined (CONFIG_BOARD_BBC_MICROBIT_V2)
     if (strcmp("play", argv[1]) == 0) {
         drv_beep_play();
     } else if (strcmp("raise", argv[1]) == 0) {
@@ -46,17 +47,18 @@ int exec_beep_play(const struct shell *shell, size_t argc, char *argv[])
     } else if (strcmp("lower", argv[1]) == 0) {
         drv_beep_lower();
     }
-#endif
+
     return 0;
 }
+#endif // CONFIG_BEEP
 
 /**
  * @brief sub command: exec acceleration sensor
  */
+#ifdef CONFIG_ACCEL_SENSOR
 static
 int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
 {
-#ifdef CONFIG_LIS2DH
     int32_t count = 3;
 
     if (argc == 2) {
@@ -84,17 +86,17 @@ int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
 #endif // CONFIG_CBPRINTF_FP_SUPPORT
         k_msleep(1000 / SENSOR_ACCEL_FREQ_HZ);
     }
-#endif // CONFIG_LIS2DH
     return 0;
 }
+#endif // CONFIG_ACCEL_SENSOR
 
 /**
  * @brief sub command: exec magnetic sensor
  */
+#ifdef CONFIG_MANGET_SENSOR
 static
 int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
 {
-#ifdef CONFIG_LIS2MDL
     int32_t count = 3;
 
     if (argc == 2) {
@@ -123,15 +125,23 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
 #endif // CONFIG_CBPRINTF_FP_SUPPORT
         k_msleep(1000 / SENSOR_MAGNET_FREQ_HZ);
     }
-#endif // CONFIG_LIS2MDL
     return 0;
 }
+#endif // CONFIG_MANGET_SENSOR
 
 SHELL_STATIC_SUBCMD_SET_CREATE(s_exec_sub_array,
+#if defined(CONFIG_DISPLAY_WRAPPER)
 	SHELL_CMD_ARG(print,    NULL, "exec print text [duration]", exec_print_display, 2, 1),
+#endif // CONFIG_DISPLAY_WRAPPER
+#if defined(CONFIG_BEEP)
 	SHELL_CMD_ARG(beep,     NULL, "exec beep play/stop/raise/lower", exec_beep_play, 2, 0),
+#endif // CONFIG_BEEP
+#if defined(CONFIG_ACCEL_SENSOR)
 	SHELL_CMD_ARG(accel,    NULL, "exec accel [loop_times]", exec_accel_sensor, 1, 1),
+#endif // CONFIG_ACCEL_SENSOR
+#if defined(CONFIG_MANGET_SENSOR)
 	SHELL_CMD_ARG(magnet,   NULL, "exec magnet [loop_times]", exec_magnet_sensor, 1, 1),
+#endif // CONFIG_MANGET_SENSOR
 	SHELL_SUBCMD_SET_END
 );
 

@@ -3,6 +3,14 @@
 
 cmake_minimum_required(VERSION 3.13.1)
 
+if (CONFIG_ACCEL_SENSOR)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/accel)
+endif()
+
+if (CONFIG_MANGET_SENSOR)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/magnet)
+endif()
+
+if (CONFIG_MEASURE_SENSOR)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/measure)
+endif()
