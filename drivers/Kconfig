@@ -1,0 +1,20 @@
+# Copyright (c) 2024 Takayuki Goto <tkg.develop@gmail.com>
+# SPDX-License-Identifier: Apache-2.0
+
+menu "Onboard device drivers"
+
+config BEEP
+    bool "Enable Standard Beep function"
+    depends on PWM
+
+config BUTTON
+    bool "Enable Standard Button function"
+    depends on GPIO
+
+config DISPLAY_WRAPPER
+    bool "Enable Display wrapper driver of microbit"
+    depends on MICROBIT_DISPLAY
+
+rsource "sensor/Kconfig"
+
+endmenu
