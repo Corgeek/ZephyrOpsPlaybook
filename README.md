@@ -49,7 +49,7 @@ git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
 venv によりこのプロジェクト用の python 環境を作成
 
 > [!IMPORTANT]
-ここで行っている source .venv/bin/activate は、これを実行したコマンドプロンプト内でしか効果がありません。別のウィンドウで以降の作業を行いたい場合は、そのウィンドウでも同じフォルダに移動して source .venv/bin/activate を実行する必要があります。
+ここで行っている source .venv/bin/activate は、これを実行した Terminal 内でしか効果がありません。別の Terminal で以降の作業を行いたい場合は、その Terminal でも同じフォルダに移動して source .venv/bin/activate を実行する必要があります。
 ```
 python3 -m venv .venv
 source .venv/bin/activate
