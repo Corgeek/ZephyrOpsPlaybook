@@ -3,7 +3,7 @@
 
 cmake_minimum_required(VERSION 3.13.1)
 
-if (CONFIG_LIS2MDL)
+if (CONFIG_MAGNET_LIS2MDL)
 target_sources(app
 PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/drv_magn_lis2mdl.c

@@ -20,7 +20,7 @@ static struct vl53l4cd_ctx s_tof_ctx[TOF_ID_MAX] = {
         .i2c   = I2C_100KHZ_BUS,
         .xshut = TOF_XSHUT,
         .gpio  = { NULL, 0 },
-        .addr  = TOF_1ST_ADDR
+        .addr  = VL53L4CD_DEF_ADDR
     },
 };
 
@@ -54,9 +54,6 @@ void drv_tof_reset(int32_t tof_id)
     drv_tof_clear_interrupt(s_tof_ctx[tof_id].i2c, s_tof_ctx[tof_id].addr);
     drv_tof_stop_ranging(s_tof_ctx[tof_id].i2c, s_tof_ctx[tof_id].addr);
     drv_tof_dev_setting(s_tof_ctx[tof_id].i2c, s_tof_ctx[tof_id].addr);
-
-    if (drv_tof_set_range_timing(s_tof_ctx[tof_id].i2c, s_tof_ctx[tof_id].addr, 50, 0) == false)
-        printk("drv_tof_set_range_timing() is failed\n");
 }
 
 bool drv_init_tof(int32_t tof_id)
@@ -105,8 +102,6 @@ bool drv_init_tof(int32_t tof_id)
     // Program the highest possible TimingBudget, without enabling the
     // low power mode. This should give the best accuracy
     drv_tof_set_range_timing(s_tof_ctx[tof_id].i2c, s_tof_ctx[tof_id].addr, 200, 0);
-
-    k_msleep(1000);
 
     // Start Measurements
     drv_tof_start_ranging(s_tof_ctx[tof_id].i2c, s_tof_ctx[tof_id].addr);

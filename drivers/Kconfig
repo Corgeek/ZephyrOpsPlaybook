@@ -15,6 +15,58 @@ config DISPLAY_WRAPPER
     bool "Enable Display wrapper driver of microbit"
     depends on MICROBIT_DISPLAY
 
-rsource "sensor/Kconfig"
+###
+# Accel drivers
+
+config ACCEL_SENSOR
+    bool "Enable Acceleration sensor driver"
+    depends on I2C
+
+if ACCEL_SENSOR
+choice
+    prompt "Choose magnetic sensor driver"
+
+config ACCEL_LIS2DH
+    bool "Enable LIS2DH driver"
+    depends on I2C
+
+endchoice
+endif # ACCEL_SENSOR
+
+###
+# MAGNET drivers
+
+config MAGNET_SENSOR
+    bool "Enable Magnetic sensor driver"
+    depends on I2C
+
+if MAGNET_SENSOR
+choice
+    prompt "Choose magnetic sensor driver"
+
+config MAGNET_LIS2MDL
+    bool "Enable LIS2MDL driver"
+    depends on I2C
+
+endchoice
+endif # MAGNET_SENSOR
+
+###
+# MEASURE drivers
+
+config MEASURE_SENSOR
+    bool "Enable Measure sensor driver"
+    depends on I2C
+
+if MEASURE_SENSOR
+choice
+    prompt "Choose measure sensor driver"
+
+config TOF_VL53L4CD
+    bool "Enable VL53L4CD driver"
+    depends on I2C
+
+endchoice
+endif # MEASURE_SENSOR
 
 endmenu

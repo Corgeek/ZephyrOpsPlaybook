@@ -15,7 +15,7 @@ endif()
 ## Main Process
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
-project(ZephyrSkeleton)
+project(ZephyrPlaybook)
 
 include_directories(app
 PRIVATE
