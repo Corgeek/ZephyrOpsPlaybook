@@ -7,7 +7,7 @@ if (CONFIG_ACCEL_SENSOR)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/accel)
 endif()
 
-if (CONFIG_MANGET_SENSOR)
+if (CONFIG_MAGNET_SENSOR)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/magnet)
 endif()
 

@@ -93,7 +93,7 @@ int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
 /**
  * @brief sub command: exec magnetic sensor
  */
-#ifdef CONFIG_MANGET_SENSOR
+#ifdef CONFIG_MAGNET_SENSOR
 static
 int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
 {
@@ -127,7 +127,7 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
     }
     return 0;
 }
-#endif // CONFIG_MANGET_SENSOR
+#endif // CONFIG_MAGNET_SENSOR
 
 SHELL_STATIC_SUBCMD_SET_CREATE(s_exec_sub_array,
 #if defined(CONFIG_DISPLAY_WRAPPER)
@@ -139,9 +139,9 @@ SHELL_STATIC_SUBCMD_SET_CREATE(s_exec_sub_array,
 #if defined(CONFIG_ACCEL_SENSOR)
 	SHELL_CMD_ARG(accel,    NULL, "exec accel [loop_times]", exec_accel_sensor, 1, 1),
 #endif // CONFIG_ACCEL_SENSOR
-#if defined(CONFIG_MANGET_SENSOR)
+#if defined(CONFIG_MAGNET_SENSOR)
 	SHELL_CMD_ARG(magnet,   NULL, "exec magnet [loop_times]", exec_magnet_sensor, 1, 1),
-#endif // CONFIG_MANGET_SENSOR
+#endif // CONFIG_MAGNET_SENSOR
 	SHELL_SUBCMD_SET_END
 );
 

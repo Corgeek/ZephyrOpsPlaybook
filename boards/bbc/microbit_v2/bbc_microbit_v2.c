@@ -50,13 +50,13 @@ void uni_board_init(void)
 #if defined(CONFIG_DISPLAY_WRAPPER)
 	drv_init_display();
 #endif // CONFIG_DISPLAY_WRAPPER
-#if defined(CONFIG_ACCEL_SENSOR)
+#if defined(CONFIG_ACCEL_LIS2DH)
 	drv_init_accel();
-#endif // CONFIG_ACCEL_SENSOR
-#if defined(CONFIG_MANGET_SENSOR)
+#endif // CONFIG_ACCEL_LIS2DH
+#if defined(CONFIG_MAGNET_LIS2MDL)
 	drv_init_magnet();
-#endif // CONFIG_MANGET_SENSOR
-#if defined(CONFIG_VL53L4CD)
+#endif // CONFIG_MAGNET_LIS2MDL
+#if defined(CONFIG_TOF_VL53L4CD)
 	drv_init_tof(TOF_ID_1ST);
-#endif // CONFIG_VL53L4CD
+#endif // CONFIG_TOF_VL53L4CD
 }
