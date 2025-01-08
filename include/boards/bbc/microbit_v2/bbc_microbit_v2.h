@@ -10,7 +10,7 @@
 #include "drivers/display/drv_disp_microbit.h"
 #include "drivers/sensor/accel/drv_accel_lis2dh.h"
 #include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
-#include "drivers/sensor/measure/drv_tof_sequence.h"
+#include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
 #include "drivers/ble/drv_ble_peripheral.h"
 
 // Around 0 Ring

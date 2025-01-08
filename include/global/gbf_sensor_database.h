@@ -7,19 +7,10 @@
 #pragma once
 #include <zephyr/drivers/sensor.h>
 
-enum SENSOR_DATA_TYPE {
-    SENSOR_ACCEL,
-    SENSOR_MAGNET,
-
-    SENSOR_TYPE_MAX
-};
-
 struct sensor_3d {
     union {
         struct sensor_value array[3];
-        struct sensor_value x;
-        struct sensor_value y;
-        struct sensor_value z;
+        struct sensor_value x, y, z;
     };
 };
 
@@ -31,9 +22,13 @@ void gbf_init_sensor(void);
 /**
  * @brief Set data to sensor database
  */
-void gbf_set_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3d *const data);
+void gbf_set_accel(struct sensor_3d *const data);
+void gbf_set_magnet(struct sensor_3d *const data);
+void gbf_set_measure(uint16_t data);
 
 /**
  * @brief Get data from sensor database
  */
-void gbf_get_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3d *data);
+void gbf_get_accel(struct sensor_3d *data);
+void gbf_get_magnet(struct sensor_3d *data);
+void gbf_get_measure(uint16_t *data);

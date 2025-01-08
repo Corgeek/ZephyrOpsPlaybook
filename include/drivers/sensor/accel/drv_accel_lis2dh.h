@@ -8,9 +8,17 @@
 #include <zephyr/drivers/sensor.h>
 #include "global/gbf_sensor_database.h"
 
-#define SENSOR_ACCEL_FREQ_HZ   (20)
+#define SENSOR_ACCEL_PERIOD_MS      (100)
 
-const struct device *const accel_device(void);
+struct accel_ctx {
+    const struct device *const dev;
+    uint16_t period_ms;
+    uint16_t state;
+};
 
-bool drv_init_accel(void);
-int get_accel_xyz(struct sensor_3d *data);
+bool drv_init_accel(const struct accel_ctx *ctx);
+bool drv_accel_setup(const struct accel_ctx *ctx);
+
+int32_t drv_accel_start(const struct accel_ctx *ctx);
+int32_t drv_accel_stop(const struct accel_ctx *ctx);
+int32_t drv_accel_fetch(const struct accel_ctx *ctx, struct sensor_3d *value);

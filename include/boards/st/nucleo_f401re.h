@@ -5,7 +5,7 @@
  */
 #pragma once
 #include "drivers/i2c/drv_i2c_common.h"
-#include "drivers/sensor/measure/drv_tof_sequence.h"
+#include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
 #include "drivers/button/drv_button_nucleo.h"
 
 // CN7 odd

@@ -3,9 +3,7 @@
 
 cmake_minimum_required(VERSION 3.13.1)
 
-if (CONFIG_TOF_VL53L4CD)
 target_sources(app
 PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/drv_tof_vl53l4cd.c
+    ${CMAKE_CURRENT_LIST_DIR}/seq_sensor_measure.c
 )
-endif()

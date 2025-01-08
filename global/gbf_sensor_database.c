@@ -18,6 +18,7 @@ MUTEX_DEFINE();
 static struct SampleData {
 	struct sensor_3d accel;
 	struct sensor_3d magnet;
+	uint16_t measure;
 } s_sensor_data;
 
 void gbf_init_sensor(void)
@@ -25,32 +26,49 @@ void gbf_init_sensor(void)
 	memset(&s_sensor_data, 0, sizeof(s_sensor_data));
 }
 
-void gbf_set_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3d *const data)
+void gbf_set_accel(struct sensor_3d *const data)
 {
 	assert(data);
-
 	MUTEX_LOCK();
-
-	switch (type) {
-		case SENSOR_ACCEL:	memcpy(&s_sensor_data.accel,  data, sizeof(s_sensor_data.accel));	break;
-		case SENSOR_MAGNET:	memcpy(&s_sensor_data.magnet, data, sizeof(s_sensor_data.magnet));	break;
-		default:	break;
-	}
-
+	memcpy(&s_sensor_data.accel, data, sizeof(s_sensor_data.accel));
 	MUTEX_UNLOCK();
 }
 
-void gbf_get_sensor(enum SENSOR_DATA_TYPE type, struct sensor_3d *data)
+void gbf_set_magnet(struct sensor_3d *const data)
 {
 	assert(data);
-
 	MUTEX_LOCK();
+	memcpy(&s_sensor_data.magnet, data, sizeof(s_sensor_data.magnet));
+	MUTEX_UNLOCK();
+}
 
-	switch (type) {
-		case SENSOR_ACCEL:	memcpy(data, &s_sensor_data.accel,  sizeof(s_sensor_data.accel));	break;
-		case SENSOR_MAGNET:	memcpy(data, &s_sensor_data.magnet, sizeof(s_sensor_data.magnet));	break;
-		default:	break;
-	}
+void gbf_set_measure(uint16_t data)
+{
+	MUTEX_LOCK();
+	s_sensor_data.measure = data;
+	MUTEX_UNLOCK();
+}
 
+void gbf_get_accel(struct sensor_3d *data)
+{
+	assert(data);
+	MUTEX_LOCK();
+	memcpy(data, &s_sensor_data.accel,  sizeof(*data));
+	MUTEX_UNLOCK();
+}
+
+void gbf_get_magnet(struct sensor_3d *data)
+{
+	assert(data);
+	MUTEX_LOCK();
+	memcpy(data, &s_sensor_data.magnet,  sizeof(*data));
+	MUTEX_UNLOCK();
+}
+
+void gbf_get_measure(uint16_t *data)
+{
+	assert(data);
+	MUTEX_LOCK();
+	*data = s_sensor_data.measure;
 	MUTEX_UNLOCK();
 }

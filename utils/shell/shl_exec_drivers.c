@@ -71,12 +71,8 @@ int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
     }
 
     struct sensor_3d accel;
-    int ret;
     for (int i = 0; i < count; ++i) {
-        ret = get_accel_xyz(&accel);
-        if (ret != 0) {
-            return ret;
-        }
+        gbf_get_accel(&accel);
 #ifdef CONFIG_CBPRINTF_FP_SUPPORT
     	printk("accel:    (%12.6f, %12.6f, %12.6f)\n",
 	       sensor_value_to_double(&accel.x), sensor_value_to_double(&accel.y), sensor_value_to_double(&accel.z));
@@ -84,7 +80,7 @@ int exec_accel_sensor(const struct shell *shell, size_t argc, char *argv[])
         printk("accel:    (%6d.%6d, %6d.%6d, %6d.%6d)\n",
             accel.x.val1, accel.x.val2, accel.y.val1, accel.y.val2, accel.z.val1, accel.z.val2);
 #endif // CONFIG_CBPRINTF_FP_SUPPORT
-        k_msleep(1000 / SENSOR_ACCEL_FREQ_HZ);
+        k_msleep(SENSOR_ACCEL_PERIOD_MS);
     }
     return 0;
 }
@@ -109,13 +105,8 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
     }
 
     struct sensor_3d magnet;
-    int ret;
-
     for (int i = 0; i < count; ++i) {
-        ret = get_magnet_xyz(&magnet);
-        if (ret != 0) {
-            return ret;
-        }
+        gbf_get_magnet(&magnet);
 #ifdef CONFIG_CBPRINTF_FP_SUPPORT
     	printk("magnet:   (%12.6f, %12.6f, %12.6f)\n",
 	       sensor_value_to_double(&magnet.x), sensor_value_to_double(&magnet.y), sensor_value_to_double(&magnet.z));
@@ -123,11 +114,39 @@ int exec_magnet_sensor(const struct shell *shell, size_t argc, char *argv[])
         printk("magnet:   (%6d.%6d, %6d.%6d, %6d.%6d)\n",
             magnet.x.val1, magnet.x.val2, magnet.y.val1, magnet.y.val2, magnet.z.val1, magnet.z.val2);
 #endif // CONFIG_CBPRINTF_FP_SUPPORT
-        k_msleep(1000 / SENSOR_MAGNET_FREQ_HZ);
+        k_msleep(SENSOR_MAGNET_PERIOD_MS);
     }
     return 0;
 }
 #endif // CONFIG_MAGNET_SENSOR
+
+/**
+ * @brief sub command: exec magnetic sensor
+ */
+#ifdef CONFIG_MEASURE_SENSOR
+static
+int exec_measure_sensor(const struct shell *shell, size_t argc, char *argv[])
+{
+    int32_t count = 3;
+
+    if (argc == 2) {
+        errno = 0;
+        count = strtol(argv[argc - 1], NULL, 10);
+        if (errno == EINVAL) {
+            printk("e.g.: exec measure 5\n");
+            return EINVAL;
+        }
+    }
+
+    uint16_t dist_mm;
+    for (int i = 0; i < count; ++i) {
+        gbf_get_measure(&dist_mm);
+        printk("dist_mm:  (%6d)\n", dist_mm);
+        k_msleep(TOF_TIMING_BUDGET_MS);
+    }
+    return 0;
+}
+#endif // CONFIG_MEASURE_SENSOR
 
 SHELL_STATIC_SUBCMD_SET_CREATE(s_exec_sub_array,
 #if defined(CONFIG_DISPLAY_WRAPPER)
@@ -142,6 +161,9 @@ SHELL_STATIC_SUBCMD_SET_CREATE(s_exec_sub_array,
 #if defined(CONFIG_MAGNET_SENSOR)
 	SHELL_CMD_ARG(magnet,   NULL, "exec magnet [loop_times]", exec_magnet_sensor, 1, 1),
 #endif // CONFIG_MAGNET_SENSOR
+#if defined(CONFIG_MEASURE_SENSOR)
+	SHELL_CMD_ARG(measure,  NULL, "exec measure [loop_times]", exec_measure_sensor, 1, 1),
+#endif // CONFIG_MEASURE_SENSOR
 	SHELL_SUBCMD_SET_END
 );
 

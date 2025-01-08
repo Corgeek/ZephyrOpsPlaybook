@@ -14,6 +14,7 @@ struct gpio_port_pin {
 };
 
 #define GPIO_PORT_PIN(_port, _pin)          ((struct gpio_port_pin){ .port = DEVICE_DT_GET(DT_NODELABEL(_port)), .pin = (_pin) })
+#define GPIO_DUMMY                          ((struct gpio_port_pin){ .port = NULL, .pin = 0 })
 
 #if   defined(CONFIG_BOARD_BBC_MICROBIT)
 #include "boards/bbc/microbit/bbc_microbit.h"

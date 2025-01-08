@@ -5,20 +5,24 @@
  */
 
 #pragma once
+#include <zephyr/drivers/sensor.h>
 
-#include "vl53l4cd_api.h"
+#define VL53L4CD_DEF_ADDR       (0x29)
+#define TOF_TIMING_BUDGET_MS    (100)
 
-int32_t drv_tof_start_ranging(const struct device *const i2c_dev, uint16_t slv_addr);
+struct vl53l4cd_ctx {
+    const struct device *const i2c;
+    const struct gpio_port_pin xshut;
+    const struct gpio_port_pin interrupt;
+    uint16_t addr;
+    uint16_t state;
+    uint32_t timing_budget_ms;
+    uint32_t inter_measurement_ms;
+};
 
-int32_t drv_tof_start_system(const struct device *const i2c_dev, uint16_t slv_addr);
-int32_t drv_tof_stop_ranging(const struct device *const i2c_dev, uint16_t slv_addr);
-bool drv_tof_set_range_timing(const struct device *const i2c_dev, uint16_t slv_addr, uint32_t timing_budget_ms, uint32_t inter_measurement_ms);
+bool drv_init_tof(const struct vl53l4cd_ctx *ctx);
+bool drv_tof_setup(const struct vl53l4cd_ctx *ctx);
 
-int32_t drv_tof_clear_interrupt(const struct device *const i2c_dev, uint16_t slv_addr);
-int32_t drv_tof_set_address(const struct device *const i2c_dev, uint16_t cur_addr, uint16_t new_addr);
-uint16_t drv_tof_get_model_id(const struct device *const i2c_dev, uint16_t slv_addr);
-bool drv_tof_wait_for_init(const struct device *const i2c_dev, uint16_t slv_addr);
-uint8_t drv_tof_check_for_data_ready(const struct device *const i2c_dev, uint16_t slv_addr);
-
-int32_t drv_tof_load_defconf(const struct device *const i2c_dev, uint16_t slv_addr);
-int32_t drv_tof_dev_setting(const struct device *const i2c_dev, uint16_t slv_addr);
+int32_t drv_tof_start(const struct vl53l4cd_ctx *ctx);
+int32_t drv_tof_stop(const struct vl53l4cd_ctx *ctx);
+int32_t drv_tof_fetch(const struct vl53l4cd_ctx *ctx, struct sensor_value *data);
