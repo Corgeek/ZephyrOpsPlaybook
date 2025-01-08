@@ -8,9 +8,17 @@
 #include <zephyr/drivers/sensor.h>
 #include "global/gbf_sensor_database.h"
 
-#define SENSOR_MAGNET_FREQ_HZ   (20)
+#define SENSOR_MAGNET_PERIOD_MS     (100)
 
-const struct device *const magnet_device(void);
+struct magnet_ctx {
+    const struct device *const dev;
+    uint16_t period_ms;
+    uint16_t state;
+};
 
-bool drv_init_magnet(void);
-int get_magnet_xyz(struct sensor_3d *data);
+bool drv_init_magnet(const struct magnet_ctx *ctx);
+bool drv_magnet_setup(const struct magnet_ctx *ctx);
+
+int32_t drv_magnet_start(const struct magnet_ctx *ctx);
+int32_t drv_magnet_stop(const struct magnet_ctx *ctx);
+int32_t drv_magnet_fetch(const struct magnet_ctx *ctx, struct sensor_3d *data);

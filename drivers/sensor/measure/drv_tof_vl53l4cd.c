@@ -7,18 +7,20 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/i2c.h>
+#include <zephyr/drivers/sensor.h>
 #include <zephyr/device.h>
 #include <assert.h>
 #include "boards/unique.h"
 
 #include "drivers/i2c/drv_i2c_common.h"
 #include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
+#include "drivers/sensor/measure/vl53l4cd_api.h"
 
-#define VL53L4CD_SENSOR_ID       (0xEBAA)
+#define VL53L4CD_SENSOR_ID                      (0xEBAA)
+#define VL53L4CD_DEFAULT_CONFIG_START_REG       (0x2D)
+#define VL53L4CD_DEFAULT_CONFIG_END_REG         (0x87)
 
-static const uint8_t s_start_cfg_reg = 0x2d;
-//static const uint8_t s_end_cfg_reg = 0x87;
-static const uint8_t VL53L4CD_DEFAULT_CONFIGURATION[] = {
+static const uint8_t s_vl53l4cd_default_config[] = {
   0x12, /* 0x2d : set bit 2 and 5 to 1 for fast plus mode (1MHz I2C),
    else don't touch */
   0x00, /* 0x2e : bit 0 if I2C pulled up at 1.8V, else set bit 0 to 1
@@ -125,7 +127,32 @@ static const uint8_t VL53L4CD_DEFAULT_CONFIGURATION[] = {
     put 0x40 in location 0x87 */
 };
 
-int32_t drv_tof_start_ranging(const struct device *const i2c_dev, uint16_t slv_addr)
+static
+uint8_t drv_vl53l4cd_check_for_data_ready(const struct device *const i2c_dev, uint16_t slv_addr)
+{
+    uint8_t val = 0;
+    uint8_t int_pol;
+
+    i2c_wreg_read_byte(i2c_dev, slv_addr,
+            VL53L4CD_GPIO_HV_MUX_CTRL, &val);
+    val = (val & 0x10) >> 4;
+    int_pol = val ? 0x00 : 0x01;
+
+    i2c_wreg_read_byte(i2c_dev, slv_addr,
+            VL53L4CD_GPIO_TIO_HV_STATUS, &val);
+
+    return ((val & 0x01) == int_pol) ? 1 : 0;
+}
+
+static
+int32_t drv_vl53l4cd_clear_interrupt(const struct device *const i2c_dev, uint16_t slv_addr)
+{
+    return i2c_wreg_write_byte(i2c_dev, slv_addr,
+            VL53L4CD_SYSTEM_INTERRUPT_CLEAR, 0x01);
+}
+
+static
+int32_t drv_vl53l4cd_start_ranging(const struct device *const i2c_dev, uint16_t slv_addr)
 {
     int32_t result = 0;
     uint32_t value = 0;
@@ -146,7 +173,7 @@ int32_t drv_tof_start_ranging(const struct device *const i2c_dev, uint16_t slv_a
 
     int32_t tmp_res = VL53L4CD_ERROR_TIMEOUT;
     for (int32_t i = 0; i < 1000; ++i) {
-        if (drv_tof_check_for_data_ready(i2c_dev, slv_addr) == 1) {
+        if (drv_vl53l4cd_check_for_data_ready(i2c_dev, slv_addr) == 1) {
             tmp_res = 0;
             break;
         }
@@ -154,24 +181,27 @@ int32_t drv_tof_start_ranging(const struct device *const i2c_dev, uint16_t slv_a
         k_msleep(1);
     }
     result |= tmp_res;
-    result |= drv_tof_clear_interrupt(i2c_dev, slv_addr);
+    result |= drv_vl53l4cd_clear_interrupt(i2c_dev, slv_addr);
 
     return result;
 }
 
-int32_t drv_tof_start_system(const struct device *const i2c_dev, uint16_t slv_addr)
+static
+int32_t drv_vl53l4cd_start_system(const struct device *const i2c_dev, uint16_t slv_addr)
 {
     return i2c_wreg_write_byte(i2c_dev, slv_addr,
                 VL53L4CD_SYSTEM_START, 0x40);
 }
 
-int32_t drv_tof_stop_ranging(const struct device *const i2c_dev, uint16_t slv_addr)
+static
+int32_t drv_vl53l4cd_stop_ranging(const struct device *const i2c_dev, uint16_t slv_addr)
 {
     return i2c_wreg_write_byte(i2c_dev, slv_addr,
                 VL53L4CD_SYSTEM_START, 0x00);
 }
 
-bool drv_tof_set_range_timing(const struct device *const i2c_dev, uint16_t slv_addr, uint32_t timing_budget_ms, uint32_t inter_measurement_ms)
+static
+bool drv_vl53l4cd_set_range_timing(const struct device *const i2c_dev, uint16_t slv_addr, uint32_t timing_budget_ms, uint32_t inter_measurement_ms)
 {
     int32_t result = 0;
     uint16_t osc_freq = 0;
@@ -182,8 +212,7 @@ bool drv_tof_set_range_timing(const struct device *const i2c_dev, uint16_t slv_a
                 0x0006, &osc_freq);
     if (osc_freq != 0) {
         timing_budget_us = timing_budget_ms * (uint32_t)1000;
-        macro_period_us =
-            (uint32_t)((uint32_t)2304 * ((uint32_t)0x40000000 / (uint32_t)osc_freq)) >> 6;
+        macro_period_us = (uint32_t)((uint32_t)2304 * ((uint32_t)0x40000000 / (uint32_t)osc_freq)) >> 6;
     }
 
     // Timing budget check validity
@@ -248,18 +277,11 @@ bool drv_tof_set_range_timing(const struct device *const i2c_dev, uint16_t slv_a
     result |= i2c_wreg_write_word(i2c_dev, slv_addr,
             VL53L4CD_RANGE_CONFIG_B, ms_byte);
 
-    printk("%s() result: %d\n", __func__, result);
-
     return true;
 }
 
-int32_t drv_tof_clear_interrupt(const struct device *const i2c_dev, uint16_t slv_addr)
-{
-    return i2c_wreg_write_byte(i2c_dev, slv_addr,
-            VL53L4CD_SYSTEM_INTERRUPT_CLEAR, 0x01);
-}
-
-int32_t drv_tof_set_address(const struct device *const i2c_dev, uint16_t cur_addr, uint16_t new_addr)
+static
+int32_t drv_vl53l4cd_set_address(const struct device *const i2c_dev, uint16_t cur_addr, uint16_t new_addr)
 {
     if (cur_addr == new_addr)
         return 0;
@@ -268,15 +290,15 @@ int32_t drv_tof_set_address(const struct device *const i2c_dev, uint16_t cur_add
             VL53L4CD_I2C_SLAVE_DEVICE_ADDRESS, new_addr);
 }
 
-uint16_t drv_tof_get_model_id(const struct device *const i2c_dev, uint16_t slv_addr)
+static
+int32_t drv_vl53l4cd_get_model_id(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t *model_id)
 {
-    int32_t result;
-    uint32_t val;
-    result = i2c_wreg_read_multi(i2c_dev, slv_addr, VL53L4CD_IDENTIFICATION_MODEL_ID, &val, 2);
-    return result ? 0 : (uint16_t)(val);
+    return i2c_wreg_read_word(i2c_dev, slv_addr,
+            VL53L4CD_IDENTIFICATION_MODEL_ID, model_id);
 }
 
-bool drv_tof_wait_for_init(const struct device *const i2c_dev, uint16_t slv_addr)
+static
+bool drv_vl53l4cd_wait_for_init(const struct device *const i2c_dev, uint16_t slv_addr)
 {
     uint8_t firm = 0;
 
@@ -294,42 +316,204 @@ bool drv_tof_wait_for_init(const struct device *const i2c_dev, uint16_t slv_addr
     return false;
 }
 
-uint8_t drv_tof_check_for_data_ready(const struct device *const i2c_dev, uint16_t slv_addr)
-{
-    uint8_t val = 0;
-    uint8_t int_pol;
-
-    i2c_wreg_read_byte(i2c_dev, slv_addr,
-            VL53L4CD_GPIO_HV_MUX_CTRL, &val);
-    val = (val & 0x10) >> 4;
-    int_pol = val ? 0x00 : 0x01;
-
-    i2c_wreg_read_byte(i2c_dev, slv_addr,
-            VL53L4CD_GPIO_TIO_HV_STATUS, &val);
-
-    return ((val & 0x01) == int_pol) ? 1 : 0;
-}
-
-int32_t drv_tof_load_defconf(const struct device *const i2c_dev, uint16_t slv_addr)
+static
+int32_t drv_vl53l4cd_load_defconf(const struct device *const i2c_dev, uint16_t slv_addr)
 {
     int32_t result = 0;
 
     // Load default configuration
-    for (uint8_t i = 0; i < ARRAY_SIZE(VL53L4CD_DEFAULT_CONFIGURATION); ++i) {
+    for (uint8_t i = 0; i < ARRAY_SIZE(s_vl53l4cd_default_config); ++i) {
         result |= i2c_wreg_write_byte(i2c_dev, slv_addr,
-                s_start_cfg_reg + i, VL53L4CD_DEFAULT_CONFIGURATION[i]);
+                VL53L4CD_DEFAULT_CONFIG_START_REG + i, s_vl53l4cd_default_config[i]);
     }
 
     return result;
 }
 
-int32_t drv_tof_dev_setting(const struct device *const i2c_dev, uint16_t slv_addr)
+static
+int32_t drv_vl53l4cd_dev_setting(const struct device *const i2c_dev, uint16_t slv_addr)
 {
     int32_t result = 0;
 
     result |= i2c_wreg_write_byte(i2c_dev, slv_addr, VL53L4CD_VHV_CONFIG_TIMEOUT_MACROP_LOOP_BOUND, 0x09);
     result |= i2c_wreg_write_byte(i2c_dev, slv_addr, 0x000B, 0x00);
     result |= i2c_wreg_write_word(i2c_dev, slv_addr, 0x0024, 0x500);
+
+    return result;
+}
+
+static
+int32_t drv_vl53l4cd_get_signal_rate(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t *value)
+{
+    return i2c_wreg_read_word(i2c_dev, slv_addr,
+            VL53L4CD_RESULT_SIGNAL_RATE, value);
+}
+/*
+static
+int32_t drv_vl53l4cd_get_ambient_rate(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t *value)
+{
+    return i2c_wreg_read_word(i2c_dev, slv_addr,
+            VL53L4CD_RESULT_AMBIENT_RATE, value);
+}
+
+static
+int32_t drv_vl53l4cd_get_sigma(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t *value)
+{
+    return i2c_wreg_read_word(i2c_dev, slv_addr,
+            VL53L4CD_RESULT_SIGMA, value);
+}
+*/
+static
+int32_t drv_vl53l4cd_get_distance(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t *value)
+{
+    return i2c_wreg_read_word(i2c_dev, slv_addr,
+            VL53L4CD_RESULT_DISTANCE, value);
+}
+
+static
+void drv_vl53l4cd_power(const struct gpio_port_pin *xshut, bool on_off)
+{
+    gpio_pin_set(xshut->port, xshut->pin, on_off ? 1 : 0);
+    k_msleep(10);
+}
+
+bool drv_init_tof(const struct vl53l4cd_ctx *ctx)
+{
+    // Setup port-pin
+    if (device_is_ready(ctx->xshut.port) == false) {
+        printk("%s is not ready\n", ctx->xshut.port->name);
+        return false;
+    }
+
+    if (ctx->interrupt.port != NULL) {
+        if (device_is_ready(ctx->interrupt.port) == false) {
+            printk("%s is not ready\n", ctx->interrupt.port->name);
+            return false;
+        }
+    }
+
+    int32_t result;
+    result = gpio_pin_configure(ctx->xshut.port, ctx->xshut.pin, GPIO_OUTPUT);
+    if (result) {
+        printk("%s configure failed\n", ctx->interrupt.port->name);
+        return false;
+    }
+
+    // Start initial sequence
+    drv_vl53l4cd_power(&ctx->xshut, false);
+    drv_vl53l4cd_power(&ctx->xshut, true);
+
+    // Change slave address
+    if (drv_vl53l4cd_set_address(ctx->i2c, VL53L4CD_DEF_ADDR, ctx->addr)) {
+        printk("VL53L4CD_I2C_SLAVE_DEVICE_ADDRESS is failed[%x]\n", ctx->addr);
+        return false;
+    }
+
+    // Get Sensor ID
+    uint16_t val = 0;
+    drv_vl53l4cd_get_model_id(ctx->i2c, ctx->addr, &val);
+    if (val != VL53L4CD_SENSOR_ID) {
+        printk("Sensor ID[%d] is mismatched\n", val);
+        return false;
+    }
+
+    return true;
+}
+
+bool drv_tof_setup(const struct vl53l4cd_ctx *ctx)
+{
+    if (drv_vl53l4cd_wait_for_init(ctx->i2c, ctx->addr) == false) {
+        printk("drv_vl53l4cd_wait_for_init() is timeouted\n");
+        return false;
+    }
+
+    int32_t result = 0;
+    do {
+        // Load default configuration
+        result |= drv_vl53l4cd_load_defconf(ctx->i2c, ctx->addr);
+        if (result) {
+            printk("drv_vl53l4cd_load_defconf() failed[%d]\n", result);
+            break;
+        }
+
+        // Start
+        result |= drv_vl53l4cd_start_system(ctx->i2c, ctx->addr);
+        if (result) {
+            printk("drv_vl53l4cd_start_system() failed[%d]\n", result);
+            break;
+        }
+
+        bool is_ready = false;
+        for (int32_t i = 0; i < 1000; ++i) {
+            is_ready = drv_vl53l4cd_check_for_data_ready(ctx->i2c, ctx->addr);
+            if (is_ready)
+                break;
+
+            k_msleep(1);
+        }
+        if (is_ready == false) {
+            printk("drv_vl53l4cd_check_for_data_ready() not ready\n");
+            break;
+        }
+
+        result |= drv_vl53l4cd_clear_interrupt(ctx->i2c, ctx->addr);
+        if (result) {
+            printk("drv_vl53l4cd_clear_interrupt() failed[%d]\n", result);
+            break;
+        }
+
+        result |= drv_vl53l4cd_stop_ranging(ctx->i2c, ctx->addr);
+        if (result) {
+            printk("drv_vl53l4cd_stop_ranging() failed[%d]\n", result);
+            break;
+        }
+
+        result |= drv_vl53l4cd_dev_setting(ctx->i2c, ctx->addr);
+        if (result) {
+            printk("drv_vl53l4cd_dev_setting() failed[%d]\n", result);
+            break;
+        }
+
+        // Program the highest possible TimingBudget, without enabling the
+        // low power mode. This should give the best accuracy
+        if (drv_vl53l4cd_set_range_timing(ctx->i2c, ctx->addr, ctx->timing_budget_ms, ctx->inter_measurement_ms) == false) {
+            printk("drv_vl53l4cd_set_range_timing() failed\n");
+            break;
+        }
+
+    } while (0);
+
+    return result ? false : true;
+}
+
+int32_t drv_tof_start(const struct vl53l4cd_ctx *ctx)
+{
+    return drv_vl53l4cd_start_ranging(ctx->i2c, ctx->addr);
+}
+
+int32_t drv_tof_stop(const struct vl53l4cd_ctx *ctx)
+{
+    return drv_vl53l4cd_stop_ranging(ctx->i2c, ctx->addr);
+}
+
+int32_t drv_tof_fetch(const struct vl53l4cd_ctx *ctx, struct sensor_value *data)
+{
+    if (drv_vl53l4cd_check_for_data_ready(ctx->i2c, ctx->addr) == 0) {
+        printk("data is not ready");
+        return -1;
+    }
+
+    int32_t result;
+    uint16_t dist_mm;
+    uint16_t sig_rate;
+
+    // (Mandatory) Clear HW interrupt to restart measurements
+    result = drv_vl53l4cd_clear_interrupt(ctx->i2c, ctx->addr);
+    result |= drv_vl53l4cd_get_distance(ctx->i2c, ctx->addr, &dist_mm);
+    result |= drv_vl53l4cd_get_signal_rate(ctx->i2c, ctx->addr, &sig_rate);
+
+    data->val1 = dist_mm;
+    data->val2 = sig_rate;
 
     return result;
 }

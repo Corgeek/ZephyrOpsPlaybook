@@ -12,38 +12,47 @@
 #include <assert.h>
 #include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
 
-const struct device *const magnet_device(void)
+bool drv_init_magnet(const struct magnet_ctx *ctx)
 {
-    static const struct device *s_magn0_dev = DEVICE_DT_GET(DT_ALIAS(magn0));
-    return s_magn0_dev;
-}
-
-int get_magnet_xyz(struct sensor_3d *data)
-{
-    assert(data);
-    int ret;
-
-    ret = sensor_sample_fetch(magnet_device());
-    if (ret < 0) {
-		printk("%s: sensor_sample_fetch() failed: %d\n", magnet_device()->name, ret);
-		return ret;
-	}
-
-    ret = sensor_channel_get(magnet_device(), SENSOR_CHAN_MAGN_XYZ, data->array);
-    if (ret < 0) {
-        printk("%s: sensor_channel_get(XYZ) failed: %d\n", magnet_device()->name, ret);
-        return ret;
-    }
-
-    return 0;
-}
-
-bool drv_init_magnet(void)
-{
-    if (device_is_ready(magnet_device()) == false) {
-        printk("%s: sensor device is not ready.\n", magnet_device()->name);
+    if (device_is_ready(ctx->dev) == false) {
+        printk("%s: sensor device is not ready.\n", ctx->dev->name);
         return false;
     }
 
     return true;
+}
+
+bool drv_magnet_setup(const struct magnet_ctx *ctx)
+{
+    return true;
+}
+
+int32_t drv_magnet_start(const struct magnet_ctx *ctx)
+{
+    return 0;
+}
+
+int32_t drv_magnet_stop(const struct magnet_ctx *ctx)
+{
+    return 0;
+}
+
+int32_t drv_magnet_fetch(const struct magnet_ctx *ctx, struct sensor_3d *data)
+{
+    assert(data);
+    int result;
+
+    result = sensor_sample_fetch(ctx->dev);
+    if (result < 0) {
+		printk("%s: sensor_sample_fetch() failed: %d\n", ctx->dev->name, result);
+		return result;
+	}
+
+    result = sensor_channel_get(ctx->dev, SENSOR_CHAN_MAGN_XYZ, data->array);
+    if (result < 0) {
+        printk("%s: sensor_channel_get(XYZ) failed: %d\n", ctx->dev->name, result);
+        return result;
+    }
+
+    return 0;
 }
