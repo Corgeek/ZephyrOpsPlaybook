@@ -21,7 +21,7 @@ fi
 west build -b ${BOARD_TYPE}
 
 if [ ${?} = 0 ] && [ "${FLASH}" = "TRUE" ]; then
-	west flash --runner openocd
+	west flash
 fi
 
 popd > /dev/null

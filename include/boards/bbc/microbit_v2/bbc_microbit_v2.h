@@ -48,5 +48,3 @@
 #define GPIO_RING_1                 GPIO0_PIN03
 #define GPIO_RING_2                 GPIO0_PIN04
 #define TOF_XSHUT                   GPIO_RING_0
-
-void uni_board_init(void);
