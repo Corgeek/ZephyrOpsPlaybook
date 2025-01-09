@@ -32,7 +32,7 @@ sudo bash kitware-archive.sh
 sudo apt install --no-install-recommends git cmake ninja-build gperf \
   ccache dfu-util device-tree-compiler wget \
   python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
-  make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
+  make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 openocd
 ```
 うまく行かなかった場合は、下記公式ページを参照<br>
 [Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
@@ -128,7 +128,7 @@ playbook に移動しそれぞれ以下のコマンドを実行
 
 | 機能 | コマンド |
 |-----|----|
-| Rebuild | ./scripts/build /r |
+| Rebuild | ./scripts/build.bat /r |
 | Build | ./scripts/build.bat |
 | Flash | ./scripts/build.bat /f |
 | Debug | ./scripts/debug.bat |
