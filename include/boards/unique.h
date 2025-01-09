@@ -13,6 +13,8 @@ struct gpio_port_pin {
     const gpio_pin_t pin;
 };
 
+void uni_board_init(void);
+
 #define GPIO_PORT_PIN(_port, _pin)          ((struct gpio_port_pin){ .port = DEVICE_DT_GET(DT_NODELABEL(_port)), .pin = (_pin) })
 #define GPIO_DUMMY                          ((struct gpio_port_pin){ .port = NULL, .pin = 0 })
 
@@ -21,7 +23,11 @@ struct gpio_port_pin {
 #elif defined(CONFIG_BOARD_BBC_MICROBIT_V2)
 #include "boards/bbc/microbit_v2/bbc_microbit_v2.h"
 #elif defined(CONFIG_BOARD_NUCLEO_F401RE)
-#include "boards/st/nucleo_f401re.h"
+#include "boards/st/nucleo_f401re/nucleo_f401re.h"
+#elif defined(CONFIG_BOARD_NUCLEO_F030R8)
+#include "boards/st/nucleo_f030r8/nucleo_f030r8.h"
+#elif defined(CONFIG_BOARD_RPI_PICO)
+#include "boards/raspberrypi/rpi_pico/rpi_pico.h"
 #else
 #include "boards/generic/generic_board.h"
 #endif
