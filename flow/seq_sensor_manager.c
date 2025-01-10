@@ -8,7 +8,7 @@
 #include <zephyr/device.h>
 #include "boards/unique.h"
 #include "global/gbf_sensor_database.h"
-#include "flow/seq_sensor_measure.h"
+#include "flow/seq_sensor_manager.h"
 #include "drivers/sensor/accel/drv_accel_lis2dh.h"
 #include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
 
@@ -20,7 +20,7 @@ enum TOF_DEV_ID {
 
 #if defined(CONFIG_ACCEL_SENSOR)
 static struct accel_ctx s_accel_ctx = {
-    .state = SEQ_SENSOR_INIT,
+    .state = STS_SENSOR_INIT,
     .dev = DEVICE_DT_GET(DT_NODELABEL(lsm303agr_accel)),
     .period_ms = SENSOR_ACCEL_PERIOD_MS,
 };
@@ -28,7 +28,7 @@ static struct accel_ctx s_accel_ctx = {
 
 #if defined(CONFIG_MAGNET_SENSOR)
 static struct magnet_ctx s_magnet_ctx = {
-    .state = SEQ_SENSOR_INIT,
+    .state = STS_SENSOR_INIT,
     .dev = DEVICE_DT_GET(DT_ALIAS(magn0)),
     .period_ms = SENSOR_MAGNET_PERIOD_MS,
 };
@@ -37,7 +37,7 @@ static struct magnet_ctx s_magnet_ctx = {
 #if defined(CONFIG_MEASURE_SENSOR)
 static struct vl53l4cd_ctx s_tof_ctx[TOF_ID_MAX] = {
     [TOF_ID_1ST] = {
-        .state = SEQ_SENSOR_INIT,
+        .state = STS_SENSOR_INIT,
         .i2c = I2C_100KHZ_BUS,
         .xshut = TOF_XSHUT,
         .interrupt = GPIO_DUMMY,
@@ -55,27 +55,27 @@ void seq_sensor_accel(void)
     struct sensor_3d value;
 
     switch (s_accel_ctx.state) {
-    case SEQ_SENSOR_INIT:
+    case STS_SENSOR_INIT:
         if (drv_init_accel(&s_accel_ctx))
-            s_accel_ctx.state = SEQ_SENSOR_SETUP;
+            s_accel_ctx.state = STS_SENSOR_SETUP;
         break;
 
-    case SEQ_SENSOR_SETUP:
+    case STS_SENSOR_SETUP:
         if (drv_accel_setup(&s_accel_ctx))
-            s_accel_ctx.state = SEQ_SENSOR_READY;
+            s_accel_ctx.state = STS_SENSOR_READY;
         break;
 
-    case SEQ_SENSOR_READY:
+    case STS_SENSOR_READY:
         if (drv_accel_start(&s_accel_ctx) == 0)
-            s_accel_ctx.state = SEQ_SENSOR_ACTIVE;
+            s_accel_ctx.state = STS_SENSOR_ACTIVE;
         break;
 
-    case SEQ_SENSOR_ACTIVE:
+    case STS_SENSOR_ACTIVE:
         drv_accel_fetch(&s_accel_ctx, &value);
         gbf_set_accel(&value);
         break;
 
-    case SEQ_SENSOR_FATAL:
+    case STS_SENSOR_FATAL:
     default:
         break;
     }
@@ -89,27 +89,27 @@ void seq_sensor_magnet(void)
     struct sensor_3d value;
 
     switch (s_magnet_ctx.state) {
-    case SEQ_SENSOR_INIT:
+    case STS_SENSOR_INIT:
         if (drv_init_magnet(&s_magnet_ctx))
-            s_magnet_ctx.state = SEQ_SENSOR_SETUP;
+            s_magnet_ctx.state = STS_SENSOR_SETUP;
         break;
 
-    case SEQ_SENSOR_SETUP:
+    case STS_SENSOR_SETUP:
         if (drv_magnet_setup(&s_magnet_ctx))
-            s_magnet_ctx.state = SEQ_SENSOR_READY;
+            s_magnet_ctx.state = STS_SENSOR_READY;
         break;
 
-    case SEQ_SENSOR_READY:
+    case STS_SENSOR_READY:
         if (drv_magnet_start(&s_magnet_ctx) == 0)
-            s_magnet_ctx.state = SEQ_SENSOR_ACTIVE;
+            s_magnet_ctx.state = STS_SENSOR_ACTIVE;
         break;
 
-    case SEQ_SENSOR_ACTIVE:
+    case STS_SENSOR_ACTIVE:
         drv_magnet_fetch(&s_magnet_ctx, &value);
         gbf_set_magnet(&value);
         break;
 
-    case SEQ_SENSOR_FATAL:
+    case STS_SENSOR_FATAL:
     default:
         break;
     }
@@ -124,27 +124,27 @@ void seq_sensor_measure(void)
         struct sensor_value value;
 
         switch (s_tof_ctx[i].state) {
-        case SEQ_SENSOR_INIT:
+        case STS_SENSOR_INIT:
             if (drv_init_tof(&s_tof_ctx[i]))
-                s_tof_ctx[i].state = SEQ_SENSOR_SETUP;
+                s_tof_ctx[i].state = STS_SENSOR_SETUP;
             break;
 
-        case SEQ_SENSOR_SETUP:
+        case STS_SENSOR_SETUP:
             if (drv_tof_setup(&s_tof_ctx[i]))
-                s_tof_ctx[i].state = SEQ_SENSOR_READY;
+                s_tof_ctx[i].state = STS_SENSOR_READY;
             break;
 
-        case SEQ_SENSOR_READY:
+        case STS_SENSOR_READY:
             if (drv_tof_start(&s_tof_ctx[i]) == 0)
-                s_tof_ctx[i].state = SEQ_SENSOR_ACTIVE;
+                s_tof_ctx[i].state = STS_SENSOR_ACTIVE;
             break;
 
-        case SEQ_SENSOR_ACTIVE:
+        case STS_SENSOR_ACTIVE:
             drv_tof_fetch(&s_tof_ctx[i], &value);
             gbf_set_measure((uint16_t)(value.val1));
             break;
 
-        case SEQ_SENSOR_FATAL:
+        case STS_SENSOR_FATAL:
         default:
             break;
         }

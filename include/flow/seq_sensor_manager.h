@@ -9,14 +9,14 @@
 #include "boards/unique.h"
 
 enum SEQ_SENSOR_STATE {
-    SEQ_SENSOR_INIT,
-    SEQ_SENSOR_SETUP,
-    SEQ_SENSOR_READY,
-    SEQ_SENSOR_ACTIVE,
+    STS_SENSOR_INIT,
+    STS_SENSOR_SETUP,
+    STS_SENSOR_READY,
+    STS_SENSOR_ACTIVE,
 
-    SEQ_SENSOR_FATAL,
+    STS_SENSOR_FATAL,
 
-    SEQ_SENSOR_MAX
+    STS_SENSOR_MAX
 };
 
 void seq_sensor_manager(void);
