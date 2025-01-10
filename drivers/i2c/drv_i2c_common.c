@@ -18,7 +18,7 @@ struct i2c_config {
 
 static struct i2c_config s_i2c_dev[] = {
 #ifdef I2C_100KHZ_BUS
-    [I2C_ID_SNSR] = { .dev = I2C_100KHZ_BUS, .speed = I2C_SPEED_STANDARD, .is_ready = false },
+    { .dev = I2C_100KHZ_BUS, .speed = I2C_SPEED_STANDARD, .is_ready = false },
 #endif // I2C_100KHZ_BUS
 };
 

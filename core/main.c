@@ -6,7 +6,7 @@
 
 #include <zephyr/kernel.h>
 #include "boards/unique.h"
-#include "flow/seq_sensor_measure.h"
+#include "flow/seq_sensor_manager.h"
 #include "global/gbf_sensor_database.h"
 
 int main(void)

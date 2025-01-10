@@ -7,12 +7,6 @@
 #pragma once
 #include <zephyr/kernel.h>
 
-enum I2C_ID {
-    I2C_ID_SNSR,
-
-    I2C_MAX
-};
-
 bool drv_init_i2c(void);
 
 /* for 8bit size register address */

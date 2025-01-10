@@ -133,7 +133,7 @@ playbook に移動しそれぞれ以下のコマンドを実行
 
 | 機能 | コマンド |
 |-----|----|
-| Rebuild | ./scripts/build /r |
+| Rebuild | ./scripts/build.bat /r |
 | Build | ./scripts/build.bat |
 | Flash | ./scripts/build.bat /f |
 | Debug | ./scripts/debug.bat |
