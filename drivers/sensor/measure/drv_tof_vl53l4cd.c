@@ -237,8 +237,8 @@ bool drv_vl53l4cd_set_range_timing(const struct device *const i2c_dev, uint16_t 
                                 * (float)inter_measurement_ms
                                 * (float)clock_pll;
 
-        result |= i2c_wreg_write_multi(i2c_dev, slv_addr,
-            VL53L4CD_INTERMEASUREMENT_MS, (uint8_t*)&inter_measurement_factor, sizeof(inter_measurement_factor));
+        result |= i2c_wreg_write_dword(i2c_dev, slv_addr,
+            VL53L4CD_INTERMEASUREMENT_MS, *(uint32_t*)&inter_measurement_factor);
 
         timing_budget_us -= (uint32_t)4300;
         timing_budget_us /= (uint32_t)2;
