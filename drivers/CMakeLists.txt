@@ -25,3 +25,7 @@ endif()
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/display)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/sensor)
+
+if (CONFIG_SERIAL)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/serial)
+endif()
