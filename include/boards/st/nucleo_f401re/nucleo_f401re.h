@@ -93,6 +93,7 @@
                                                                     // -
 
 #define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c1))
-#define	GREEN_LED					GPIOA_PIN05
+#define UART_115200_BUS             DEVICE_DT_GET(DT_NODELABEL(usart1))
+#define	GREEN_LED                   GPIOA_PIN05
 #define USER_BUTTON                 GPIOC_PIN13
 #define TOF_XSHUT                   GPIOA_PIN00

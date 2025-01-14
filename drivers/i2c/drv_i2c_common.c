@@ -26,7 +26,7 @@ bool drv_init_i2c(void)
 {
     int ret = 0;
 
-    for (int i = 0; i < ARRAY_SIZE(s_i2c_dev); ++i) {
+    for (size_t i = 0; i < ARRAY_SIZE(s_i2c_dev); ++i) {
         s_i2c_dev[i].is_ready = device_is_ready(s_i2c_dev[i].bus);
         if (s_i2c_dev[i].is_ready == false) {
             printk("i2c is not ready[%s]\n", s_i2c_dev[i].bus->name);
@@ -36,11 +36,17 @@ bool drv_init_i2c(void)
         ret = i2c_configure(s_i2c_dev[i].bus, I2C_MODE_CONTROLLER | I2C_SPEED_SET(s_i2c_dev[i].speed));
         if (ret) {
             printk("i2c_configure() failed[%s]\n", s_i2c_dev[i].bus->name);
+            s_i2c_dev[i].is_ready = false;
             continue;
         }
     }
 
-    return true;
+    bool result = true;
+    for (size_t i = 0; i < ARRAY_SIZE(s_i2c_dev); ++i) {
+        result |= s_i2c_dev[i].is_ready;
+    }
+
+    return result;
 }
 
 /* for 8bit size register address */
