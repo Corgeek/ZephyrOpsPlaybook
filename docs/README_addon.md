@@ -24,26 +24,44 @@ WSL は USB 機器の制御を理由に公式で推奨されていませんが�
 
 ## 2. 使い方
 
-### 2.1.リポジトリのクローン
+### 2.1. 事前の追加インストール
+
+Zephyr の開発で利用する west flash / west debug では、かなりのボードが openocd で利用可能となっており、
+こちらのインストールをしておくだけで数多くのボードの開発が容易になります。
+
+#### 2.2.1. Windows 向け
+**管理者権限**でコマンドプロンプトを開き、下記実行により必要なツールをインストール。
+
+```
+choco install openocd-xpack
+```
+
+#### 2.3.2. Ubuntu 向け
+下記コマンドで追加インストール
+```
+sudo apt-get install openocd
+```
+
+### 2.2.リポジトリのクローン
 作業用のディレクトリ zephyrproject の中に本リポジトリをクローン(playbook は適宜変更してOK)
 ```
 cd zephyrproject
 git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
 ```
 
-### 2.2. west コマンドの簡略用スクリプトを準備
+### 2.3. west コマンドの簡略用スクリプトを準備
 ---
-#### 2.2.1. Windows 向け
+#### 2.3.1. Windows 向け
 
 playbook\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.bat を実行
-> set BOARD_TYPE=bbc_microbit_v2
+> set BOARD_TYPE=rpi_pico
 ```
 scripts\setup.bat
 ```
 ---
-#### 2.2.2. Ubuntu 向け
+#### 2.3.2. Ubuntu 向け
 playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.sh を実行
-> BOARD_TYPE=bbc_microbit_v2
+> BOARD_TYPE=rpi_pico
 ```
 ./scripts/setup.sh
 ```
@@ -53,7 +71,7 @@ playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設
 
 以上で、初回の構築は完了です。
 
-### 2.3. 最終的なディレクトリ構成
+### 2.4. 最終的なディレクトリ構成
 
 ディレクトリ構成(一部)は以下のようになっており、SDK 以外はすべてこの中に内包しています。
 ```
