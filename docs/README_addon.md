@@ -33,7 +33,7 @@ Zephyr の開発で利用する west flash / west debug では、かなりのボ
 **管理者権限**でコマンドプロンプトを開き、下記実行により必要なツールをインストール。
 
 ```
-choco install openocd-xpack
+choco install openocd
 ```
 
 #### 2.3.2. Ubuntu 向け
