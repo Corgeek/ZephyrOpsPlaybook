@@ -26,7 +26,7 @@ WSL は USB 機器の制御を理由に公式で推奨されていませんが�
 ### 2.2. 必要なツールのインストール
 1. chocolatery のインストール ([公式参照](https://chocolatey.org/install))
 2. **管理者権限**でコマンドプロンプトを開き、下記実行により必要なツールをインストール。
-(公式手順に加えて openocd-xpack も指定してあります。書き込みやデバッグに於いて数多くのボードをサポートしており、追加インストール推奨です)
+(公式手順に加えて openocd も指定してあります。書き込みやデバッグに於いて数多くのボードをサポートしており、追加インストール推奨です)
 
 > [!IMPORTANT]
 **管理者権限**は、「コマンドプロンプトを右クリック」から「管理者として実行」、もしくは「スタートキーを押しながら + X」 で出てくるコンテキストメニューから、「ターミナル(管理者)」でも開けます。また、**管理者権限**で行う作業はここで終わりです。ミスを避けるため閉じておきましょう。
@@ -35,7 +35,7 @@ WSL は USB 機器の制御を理由に公式で推奨されていませんが�
 choco feature enable -n allowGlobalConfirmation
 choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
 choco install ninja gperf python311 git dtc-msys2 wget 7zip
-choco install openocd-xpack
+choco install openocd
 ```
 
 うまく行かなかった場合は、下記公式ページを参照。<br>
