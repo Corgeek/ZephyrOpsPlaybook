@@ -22,10 +22,12 @@ void uni_board_init(void);
 #include "boards/bbc/microbit/bbc_microbit.h"
 #elif defined(CONFIG_BOARD_BBC_MICROBIT_V2)
 #include "boards/bbc/microbit_v2/bbc_microbit_v2.h"
-#elif defined(CONFIG_BOARD_NUCLEO_F401RE)
-#include "boards/st/nucleo_f401re/nucleo_f401re.h"
 #elif defined(CONFIG_BOARD_NUCLEO_F030R8)
 #include "boards/st/nucleo_f030r8/nucleo_f030r8.h"
+#elif defined(CONFIG_BOARD_NUCLEO_F401RE)
+#include "boards/st/nucleo_f401re/nucleo_f401re.h"
+#elif defined(CONFIG_BOARD_NUCLEO_L552ZE_Q)
+#include "boards/st/nucleo_l552ze_q/nucleo_l552ze_q.h"
 #elif defined(CONFIG_BOARD_RPI_PICO)
 #include "boards/raspberrypi/rpi_pico/rpi_pico.h"
 #else
