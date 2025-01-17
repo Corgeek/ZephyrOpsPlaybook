@@ -21,7 +21,7 @@
 };
 
 &mma8653fc {
-    status = "disabled";
+    status = "okay";
 };
 
 &lsm303agr_accel {
