@@ -31,7 +31,7 @@ if %ERRORLEVEL% neq 0 exit /b 1
 
 if "%FLASH%" == "TRUE" (
 @echo on
-  west flash
+  west flash %RUNNER_FLASH%
 )
 
 popd

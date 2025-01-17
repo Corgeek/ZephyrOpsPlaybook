@@ -10,6 +10,6 @@ set PROJ_PATH=!PROJ_PATH:\=/!
 call scripts/west_env.bat
 if %ERRORLEVEL% neq 0 exit /b 1
 
-west debugserver
+west debugserver %RUNNER_DEBUG%
 
 popd
