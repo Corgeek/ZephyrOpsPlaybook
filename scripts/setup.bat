@@ -5,14 +5,21 @@ setlocal enabledelayedexpansion
 set BOARD_TYPE=rpi_pico
 set BOARD_TYPE=nucleo_f030r8
 set BOARD_TYPE=nucleo_f401re
+set BOARD_TYPE=nucleo_l552ze_q
 set BOARD_TYPE=bbc_microbit
 set BOARD_TYPE=bbc_microbit_v2
+set BOARD_TYPE=nucleo_l552ze_q
 
 set SCRIPT_DIR=%~dp0
 pushd %SCRIPT_DIR%..
 set PROJ_PATH=%cd%
 pushd ..
 set ZEPHYR_ROOT=%cd%
+popd
+
+pushd %SCRIPT_DIR%
+for /f "delims=" %%A in ('python opt_gen.py flash %BOARD_TYPE%') do set RUNNER_FLASH=%%A
+for /f "delims=" %%A in ('python opt_gen.py debug %BOARD_TYPE%') do set RUNNER_DEBUG=%%A
 popd
 
 set "ZEPHYR_ROOT=!ZEPHYR_ROOT:\=/!"
@@ -22,6 +29,8 @@ set "PROJ_PATH=!PROJ_PATH:\=/!"
 (
 echo set ZEPHYR_ROOT=%ZEPHYR_ROOT%
 echo set BOARD_TYPE=%BOARD_TYPE%
+echo set RUNNER_FLASH=%RUNNER_FLASH%
+echo set RUNNER_DEBUG=%RUNNER_DEBUG%
 echo call %%ZEPHYR_ROOT%%/zephyr/zephyr-env.cmd
 echo call %%ZEPHYR_ROOT%%/.venv/Scripts/activate.bat
 echo if %%ERRORLEVEL%% neq 0 ^(
