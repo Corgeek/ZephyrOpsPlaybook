@@ -8,7 +8,6 @@ set BOARD_TYPE=nucleo_f401re
 set BOARD_TYPE=nucleo_l552ze_q
 set BOARD_TYPE=bbc_microbit
 set BOARD_TYPE=bbc_microbit_v2
-set BOARD_TYPE=nucleo_l552ze_q
 
 set SCRIPT_DIR=%~dp0
 pushd %SCRIPT_DIR%..
