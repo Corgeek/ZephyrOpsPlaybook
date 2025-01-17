@@ -103,6 +103,7 @@ scripts\setup.bat
     ├── .venv/                    # venv 環境のファイル群
     ├── .vscode/                  # vscode 用のファイル群
     ├── .west/                    # このリポジトリ用の west 設定
+    ├── bootloader/               # 特定のボードで使用するブートローダー
     ├── modules/                  # 各ベンダーの HAL 等
     ├── playbook/                 # 本リポジトリ
     │   ├── CMakeLists.txt        # CMake の先頭
@@ -110,8 +111,10 @@ scripts\setup.bat
     │   ├── .vscode/              # vscode 用のファイル群
     │   ├── boards/               # ターゲット依存のファイル群
     │   ├── core/                 # main.c やスレッドや共有メモリ関連
+    │   ├── docs/                 # このドキュメントや補助的な資料
     │   ├── drivers/              # ドライバ関連
     │   ├── include/              # ヘッダーファイルはここに集約
+    │   ├── global/               # スレッド間で共有するバッファ
     │   ├── prj.conf              # 汎用的な prj.conf
     │   ├── scripts/              # Bash / Command Prompt 用のスクリプト群
     │   ├── utils/                # shell 等の補助機能群
@@ -129,6 +132,7 @@ scripts\setup.bat
 2. Ctrl + Shift + B で、「Rebuild」もしくは「Build」を選びビルドを実施
 3. 正常にビルドが完了したら Ctrl + Shift + B で出てくる「Flash」を選択し、実機に書き込む
 4. gdb デバッガを用いたデバッグを行う場合は、Ctrl + Shift + B で出てくる「Debug」を選び gdbserver で待機状態に入る。その状態のまま F5 を押すことでアタッチ
+   1. (VSCode のバージョンによっては、デバッグを終了後も gdbserver が待機状態のままになります。適宜画面右下の debug プロセスを終了(ゴミ箱アイコン)してください)
 
 ### 3.2. コマンドによる開発
 playbook に移動しそれぞれ以下のコマンドを実行
