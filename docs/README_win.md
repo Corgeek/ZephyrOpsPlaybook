@@ -82,15 +82,16 @@ west update
 pip install -r zephyr/scripts/requirements.txt
 ```
 
-### 2.6. SDK のダウンロードと設定
-Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。
+### 2.6. SDK のダウンロードと展開
+v3.7-branch 環境では、v3.7.0 当時のSDK のバージョン 0.16.8 を推奨しています。
 
 ```
-west sdk install -t arm-zephyr-eabi
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_windows-x86_64.7z
+7z x zephyr-sdk-0.16.8_windows-x86_64.7z -o%homepath%
 ```
 
 > [!NOTE]
-今の所本リポジトリでは ARM 系向けに絞っているため、ツールチェインも ARM 向けに絞っています。`-t arm-zephyr-eabi` を無くせば全アーキテクチャ向けをインストールできます(約9.2GB)
+Zephyr 本体 v3.7.0 と zephyr-sdk-0.17.0 ではビルドが通らないケースが散見されます。
 
 ### 2.7. west コマンドの簡略用スクリプトを準備
 

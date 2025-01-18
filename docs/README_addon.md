@@ -53,9 +53,29 @@ cd zephyrproject
 git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
 ```
 
-### 2.3. west コマンドの簡略用スクリプトを準備
+### 2.3. SDK のダウンロードと展開
+
+v3.7-branch 環境では、v3.7.0 当時のSDK のバージョン 0.16.8 を推奨しています。
+
 ---
-#### 2.3.1. Windows 向け
+### 2.3.1. Windows 向け
+
+```
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_windows-x86_64.7z
+7z x zephyr-sdk-0.16.8_windows-x86_64.7z -o%homepath%
+```
+---
+### 2.3.2. Ubuntu 向け
+
+```
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-x86_64.tar.xz
+tar xf zephyr-sdk-0.16.8_linux-x86_64.tar.xz -C ~/
+```
+---
+
+### 2.4. west コマンドの簡略用スクリプトを準備
+---
+#### 2.4.1. Windows 向け
 
 playbook\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.bat を実行
 > set BOARD_TYPE=rpi_pico
@@ -63,7 +83,7 @@ playbook\scripts\setup.bat をエディタで開き、下記ターゲットの�
 scripts\setup.bat
 ```
 ---
-#### 2.3.2. Ubuntu 向け
+#### 2.4.2. Ubuntu 向け
 playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.sh を実行
 > BOARD_TYPE=rpi_pico
 ```
