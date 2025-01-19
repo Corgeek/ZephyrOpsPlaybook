@@ -1,17 +1,24 @@
 # ZephyrOpsPlaybook (minimal)
 
 ## 1. 機能概要
-こちらの README は、既に公式の環境を構築済みで、アドオン形式で本リポジトリを利用したい方に向けた手順となります。
-以降は公式環境が zephyrproject にある場合の説明になりますが、ディレクトリ名を変えている場合は適宜それに合わせてください。
+公式の手順を簡略・軽量化して、手軽に開発を始められる環境を提供することを目的としています。
+* コマンドプロンプトと bash 両方で使えるようにしておき、VSCode によるデバッグ環境を提供
+* ボード間の差異を減らし、移植性を維持した実装例の提案
+* サンプルドライバ群も用意し、すぐにアプリケーション開発に注力できる環境を提供
+* 開発の際はターゲットが決まっていることが多く、ターゲットを絞り込んだ環境構築の例示
+* バージョンやリビジョンを固定して足並みをそろえた開発が必要で、その固定させる方法を提供
 
-アドオン形式で進めた場合、以下の部分的な機能が使えます。
-* VS Code を使った Rebuild / Flash / Debug
-* Zephyr 公式環境と分離した開発環境
-* ディレクトリ構成案や CMakeList.txt の管理方法案
+master ブランチは現在 v4.0.0 で固定していますが、LTS 版や最新環境で利用したい方向けに、下記ブランチも用意しています。
 
-公式の Zephyr 環境が未構築の場合、下記 Ubuntu 向けか Windows 向けかを選んで作業を進めてください。
+| ブランチ名 | 概要 |
+|---|---|
+| [dev/newest](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/newest) | Zephyr 最新リビジョンベースの環境を構築 |
+| [dev/minimal](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/minimal) | Zephyr 最新リビジョンで、main 関数のみの最小構成の環境 |
+| [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | Zephyr の LTS 版である v3.7.0 ベースの環境 |
 
-| 目的 | 概要 |
+公式の Zephyr 環境が未構築の場合、下記 Ubuntu 向けか Windows 向けか、公式手順かを選んで作業を進めてください。
+
+| 環境 | 概要 |
 |------|------|
 | [Ubuntu 向け](README.md) | Ubuntu ネイティブやWSLを含む仮想環境 |
 | [Windows 向け](README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
