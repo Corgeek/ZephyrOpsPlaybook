@@ -16,9 +16,9 @@ master ブランチは現在 v4.0.0 で固定していますが、LTS 版や最�
 | [dev/minimal](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/minimal) | Zephyr 最新リビジョンで、main 関数のみの最小構成の環境 |
 | [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | Zephyr の LTS 版である v3.7.0 ベースの環境 |
 
-公式の Zephyr 環境が未構築の場合、下記 Ubuntu 向けか Windows 向けかを選んで作業を進めてください。
+公式の Zephyr 環境が未構築の場合、下記 Ubuntu 向けか Windows 向けか、公式手順かを選んで作業を進めてください。
 
-| 目的 | 概要 |
+| 環境 | 概要 |
 |------|------|
 | [Ubuntu 向け](README.md) | Ubuntu ネイティブやWSLを含む仮想環境 |
 | [Windows 向け](README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
@@ -44,12 +44,6 @@ Zephyr の開発で利用する west flash / west debug では、かなりのボ
 
 ```
 choco install openocd
-```
-
-#### 2.3.2. Ubuntu 向け
-下記コマンドで追加インストール
-```
-sudo apt-get install openocd
 ```
 
 ### 2.2.リポジトリのクローン

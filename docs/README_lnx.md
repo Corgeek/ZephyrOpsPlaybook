@@ -18,7 +18,7 @@ master ブランチは現在 v4.0.0 で固定していますが、LTS 版や最�
 
 また、作業ミスを減らすため、README.md を環境ごとに分割していますので、環境に合わせて参照してください。
 
-| 目的 | 概要 |
+| 環境 | 概要 |
 |------|------|
 | [Ubuntu 向け](README.md) | Ubuntu ネイティブやWSLを含む仮想環境(現在のページ) |
 | [Windows 向け](README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
@@ -45,12 +45,6 @@ sudo apt install --no-install-recommends git cmake ninja-build gperf \
   ccache dfu-util device-tree-compiler wget \
   python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
   make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
-```
-
-下記も追加インストール推奨(最新ソースコードからビルドするのもOK)
-
-```
-sudo apt install openocd
 ```
 
 うまく行かなかった場合は、下記公式ページを参照<br>
