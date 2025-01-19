@@ -1,0 +1,29 @@
+manifest:
+  defaults:
+    remote: upstream
+
+  remotes:
+    - name: upstream
+      url-base: https://github.com/zephyrproject-rtos
+
+  projects:
+    - name: zephyr_public
+      repo-path: zephyr.git
+      path: zephyr
+      remote: upstream
+      revision: main
+      clone-depth: 1
+      west-commands: scripts/west-commands.yml
+      import:
+        name-allowlist:
+          - cmsis
+          - fatfs
+          - hal_nordic
+          - hal_rpi_pico
+          - hal_st
+          - hal_stm32
+          - littlefs
+          - mbedtls
+          - mcuboot
+          - tinycrypt
+          - trusted-firmware-m

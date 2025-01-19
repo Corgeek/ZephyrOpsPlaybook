@@ -1,3 +1,19 @@
+# Tags
+tags
+cscope.*
+
+# Vim files
+*.swp
+*.swo
+
+# VS code
+.vscode/settings.json
+
+# Generated scripts
+scripts/west_env.bat
+scripts/debug.bat
+scripts/build.bat
+
 # Prerequisites
 *.d
 
@@ -50,3 +66,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Generated files
+build/*
+CMakeCache.txt
+CMakeFiles/*
+
