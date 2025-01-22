@@ -31,7 +31,8 @@ WSL は USB 機器の制御を理由に公式で推奨されていませんが�
 本リポジトリの簡単な解説と、広く Zephyr についても触れていますので、よろしければ以下の記事も参考にしていただければ幸いです。
 
 1. [【Qiita記事】 Zephyr RTOS 〜 Lチカのその先へ 〜](https://qiita.com/Corgeek/items/ca4c515ccf556551562f)
-2. [【Qiita記事】 Zephyr RTOS 〜 GPIO を叩く！ 〜](https://qiita.com/Corgeek/items/122a00e430ad0d9c297a)
-3. [【Qiita記事】 Zephyr RTOS 〜 I2CでIC制御 〜](https://qiita.com/Corgeek/items/ac211cd48a54971d9b17)
-4. [【Qiita記事】Zephyr RTOS 〜 チーム開発を見据えた管理方法 〜](https://qiita.com/Corgeek/items/b879637a6c25027af318)
-5. [【Qiita記事】Zephyr RTOS 〜 pico2 の開発環境を整えてみる 〜](https://qiita.com/Corgeek/items/3bfc0bee8e2eeeb0b646)
+2. [【Qiita記事】 Zephyr RTOS 〜 ターゲット毎の設定や選定基準 〜](https://qiita.com/Corgeek/items/f91831de947f8dde1d39)
+3. [【Qiita記事】 Zephyr RTOS 〜 GPIO を叩く！ 〜](https://qiita.com/Corgeek/items/122a00e430ad0d9c297a)
+4. [【Qiita記事】 Zephyr RTOS 〜 I2C 通信の方法と VL53L4CD の移植 〜](https://qiita.com/Corgeek/items/ac211cd48a54971d9b17)
+5. [【Qiita記事】 Zephyr RTOS 〜 チーム開発を見据えた管理方法 〜](https://qiita.com/Corgeek/items/b879637a6c25027af318)
+6. [【Qiita記事】 Zephyr RTOS 〜 pico2 の開発環境を整えてみる 〜](https://qiita.com/Corgeek/items/3bfc0bee8e2eeeb0b646)
