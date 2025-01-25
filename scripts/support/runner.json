@@ -1,15 +1,15 @@
 {
     "flash": {
-        "bbc_microbit": "",
-        "bbc_microbit_v2": "",
+        "bbc_microbit": "--runner openocd",
+        "bbc_microbit_v2": "--runner openocd",
         "rpi_pico": "",
         "nucleo_f030r8": "--runner openocd",
         "nucleo_f401re": "--runner openocd",
         "nucleo_l552ze_q": "--runner openocd"
     },
     "debug": {
-        "bbc_microbit": "",
-        "bbc_microbit_v2": "",
+        "bbc_microbit": "--runner openocd",
+        "bbc_microbit_v2": "--runner openocd",
         "rpi_pico": "",
         "nucleo_f030r8": "--runner openocd",
         "nucleo_f401re": "--runner openocd",
