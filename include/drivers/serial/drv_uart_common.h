@@ -7,5 +7,13 @@
 #pragma once
 #include <zephyr/kernel.h>
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 bool drv_init_uart(void);
 void drv_uart_send(const struct device *const dev, size_t len, const uint8_t *data);
+
+#ifdef  __cplusplus
+}
+#endif

@@ -7,6 +7,10 @@
 #pragma once
 #include <zephyr/drivers/sensor.h>
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 #define VL53L4CD_DEF_ADDR       (0x29)
 #define TOF_TIMING_BUDGET_MS    (100)
 
@@ -26,3 +30,7 @@ bool drv_tof_setup(const struct vl53l4cd_ctx *ctx);
 int32_t drv_tof_start(const struct vl53l4cd_ctx *ctx);
 int32_t drv_tof_stop(const struct vl53l4cd_ctx *ctx);
 int32_t drv_tof_fetch(const struct vl53l4cd_ctx *ctx, struct sensor_value *data);
+
+#ifdef  __cplusplus
+}
+#endif

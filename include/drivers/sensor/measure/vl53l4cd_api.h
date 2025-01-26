@@ -38,6 +38,10 @@
 #ifndef VL53L4CD_API_H_
 #define VL53L4CD_API_H_
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 /**
  *  @brief Driver version
  */
@@ -132,3 +136,7 @@ typedef struct {
 } VL53L4CD_Result_t;
 
 #endif  //VL53L4CD_API_H_
+
+#ifdef  __cplusplus
+]
+#endif

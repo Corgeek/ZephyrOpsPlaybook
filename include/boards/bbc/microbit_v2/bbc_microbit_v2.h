@@ -13,6 +13,10 @@
 #include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
 #include "drivers/ble/drv_ble_peripheral.h"
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 // Around 0 Ring
 #define GPIO0_PIN31                 GPIO_PORT_PIN(gpio0, 31)        // P0.31, AIN7
 #define GPIO0_PIN02                 GPIO_PORT_PIN(gpio0,  2)        // P0.02, AIN0
@@ -48,3 +52,7 @@
 #define GPIO_RING_1                 GPIO0_PIN03
 #define GPIO_RING_2                 GPIO0_PIN04
 #define TOF_XSHUT                   GPIO_RING_0
+
+#ifdef  __cplusplus
+}
+#endif

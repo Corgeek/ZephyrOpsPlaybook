@@ -8,6 +8,10 @@
 #include <zephyr/drivers/sensor.h>
 #include "global/gbf_sensor_database.h"
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 #define SENSOR_ACCEL_PERIOD_MS      (100)
 
 struct accel_ctx {
@@ -22,3 +26,7 @@ bool drv_accel_setup(const struct accel_ctx *ctx);
 int32_t drv_accel_start(const struct accel_ctx *ctx);
 int32_t drv_accel_stop(const struct accel_ctx *ctx);
 int32_t drv_accel_fetch(const struct accel_ctx *ctx, struct sensor_3d *value);
+
+#ifdef  __cplusplus
+}
+#endif

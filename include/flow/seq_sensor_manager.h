@@ -8,6 +8,10 @@
 
 #include "boards/unique.h"
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 enum SEQ_SENSOR_STATE {
     STS_SENSOR_INIT,
     STS_SENSOR_SETUP,
@@ -20,3 +24,8 @@ enum SEQ_SENSOR_STATE {
 };
 
 void seq_sensor_manager(void);
+
+#ifdef  __cplusplus
+}
+#endif
+

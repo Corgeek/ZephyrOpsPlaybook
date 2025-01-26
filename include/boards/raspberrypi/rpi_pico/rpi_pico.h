@@ -7,6 +7,10 @@
 #include "drivers/i2c/drv_i2c_common.h"
 #include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 // Left Side
 #define GPIO0_PIN00                 GPIO_PORT_PIN(gpio0,  0)        // GP_0, SPI0_RX, I2C0_SDA, UART0_TX
 #define GPIO0_PIN01                 GPIO_PORT_PIN(gpio0,  1)        // GP_1, SPI0_CSn, I2C0_SCL, UART0_RX
@@ -55,3 +59,7 @@
 #define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c0))
 #define TOF_XSHUT                   GPIO0_PIN26
 #define USER_LED                    GPIO0_PIN25
+
+#ifdef  __cplusplus
+}
+#endif

@@ -6,4 +6,12 @@
 
 #pragma once
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 bool drv_init_button(void);
+
+#ifdef  __cplusplus
+}
+#endif

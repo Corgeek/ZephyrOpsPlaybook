@@ -8,6 +8,10 @@
 #include <stdint.h>
 #include <zephyr/display/mb_display.h>
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Initialize display-driver for microbit
  */
@@ -27,3 +31,7 @@ void drv_disp_print(uint32_t mode, int32_t duration, const char *text);
  * @brief stop display
  */
 void drv_disp_stop(void);
+
+#ifdef  __cplusplus
+}
+#endif

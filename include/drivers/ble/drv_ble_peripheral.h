@@ -5,6 +5,10 @@
  */
 #pragma once
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 enum {
     BLE_STATE_CONNECTED = (1 << 0),
     BLE_STATE_DISCONNECTED = (1 << 1),
@@ -12,3 +16,7 @@ enum {
 
 bool drv_init_bleperiph(void);
 void drv_ble_conn_auth(void);
+
+#ifdef  __cplusplus
+}
+#endif

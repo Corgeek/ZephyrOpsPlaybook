@@ -12,6 +12,10 @@
 #include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
 #include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 // Around 0 Ring
 #define GPIO0_PIN04                 GPIO_PORT_PIN(gpio0,  4)        // P0.04
 #define GPIO0_PIN03                 GPIO_PORT_PIN(gpio0,  3)        // P0.03
@@ -47,3 +51,7 @@
 #define GPIO_RING_1                 GPIO0_PIN02
 #define GPIO_RING_2                 GPIO0_PIN01
 #define TOF_XSHUT                   GPIO_RING_0
+
+#ifdef  __cplusplus
+}
+#endif
