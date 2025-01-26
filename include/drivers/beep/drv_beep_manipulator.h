@@ -6,6 +6,10 @@
 #pragma once
 #include <zephyr/drivers/pwm.h>
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 #define BEEP_MAX_PERIOD     PWM_USEC(3900)
 #define BEEP_MIN_PERIOD     PWM_USEC(50)
 #define BEEP_PERIOD_STEP    PWM_USEC(50)
@@ -16,3 +20,6 @@ void drv_beep_raise(void);
 void drv_beep_lower(void);
 bool drv_init_beep(void);
 
+#ifdef  __cplusplus
+}
+#endif

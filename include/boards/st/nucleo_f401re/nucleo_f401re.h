@@ -8,6 +8,10 @@
 #include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
 #include "drivers/button/drv_button_nucleo.h"
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 // CN7 odd
 #define GPIOC_PIN10                 GPIO_PORT_PIN(gpioc, 10)        // PC_10, SPI3 SCLK
 #define GPIOC_PIN12                 GPIO_PORT_PIN(gpioc, 12)        // PC_12, SPI3_MOSI
@@ -97,3 +101,7 @@
 #define	GREEN_LED                   GPIOA_PIN05
 #define USER_BUTTON                 GPIOC_PIN13
 #define TOF_XSHUT                   GPIOA_PIN00
+
+#ifdef  __cplusplus
+}
+#endif

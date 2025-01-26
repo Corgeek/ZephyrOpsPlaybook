@@ -6,6 +6,10 @@
 
 #pragma once
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Initialize sample database
  */
@@ -20,3 +24,7 @@ void set_sample_database(const int32_t value);
  * @brief Get data from sample database
  */
 void get_sample_database(int32_t *value);
+
+#ifdef  __cplusplus
+}
+#endif

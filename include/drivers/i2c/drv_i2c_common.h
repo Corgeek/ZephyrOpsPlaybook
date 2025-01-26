@@ -7,6 +7,10 @@
 #pragma once
 #include <zephyr/kernel.h>
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 bool drv_init_i2c(void);
 
 /* for 8bit size register address */
@@ -26,3 +30,7 @@ int i2c_wreg_write_dword(const struct device *const i2c_dev, uint16_t slv_addr, 
 int i2c_wreg_read_byte(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint8_t *value);
 int i2c_wreg_read_word(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint16_t *value);
 int i2c_wreg_read_dword(const struct device *const i2c_dev, uint16_t slv_addr, uint16_t reg_addr, uint32_t *value);
+
+#ifdef  __cplusplus
+}
+#endif

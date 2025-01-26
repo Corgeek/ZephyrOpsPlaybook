@@ -5,4 +5,12 @@
  */
 #pragma once
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 void drv_bas_level_notify(void);
+
+#ifdef  __cplusplus
+}
+#endif

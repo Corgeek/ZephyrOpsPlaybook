@@ -7,6 +7,10 @@
 #pragma once
 #include <zephyr/drivers/sensor.h>
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 struct sensor_3d {
     union {
         struct sensor_value array[3];
@@ -32,3 +36,7 @@ void gbf_set_measure(uint16_t data);
 void gbf_get_accel(struct sensor_3d *data);
 void gbf_get_magnet(struct sensor_3d *data);
 void gbf_get_measure(uint16_t *data);
+
+#ifdef  __cplusplus
+}
+#endif

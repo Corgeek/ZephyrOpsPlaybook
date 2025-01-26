@@ -5,4 +5,12 @@
  */
 #pragma once
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 void drv_hrs_register(void);
+
+#ifdef  __cplusplus
+}
+#endif

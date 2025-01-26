@@ -8,6 +8,10 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 struct gpio_port_pin {
     const struct device *const port;
     const gpio_pin_t pin;
@@ -32,4 +36,8 @@ void uni_board_init(void);
 #include "boards/raspberrypi/rpi_pico/rpi_pico.h"
 #else
 #include "boards/generic/generic_board.h"
+#endif
+
+#ifdef  __cplusplus
+}
 #endif
