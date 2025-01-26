@@ -4,6 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
+#include "drivers/i2c/drv_i2c_common.h"
+#include "drivers/serial/drv_uart_common.h"
+#include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
+#include "drivers/button/drv_button_nucleo.h"
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
 
 // CN11 odd
 #define GPIOC_PIN10                 GPIO_PORT_PIN(gpioc, 10)        // PC_10, SPI3 SCLK
@@ -151,3 +159,15 @@
 #define GPIOG_PIN08                 GPIO_PORT_PIN(gpiog,  8)        // 
 #define GPIOG_PIN05                 GPIO_PORT_PIN(gpiog,  5)        // 
 #define GPIOG_PIN06                 GPIO_PORT_PIN(gpiog,  6)        // 
+
+#define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c1))
+#define UART_115200_BUS             DEVICE_DT_GET(DT_NODELABEL(usart1))
+#define TOF_XSHUT                   GPIOA_PIN00
+#define GREEN_LED                   GPIOC_PIN07
+#define BLUE_LED                    GPIOB_PIN07
+#define RED_LED                     GPIOA_PIN09
+#define USER_BUTTON                 GPIOC_PIN13
+
+#ifdef  __cplusplus
+}
+#endif
