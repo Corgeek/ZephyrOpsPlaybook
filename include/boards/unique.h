@@ -34,6 +34,8 @@ void uni_board_init(void);
 #include "boards/st/nucleo_l552ze_q/nucleo_l552ze_q.h"
 #elif defined(CONFIG_BOARD_RPI_PICO)
 #include "boards/raspberrypi/rpi_pico/rpi_pico.h"
+#elif defined(CONFIG_BOARD_RPI_PICO2)
+#include "boards/raspberrypi/rpi_pico2/rpi_pico2.h"
 #else
 #include "boards/generic/generic_board.h"
 #endif
