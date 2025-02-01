@@ -36,3 +36,4 @@ WSL は USB 機器の制御を理由に公式で推奨されていませんが�
 4. [【Qiita記事】 Zephyr RTOS 〜 I2C 通信の方法と VL53L4CD の移植 〜](https://qiita.com/Corgeek/items/ac211cd48a54971d9b17)
 5. [【Qiita記事】 Zephyr RTOS 〜 チーム開発を見据えた管理方法 〜](https://qiita.com/Corgeek/items/b879637a6c25027af318)
 6. [【Qiita記事】 Zephyr RTOS 〜 pico2 の開発環境を整えてみる 〜](https://qiita.com/Corgeek/items/3bfc0bee8e2eeeb0b646)
+7. [【Qiita記事】 Zephyr RTOS 〜 起動シーケンスと任意処理の追加 〜](https://qiita.com/Corgeek/items/e2052879113102eb2ad7)
