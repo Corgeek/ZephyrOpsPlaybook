@@ -14,6 +14,7 @@
             "MIMode": "gdb",
             "miDebuggerPath": "${config:CROSS_GDB_PATH}",
             "miDebuggerServerAddress": ":3333",
+            "postDebugTask": "Stop",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",

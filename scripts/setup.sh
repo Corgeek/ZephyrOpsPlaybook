@@ -50,5 +50,6 @@ mkdir -p ${ZEPHYR_ROOT}/.vscode
 cp -f ${PROJ_PATH}/.vscode/*.json ${ZEPHYR_ROOT}/.vscode
 cp -f scripts/linux/build.sh scripts/build.bat
 cp -f scripts/linux/debug.sh scripts/debug.bat
+cp -f scripts/linux/stop.sh scripts/stop.bat
 
 popd > /dev/null
