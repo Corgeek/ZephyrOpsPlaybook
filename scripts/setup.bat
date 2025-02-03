@@ -18,8 +18,8 @@ set ZEPHYR_ROOT=%cd%
 popd
 
 pushd %SCRIPT_DIR%
-for /f "delims=" %%A in ('python opt_gen.py flash %BOARD_TYPE%') do set RUNNER_FLASH=%%A
-for /f "delims=" %%A in ('python opt_gen.py debug %BOARD_TYPE%') do set RUNNER_DEBUG=%%A
+for /f "delims=" %%A in ('python support\runner.py flash %BOARD_TYPE%') do set RUNNER_FLASH=%%A
+for /f "delims=" %%A in ('python support\runner.py debug %BOARD_TYPE%') do set RUNNER_DEBUG=%%A
 popd
 
 set "ZEPHYR_ROOT=!ZEPHYR_ROOT:\=/!"
