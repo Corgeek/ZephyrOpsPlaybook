@@ -12,8 +12,8 @@ SCRIPT_PATH=`readlink -f ${0}`
 SCRIPT_DIR=`dirname ${SCRIPT_PATH}`
 
 pushd ${SCRIPT_DIR} > /dev/null
-RUNNER_FLASH=`python3 opt_gen.py flash ${BOARD_TYPE}`
-RUNNER_DEBUG=`python3 opt_gen.py debug ${BOARD_TYPE}`
+RUNNER_FLASH=`./support/runner.py flash ${BOARD_TYPE}`
+RUNNER_DEBUG=`./support/runner.py debug ${BOARD_TYPE}`
 popd > /dev/null
 
 pushd ${SCRIPT_DIR}/.. > /dev/null
