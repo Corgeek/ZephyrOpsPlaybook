@@ -1,3 +1,3 @@
 @echo off
 
-taskkill /IM "west.exe", "/F"
+taskkill /IM west.exe /F
