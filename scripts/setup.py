@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
 
-import os
-import shutil
+import sys
+import platform
 import json
 from pathlib import Path
 import re
 
 from support import runner
+if platform.system() == "Windows":
+    from dos import os_dep
+else:
+    from linux import os_dep
 
-BOARD_TYPE = "rpi_pico"
-BOARD_TYPE = "rpi_pico2/rp2350a/m33"
-BOARD_TYPE = "nucleo_f030r8"
-BOARD_TYPE = "nucleo_f401re"
-BOARD_TYPE = "nucleo_l552ze_q"
-BOARD_TYPE = "bbc_microbit"
-BOARD_TYPE = "bbc_microbit_v2"
+BOARD_TYPE = ""
 
 def setup_env() -> tuple[str, str, str]:
     scripts_dir = Path(__file__).resolve().parent
@@ -26,41 +24,20 @@ def setup_env() -> tuple[str, str, str]:
 
     west_env_path = scripts_dir / "west_env.bat"
 
-    env_content = "\n".join([
-        f"ZEPHYR_ROOT={zephyr_root}",
-        f"BOARD_TYPE={BOARD_TYPE}",
-        f'RUNNER_FLASH="{runner_flash}"',
-        f'RUNNER_DEBUG="{runner_debug}"',
-        "",
-        "if [ ! -e ${ZEPHYR_ROOT}/zephyr/zephyr-env.sh ]; then",
-        "    echo \"zephyr-env.sh is not found\"",
-        "    exit 1",
-        "fi",
-        "source ${ZEPHYR_ROOT}/zephyr/zephyr-env.sh",
-        "",
-        "if [ -e ${ZEPHYR_ROOT}/.venv/bin/activate ]; then",
-        "    source ${ZEPHYR_ROOT}/.venv/bin/activate",
-        "fi",
-    ])
+    env_content = os_dep.gen_env_content(zephyr_root=zephyr_root,
+                               BOARD_TYPE=BOARD_TYPE,
+                               runner_flash=runner_flash,
+                               runner_debug=runner_debug)
 
     west_env_path.write_text(env_content, encoding="utf-8")
 
     return zephyr_root, proj_dir, scripts_dir
 
-def update_settings(proj_dir: str) -> None:
-    sdk_base_paths = [
-        Path(os.environ["HOME"]),
-        Path(os.environ["HOME"]) / ".local",
-        Path(os.environ["HOME"]) / ".local/opt",
-        Path(os.environ["HOME"]) / "bin",
-        Path("/opt"),
-        Path("/usr/local"),
-    ]
-
+def get_sdk_paths():
     found_sdks = {}
     sdk_pattern = re.compile(r"zephyr-sdk-(\d+\.\d+\.\d+)")
 
-    for base_path in sdk_base_paths:
+    for base_path in os_dep.sdk_base_paths:
         if base_path.exists():
             for item in base_path.iterdir():
                 if sdk_pattern.match(item.name):
@@ -76,13 +53,9 @@ def update_settings(proj_dir: str) -> None:
     if not sorted_sdks:
         raise FileNotFoundError("No Zephyr SDK found in specified directories.")
 
-    print("Installed SDK:")
-    for sdk_path in sorted_sdks:
-        print("\t" + str(sdk_path[0]) + " : " + str(sdk_path[1]))
-    print("USE:\r\n\t" + str(sorted_sdks[0][1]))
+    return sorted_sdks
 
-    selected_sdk = sorted_sdks[0][1]
-
+def update_settings(proj_dir: str, selected_sdk: str):
     vscode_dir = Path(proj_dir) / ".vscode"
     settings_file = vscode_dir / "settings.json"
 
@@ -90,7 +63,8 @@ def update_settings(proj_dir: str) -> None:
         with settings_file.open("r", encoding="utf-8") as file:
             try:
                 settings_json = json.load(file)
-            except json.JSONDecodeError:
+            except json.JSONDecodeError as e:
+                print(f"Error decoding JSON: {e}")
                 settings_json = {}
     else:
         settings_json = {}
@@ -98,7 +72,7 @@ def update_settings(proj_dir: str) -> None:
     insert_settings = {
         "ZEPHYRSDK": str(selected_sdk),
         "PROJ_PATH": str(proj_dir),
-        "CROSS_GDB_PATH": "${config:ZEPHYRSDK}/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+        "CROSS_GDB_PATH": str(os_dep.cross_gdb_path)
     }
 
     merged_settings = {**settings_json, **insert_settings}
@@ -107,19 +81,22 @@ def update_settings(proj_dir: str) -> None:
     with settings_file.open("w", encoding="utf-8") as file:
         json.dump(merged_settings, file, indent=2, ensure_ascii=False)
 
-def duplicate_to_root(zephyr_root: str, proj_dir: str, scripts_dir: str) -> None:
-    dst_vscode_dir = Path(zephyr_root) / ".vscode"
-    dst_vscode_dir.mkdir(parents=True, exist_ok=True)
-
-    src_vscode_dir = Path(proj_dir) / ".vscode"
-    for file_name in src_vscode_dir.glob("*.json"):
-        shutil.copy(file_name, dst_vscode_dir / file_name.name)
-
-    for script in ["build", "debug", "stop"]:
-        shutil.copy(scripts_dir / "linux" / f"{script}.sh", scripts_dir / f"{script}.bat")
-
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        sys.exit(1)
+
+    BOARD_TYPE = sys.argv[1]
+
     print ("BOARD_TYPE:\r\n\t" + str(BOARD_TYPE) + "\r\n")
     zephyr_root, proj_dir, scripts_dir = setup_env()
-    update_settings(proj_dir=proj_dir)
-    duplicate_to_root(zephyr_root=zephyr_root, proj_dir=proj_dir, scripts_dir=scripts_dir)
+
+    sorted_sdks = get_sdk_paths()
+    selected_sdk = sorted_sdks[0][1]
+
+    print("Installed SDK:")
+    for sdk_path in sorted_sdks:
+        print("\t" + str(sdk_path[0]) + " : " + str(sdk_path[1]))
+    print("USE:\r\n\t" + str(selected_sdk))
+
+    update_settings(proj_dir=proj_dir, selected_sdk=selected_sdk)
+    os_dep.duplicate_scripts(zephyr_root=zephyr_root, proj_dir=proj_dir, scripts_dir=scripts_dir)
