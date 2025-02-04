@@ -11,6 +11,8 @@ cscope.*
 
 # Generated scripts
 scripts/west_env.bat
+scripts/setup.bat
+scripts/setup.sh
 scripts/debug.bat
 scripts/build.bat
 scripts/stop.bat
