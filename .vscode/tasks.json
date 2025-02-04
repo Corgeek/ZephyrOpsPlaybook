@@ -48,6 +48,14 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Stop",
+            "type": "shell",
+            "command": "${config:PROJ_PATH}/scripts/stop.bat",
+            "group": {
+                "kind": "none"
+            }
         }
     ]
 }
