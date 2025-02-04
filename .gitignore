@@ -11,8 +11,11 @@ cscope.*
 
 # Generated scripts
 scripts/west_env.bat
+scripts/setup.bat
+scripts/setup.sh
 scripts/debug.bat
 scripts/build.bat
+scripts/stop.bat
 
 # Prerequisites
 *.d
@@ -68,7 +71,9 @@ Mkfile.old
 dkms.conf
 
 # Generated files
+scripts/dos/__pycache__/*
+scripts/linux/__pycache__/*
+scripts/support/__pycache__/*
 build/*
 CMakeCache.txt
 CMakeFiles/*
-
