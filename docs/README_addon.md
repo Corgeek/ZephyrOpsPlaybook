@@ -78,7 +78,7 @@ playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設
 ```
 ---
 
-問題がなければ、.vscode 用の設定と scripts 以下に west_env.bat, build.bat, debug.bat が生成されています。
+問題がなければ、.vscode 用の設定と scripts 以下に west_env.bat, build.bat, debug.bat, stop.bat が生成されています。
 
 以上で、初回の構築は完了です。
 
