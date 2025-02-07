@@ -7,7 +7,6 @@ BOARD_TYPE=nucleo_f401re
 BOARD_TYPE=nucleo_l552ze_q
 BOARD_TYPE=bbc_microbit
 BOARD_TYPE=bbc_microbit_v2
-BOARD_TYPE=nucleo_f401re
 
 SCRIPT_PATH=`readlink -f ${0}`
 SCRIPT_DIR=`dirname ${SCRIPT_PATH}`

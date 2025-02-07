@@ -4,9 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
-#include "drivers/i2c/drv_i2c_common.h"
-#include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
-#include "drivers/button/drv_button_nucleo.h"
 
 #ifdef  __cplusplus
 extern "C" {
@@ -100,7 +97,6 @@ extern "C" {
 #define UART_115200_BUS             DEVICE_DT_GET(DT_NODELABEL(usart1))
 #define	GREEN_LED                   GPIOA_PIN05
 #define USER_BUTTON                 GPIOC_PIN13
-#define TOF_XSHUT                   GPIOA_PIN00
 
 #ifdef  __cplusplus
 }
