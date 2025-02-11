@@ -32,6 +32,8 @@ void uni_board_init(void);
 #include "boards/st/nucleo_f401re/nucleo_f401re.h"
 #elif defined(CONFIG_BOARD_NUCLEO_L552ZE_Q)
 #include "boards/st/nucleo_l552ze_q/nucleo_l552ze_q.h"
+#elif defined(CONFIG_BOARD_STM32H747I_DISCO_STM32H747XX_M7)
+#include "boards/st/stm32h747i_disco/stm32h747i_disco_m7.h"
 #elif defined(CONFIG_BOARD_RPI_PICO)
 #include "boards/raspberrypi/rpi_pico/rpi_pico.h"
 #elif defined(CONFIG_BOARD_RPI_PICO2)
