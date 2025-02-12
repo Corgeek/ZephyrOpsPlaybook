@@ -23,6 +23,7 @@ manifest:
           - hal_st
           - hal_stm32
           - littlefs
+          - lvgl
           - mbedtls
           - mcuboot
           - tinycrypt
