@@ -6,7 +6,7 @@
 #pragma once
 #include "drivers/i2c/drv_i2c_common.h"
 #include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
-#include "drivers/button/drv_button_nucleo.h"
+#include "drivers/button/drv_button_generic.h"
 
 #ifdef  __cplusplus
 extern "C" {
@@ -98,8 +98,8 @@ extern "C" {
 
 #define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c1))
 #define UART_115200_BUS             DEVICE_DT_GET(DT_NODELABEL(usart1))
+#define USER_BUTTON                 GPIO_DT_SPEC_GET(DT_ALIAS(sw0), gpios)
 #define	GREEN_LED                   GPIOA_PIN05
-#define USER_BUTTON                 GPIOC_PIN13
 #define TOF_XSHUT                   GPIOA_PIN00
 
 #ifdef  __cplusplus
