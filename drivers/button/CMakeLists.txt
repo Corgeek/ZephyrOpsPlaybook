@@ -9,9 +9,9 @@ PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/drv_button_microbit.c
 )
 
-elseif (CONFIG_DT_HAS_ST_STM32_GPIO_ENABLED)
+else ()
 target_sources(app
 PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/drv_button_nucleo.c
+    ${CMAKE_CURRENT_LIST_DIR}/drv_button_generic.c
 )
 endif()

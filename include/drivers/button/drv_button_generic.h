@@ -10,6 +10,8 @@
 extern "C" {
 #endif
 
+#include "boards/unique.h"
+
 bool drv_init_button(void);
 
 #ifdef  __cplusplus
