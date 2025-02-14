@@ -95,8 +95,8 @@ extern "C" {
 
 #define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c1))
 #define UART_115200_BUS             DEVICE_DT_GET(DT_NODELABEL(usart1))
+#define USER_BUTTON                 GPIO_DT_SPEC_GET(DT_ALIAS(sw0), gpios)
 #define	GREEN_LED                   GPIOA_PIN05
-#define USER_BUTTON                 GPIOC_PIN13
 
 #ifdef  __cplusplus
 }

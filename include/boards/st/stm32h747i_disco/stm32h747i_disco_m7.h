@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
-#include "drivers/i2c/drv_i2c_common.h"
-#include "drivers/button/drv_button_nucleo.h"
 
 #ifdef  __cplusplus
 extern "C" {
@@ -287,6 +285,7 @@ extern "C" {
 
 #define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c4))
 #define UART_115200_BUS             DEVICE_DT_GET(DT_NODELABEL(usart1))
+#define USER_BUTTON                 GPIO_DT_SPEC_GET(DT_ALIAS(sw0), gpios)
 #define GREEN_LED                   GPIOI_PIN12
 #define ORANGE_LED                  GPIOI_PIN13
 #define RED_LED                     GPIOI_PIN14
@@ -297,7 +296,6 @@ extern "C" {
 #define JOY_UP                      GPIOK_PIN06
 #define JOY_DOWN                    GPIOK_PIN03
 #define JOY_SELECT                  GPIOK_PIN02
-#define USER_BUTTON                 GPIOC_PIN13
 
 #ifdef  __cplusplus
 }
