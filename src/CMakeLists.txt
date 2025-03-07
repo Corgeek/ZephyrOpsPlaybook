@@ -6,4 +6,5 @@ cmake_minimum_required(VERSION 3.13.1)
 target_sources(app
 PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/main.c
+    ${CMAKE_CURRENT_LIST_DIR}/osc_tokyo_bmp.c
 )
