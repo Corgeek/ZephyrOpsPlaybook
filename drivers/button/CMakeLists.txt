@@ -9,7 +9,7 @@ PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/drv_button_microbit.c
 )
 
-else ()
+elseif (CONFIG_SOC_FAMILY_STM32)
 target_sources(app
 PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/drv_button_generic.c
