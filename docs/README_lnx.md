@@ -119,14 +119,11 @@ playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設
     │   ├── README.md             # このドキュメント
     │   ├── .vscode/              # vscode 用のファイル群
     │   ├── boards/               # ターゲット依存のファイル群
-    │   ├── core/                 # main.c やスレッドや共有メモリ関連
     │   ├── docs/                 # このドキュメントや補助的な資料
-    │   ├── drivers/              # ドライバ関連
     │   ├── include/              # ヘッダーファイルはここに集約
-    │   ├── global/               # スレッド間で共有するバッファ
     │   ├── prj.conf              # 汎用的な prj.conf
     │   ├── scripts/              # Bash / Command Prompt 用のスクリプト群
-    │   ├── utils/                # shell 等の補助機能群
+    │   ├── src/                  # main.c やスレッドや共有メモリ関連
     │   └── west.yml              # west init -l で参照する設定
     └── zephyr/                   # 公式の Zephyr リポジトリ
 ```
