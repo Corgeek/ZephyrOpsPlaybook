@@ -5,7 +5,6 @@
  */
 #pragma once
 #include "drivers/i2c/drv_i2c_common.h"
-#include "drivers/button/drv_button_generic.h"
 
 #ifdef  __cplusplus
 extern "C" {

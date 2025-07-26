@@ -37,8 +37,5 @@ PRIVATE
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/boards)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/core)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/drivers)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/flow)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/utils)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/global)
 
 zephyr_compile_options(-Werror -Wno-address-of-packed-member)

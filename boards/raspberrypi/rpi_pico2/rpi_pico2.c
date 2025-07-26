@@ -29,10 +29,5 @@ void gpio_init_pin(void)
 
 void uni_board_init(void)
 {
-#if defined(CONFIG_GPIO)
 	gpio_init_pin();
-#endif // CONFIG_GPIO
-#if defined(CONFIG_I2C)
-	drv_init_i2c();
-#endif // CONFIG_I2C
 }

@@ -5,7 +5,6 @@
  */
 #pragma once
 #include "drivers/i2c/drv_i2c_common.h"
-#include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
 
 #ifdef  __cplusplus
 extern "C" {
