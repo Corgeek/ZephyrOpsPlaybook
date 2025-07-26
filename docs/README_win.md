@@ -8,13 +8,15 @@
 * 開発の際はターゲットが決まっていることが多く、ターゲットを絞り込んだ環境構築の例示
 * バージョンやリビジョンを固定して足並みをそろえた開発が必要で、その固定させる方法を提供
 
-master ブランチは現在 v4.1.0 で固定していますが、LTS 版や最新環境で利用したい方向けに、下記ブランチも用意しています。
+各ブランチの説明は以下の通り。
 
-| ブランチ名 | 概要 |
-|---|---|
-| [dev/newest](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/newest) | Zephyr 最新リビジョンベースの環境を構築 |
-| [dev/minimal](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/minimal) | Zephyr 最新リビジョンで、main 関数のみの最小構成の環境 |
-| [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | Zephyr の LTS 版である v3.7.0 ベースの環境 |
+| ブランチ名 | 概要 | 対象 | Zephyr のリビジョン |
+|---|---|---|---|
+| [master](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/master) | サンプルをすべて盛り込んだ環境 | とりあえず動かしてみたい方向け | v4.1.0 |
+| [dev/newest](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/newest) | master をベースに Zephyr 最新リビジョン | Zephyr の最新機能を試したい方向け | 最新 |
+| [dev/basic](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/basic) | サンプルを取り除いたシンプルな基本構成 | 基本構成を使って開発を進めたい方向け | v4.1.0 |
+| [dev/minimal](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/minimal) | Zephyr 最新リビジョンで、main 関数のみの最小構成の環境 | vscode 連携など最小限の機能を流用したい方向け | 最新 |
+| [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | master をベースに Zephyr の LTS 版である v3.7.0 環境 | Zephyr の LTS を採用したい場合 | v3.7.0 |
 
 また、作業ミスを減らすため、README.md を環境ごとに分割していますので、環境に合わせて参照してください。
 
