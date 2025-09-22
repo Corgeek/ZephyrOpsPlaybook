@@ -42,3 +42,4 @@ WSL は USB 機器の制御を理由に公式で推奨されていませんが�
 8. [【Qiita記事】 Zephyr RTOS 〜 LVGL 描画ライブラリによるGUI開発 〜](https://qiita.com/Corgeek/items/7150ac01a8a87b59ac1d)
 9. [【Qiita記事】 Zephyr RTOS 〜 Devicetree 序章 〜](https://qiita.com/Corgeek/items/5ce62af68dd7b5300608)
 10. [【Qiita記事】 Zephyr RTOS 〜 Devicetree 深淵 其の壱 〜](https://qiita.com/Corgeek/items/79135546b129b1aaf42b)
+11. [【Qiita記事】 Zephyr RTOS 〜 Devicetree 深淵 其の弐 〜](https://qiita.com/Corgeek/items/570b02e8cc5491902eb9)
