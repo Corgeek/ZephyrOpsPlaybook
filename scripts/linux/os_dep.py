@@ -17,8 +17,8 @@ sdk_base_paths = [
 
 def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str):
     env_content = "\n".join([
-        f"ZEPHYR_ROOT={zephyr_root}",
-        f"BOARD_TYPE={BOARD_TYPE}",
+        f"ZEPHYR_ROOT=\"{zephyr_root}\"",
+        f"BOARD_TYPE=\"{BOARD_TYPE}\"",
         f'RUNNER_FLASH="{runner_flash}"',
         f'RUNNER_DEBUG="{runner_debug}"',
         f'export ZEPHYR_SDK_INSTALL_DIR="{sdk_path}"'
