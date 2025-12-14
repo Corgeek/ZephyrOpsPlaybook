@@ -47,8 +47,7 @@ extern "C" {
 
 // Aliases
 #define HOST_UART                   DEVICE_DT_GET(DT_NODELABEL(usart1))
-#define I2C_SENSOR_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c1))
-#define I2C_PWM_BUS                 DEVICE_DT_GET(DT_NODELABEL(i2c3))
+#define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c1))
 #define	USER_LED                    GPIOB_PIN03
 
 #ifdef  __cplusplus
