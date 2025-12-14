@@ -82,10 +82,10 @@ pip install -r zephyr/scripts/requirements.txt
 ```
 
 ### 2.6. SDK のダウンロードと設定
-Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。
+Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。また、本リポジトリは 0.17.0 までで動作確認が取れています。
 
 ```
-west sdk install -t arm-zephyr-eabi
+west sdk install --version 0.17.0 -t arm-zephyr-eabi
 ```
 
 > [!NOTE]
