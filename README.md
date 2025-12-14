@@ -1,4 +1,4 @@
-# ZephyrOpsPlaybook (minimal)
+# ZephyrOpsPlaybook
 
 ## 1. 機能概要
 公式の手順を簡略・軽量化して、手軽に開発を始められる環境を提供することを目的としています。
@@ -43,3 +43,4 @@ WSL は USB 機器の制御を理由に公式で推奨されていませんが�
 9. [【Qiita記事】 Zephyr RTOS 〜 Devicetree 序章 〜](https://qiita.com/Corgeek/items/5ce62af68dd7b5300608)
 10. [【Qiita記事】 Zephyr RTOS 〜 Devicetree 深淵 其の壱 〜](https://qiita.com/Corgeek/items/79135546b129b1aaf42b)
 11. [【Qiita記事】 Zephyr RTOS 〜 Devicetree 深淵 其の弐 〜](https://qiita.com/Corgeek/items/570b02e8cc5491902eb9)
+12. [【Qiita記事】 Zephyr RTOS 〜 Devicetree 深淵 其の参 〜](https://qiita.com/Corgeek/items/ed41d6e89096276e9332)
