@@ -26,6 +26,8 @@ void uni_board_init(void);
 #include "boards/bbc/microbit/bbc_microbit.h"
 #elif defined(CONFIG_BOARD_BBC_MICROBIT_V2)
 #include "boards/bbc/microbit_v2/bbc_microbit_v2.h"
+#elif defined(CONFIG_BOARD_NUCLEO_G431KB)
+#include "boards/st/nucleo_g431kb/nucleo_g431kb.h"
 #elif defined(CONFIG_BOARD_NUCLEO_F030R8)
 #include "boards/st/nucleo_f030r8/nucleo_f030r8.h"
 #elif defined(CONFIG_BOARD_NUCLEO_F401RE)
