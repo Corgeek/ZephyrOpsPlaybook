@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
+#include "drivers/serial/drv_uart_common.h"
 #include "drivers/i2c/drv_i2c_common.h"
-#include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
 
 #ifdef  __cplusplus
 extern "C" {
@@ -56,6 +56,7 @@ extern "C" {
 #define GPIO0_PIN16                 GPIO_PORT_PIN(gpio0, 16)        // GP_16, SPI0_RX, I2C0_SDA, UART0_TX
 
 // Aliases
+#define HOST_UART                   DEVICE_DT_GET(DT_NODELABEL(uart0))
 #define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c0))
 #define TOF_XSHUT                   GPIO0_PIN26
 #define USER_LED                    GPIO0_PIN25
