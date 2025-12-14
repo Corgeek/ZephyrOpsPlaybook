@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
+#include "drivers/serial/drv_uart_common.h"
 #include "drivers/i2c/drv_i2c_common.h"
 
 #ifdef  __cplusplus
@@ -38,6 +39,7 @@ extern "C" {
 #define GPIO1_PIN00                 GPIO_PORT_PIN(gpio1,  0)        // P1.00, TRACEDATA0
 
 // Aliases
+#define HOST_UART                   DEVICE_DT_GET(DT_NODELABEL(uart0))
 #define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c0))
 #define	BUTTON_A                    GPIO0_PIN14
 #define	BUTTON_B                    GPIO0_PIN23
