@@ -5,8 +5,6 @@
  */
 
 #include <zephyr/kernel.h>
-#include <zephyr/drivers/gpio.h>
-#include <zephyr/device.h>
 #include "boards/unique.h"
 
 struct gpio_spec {
@@ -17,6 +15,29 @@ struct gpio_spec {
 static const struct gpio_spec s_gpio_list[] = {
 };
 
+#if defined(CONFIG_SERIAL)
+struct uart_port_config s_uart_ports[] = {
+	{
+        .port = HOST_UART,
+        .cfg = {
+            .baudrate = 115200,
+            .parity = UART_CFG_PARITY_NONE,
+            .stop_bits = UART_CFG_STOP_BITS_1,
+            .data_bits = UART_CFG_DATA_BITS_8,
+            .flow_ctrl = UART_CFG_FLOW_CTRL_NONE
+        },
+        .is_ready = false,
+	}
+};
+#endif // CONFIG_SERIAL
+
+#if defined(CONFIG_I2C)
+struct i2c_bus_config s_i2c_buses[] = {
+	{ I2C_100KHZ_BUS, 	I2C_SPEED_STANDARD },
+};
+#endif // CONFIG_I2C
+
+static
 void gpio_init_pin(void)
 {
     for (size_t i = 0; i < ARRAY_SIZE(s_gpio_list); ++i) {
@@ -27,12 +48,37 @@ void gpio_init_pin(void)
     }
 }
 
+#if defined(CONFIG_SERIAL)
+static
+void uart_init_port(void)
+{
+	for (size_t i = 0; i < ARRAY_SIZE(s_uart_ports); ++i) {
+		if (drv_init_uart(&s_uart_ports[i])) {
+		}
+	}
+}
+#endif // CONFIG_SERIAL
+
+#if defined(CONFIG_I2C)
+static
+void i2c_init_bus(void)
+{
+	for (size_t i = 0; i < ARRAY_SIZE(s_i2c_buses); ++i) {
+		if (drv_init_i2c(&s_i2c_buses[i])) {
+		}
+	}
+}
+#endif // CONFIG_I2C
+
 void uni_board_init(void)
 {
 #if defined(CONFIG_GPIO)
 	gpio_init_pin();
 #endif // CONFIG_GPIO
 #if defined(CONFIG_I2C)
-	drv_init_i2c();
+	i2c_init_bus();
 #endif // CONFIG_I2C
+#if defined(CONFIG_SERIAL)
+	uart_init_port();
+#endif
 }
