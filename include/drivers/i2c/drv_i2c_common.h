@@ -6,12 +6,19 @@
 
 #pragma once
 #include <zephyr/kernel.h>
+#include <zephyr/drivers/i2c.h>
+
+struct i2c_bus_config {
+    const struct device *const bus;
+    uint8_t speed;
+    bool is_ready;
+};
 
 #ifdef  __cplusplus
 extern "C" {
 #endif
 
-bool drv_init_i2c(void);
+bool drv_init_i2c(struct i2c_bus_config *i2c_dev);
 
 /* for 8bit size register address */
 //  int i2c_reg_write_byte(const struct device *dev, uint16_t dev_addr, uint8_t reg_addr, uint8_t value);

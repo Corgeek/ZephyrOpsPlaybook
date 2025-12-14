@@ -9,6 +9,9 @@
 extern "C" {
 #endif
 
+// aliases
+#define USER_LED                    GPIO_DUMMY
+
 #ifdef  __cplusplus
 }
 #endif
