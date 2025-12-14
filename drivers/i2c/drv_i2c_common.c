@@ -10,43 +10,23 @@
 #include "boards/unique.h"
 #include "drivers/i2c/drv_i2c_common.h"
 
-struct i2c_bus_config {
-    const struct device *const bus;
-    uint8_t speed;
-    bool is_ready;
-};
-
-static struct i2c_bus_config s_i2c_dev[] = {
-#ifdef I2C_100KHZ_BUS
-    { .bus = I2C_100KHZ_BUS, .speed = I2C_SPEED_STANDARD, .is_ready = false },
-#endif // I2C_100KHZ_BUS
-};
-
-bool drv_init_i2c(void)
+bool drv_init_i2c(struct i2c_bus_config *i2c_dev)
 {
     int ret = 0;
 
-    for (size_t i = 0; i < ARRAY_SIZE(s_i2c_dev); ++i) {
-        s_i2c_dev[i].is_ready = device_is_ready(s_i2c_dev[i].bus);
-        if (s_i2c_dev[i].is_ready == false) {
-            printk("i2c is not ready[%s]\n", s_i2c_dev[i].bus->name);
-            continue;
-        }
-
-        ret = i2c_configure(s_i2c_dev[i].bus, I2C_MODE_CONTROLLER | I2C_SPEED_SET(s_i2c_dev[i].speed));
-        if (ret) {
-            printk("i2c_configure() failed[%s]\n", s_i2c_dev[i].bus->name);
-            s_i2c_dev[i].is_ready = false;
-            continue;
-        }
+    ret = device_is_ready(i2c_dev->bus);
+    if (ret == 0) {
+        printk("i2c is not ready[%s]\n", i2c_dev->bus->name);
+        return i2c_dev->is_ready = false;
     }
 
-    bool result = true;
-    for (size_t i = 0; i < ARRAY_SIZE(s_i2c_dev); ++i) {
-        result |= s_i2c_dev[i].is_ready;
+    ret = i2c_configure(i2c_dev->bus, I2C_MODE_CONTROLLER | I2C_SPEED_SET(i2c_dev->speed));
+    if (ret) {
+        printk("i2c_configure() failed[%s]\n", i2c_dev->bus->name);
+        return i2c_dev->is_ready = false;
     }
 
-    return result;
+    return i2c_dev->is_ready = true;
 }
 
 /* for 8bit size register address */

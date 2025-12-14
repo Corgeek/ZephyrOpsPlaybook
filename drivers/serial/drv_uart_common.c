@@ -9,55 +9,41 @@
 #include "boards/unique.h"
 #include "drivers/serial/drv_uart_common.h"
 
-struct uart_bus_config {
-    const struct device *const bus;
-    struct uart_config cfg;
-    bool is_ready;
-};
+const struct device *s_uart_dev;
 
-static struct uart_bus_config s_uart_dev[] = {
-#ifdef UART_115200_BUS
-    {
-        .bus = UART_115200_BUS,
-        .cfg = {
-            .baudrate = 115200,
-            .parity = UART_CFG_PARITY_NONE,
-            .stop_bits = UART_CFG_STOP_BITS_1,
-            .data_bits = UART_CFG_DATA_BITS_8,
-            .flow_ctrl = UART_CFG_FLOW_CTRL_NONE
-        },
-        .is_ready = false,
-    }
-#endif // UART_115200_BUS
-};
-
-bool drv_init_uart(void)
+bool drv_init_uart(struct uart_port_config *uart_dev)
 {
-    for (size_t i = 0; i < ARRAY_SIZE(s_uart_dev); ++i) {
-        s_uart_dev[i].is_ready = device_is_ready(s_uart_dev[i].bus);
-        if (s_uart_dev[i].is_ready == false) {
-            printk("uart is not ready[%s]\n", s_uart_dev[i].bus->name);
-            continue;
-        }
-
-        if (uart_configure(s_uart_dev[i].bus, &s_uart_dev[i].cfg)) {
-            printk("uart_configure() failed[%s]\n", s_uart_dev[i].bus->name);
-            s_uart_dev[i].is_ready = false;
-            continue;
-        }
+    uart_dev->is_ready = device_is_ready(uart_dev->port);
+    if (uart_dev->is_ready == false) {
+        printk("uart is not ready[%s]\n", uart_dev->port->name);
+        return false;
     }
 
-    bool result = true;
-    for (size_t i = 0; i < ARRAY_SIZE(s_uart_dev); ++i) {
-        result |= s_uart_dev[i].is_ready;
+    if (uart_configure(uart_dev->port, &uart_dev->cfg)) {
+        printk("uart_configure() failed[%s]\n", uart_dev->port->name);
+        uart_dev->is_ready = false;
+        return false;
     }
 
-    return result;
+    s_uart_dev = uart_dev->port;
+
+    return true;
 }
 
-void drv_uart_send(const struct device *const dev, size_t len, const uint8_t *data)
+void drv_uart_send(const uint8_t *data, size_t len)
 {
     for (size_t i = 0; i < len; ++i) {
-        uart_poll_out(dev, data[i]);
+        uart_poll_out(s_uart_dev, data[i]);
     }
+}
+
+size_t drv_uart_recv(uint8_t *data, size_t len)
+{
+    size_t cnt;
+    for (cnt = 0; cnt < len; ++cnt) {
+        if (uart_poll_in(s_uart_dev, &data[cnt]))
+            break;
+    }
+
+    return cnt;
 }

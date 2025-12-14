@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
+#include "drivers/serial/drv_uart_common.h"
 #include "drivers/i2c/drv_i2c_common.h"
 #include "drivers/beep/drv_beep_manipulator.h"
 #include "drivers/button/drv_button_microbit.h"
@@ -11,6 +12,7 @@
 #include "drivers/sensor/accel/drv_accel_lis2dh.h"
 #include "drivers/sensor/magnet/drv_magn_lis2mdl.h"
 #include "drivers/sensor/measure/drv_tof_vl53l4cd.h"
+#include "drivers/ble/drv_ble_peripheral.h"
 
 #ifdef  __cplusplus
 extern "C" {
@@ -44,6 +46,7 @@ extern "C" {
 #define GPIO0_PIN30                 GPIO_PORT_PIN(gpio0, 30)        // P0.30
 
 // Aliases
+#define HOST_UART                   DEVICE_DT_GET(DT_NODELABEL(uart0))
 #define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c0))
 #define	BUTTON_A                    GPIO0_PIN17
 #define	BUTTON_B                    GPIO0_PIN26
