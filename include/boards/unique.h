@@ -5,23 +5,6 @@
  */
 #pragma once
 
-#include <zephyr/device.h>
-#include <zephyr/drivers/gpio.h>
-
-#ifdef  __cplusplus
-extern "C" {
-#endif
-
-struct gpio_port_pin {
-    const struct device *const port;
-    const gpio_pin_t pin;
-};
-
-void uni_board_init(void);
-
-#define GPIO_PORT_PIN(_port, _pin)          ((struct gpio_port_pin){ .port = DEVICE_DT_GET(DT_NODELABEL(_port)), .pin = (_pin) })
-#define GPIO_DUMMY                          ((struct gpio_port_pin){ .port = NULL, .pin = 0 })
-
 #if   defined(CONFIG_BOARD_BBC_MICROBIT)
 #include "boards/bbc/microbit/bbc_microbit.h"
 #elif defined(CONFIG_BOARD_BBC_MICROBIT_V2)
@@ -43,6 +26,12 @@ void uni_board_init(void);
 #else
 #include "boards/generic/generic_board.h"
 #endif
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+void uni_board_init(void);
 
 #ifdef  __cplusplus
 }

@@ -12,6 +12,7 @@ struct i2c_bus_config {
     const struct device *const bus;
     uint8_t speed;
     bool is_ready;
+    uint8_t dummy[2];
 };
 
 #ifdef  __cplusplus

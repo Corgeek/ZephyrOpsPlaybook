@@ -11,12 +11,13 @@ manifest:
       repo-path: zephyr.git
       path: zephyr
       remote: upstream
-      revision: v4.1.0
+      revision: v4.4.0
       clone-depth: 1
       west-commands: scripts/west-commands.yml
       import:
         name-allowlist:
           - cmsis
+          - cmsis_6
           - fatfs
           - hal_nordic
           - hal_rpi_pico

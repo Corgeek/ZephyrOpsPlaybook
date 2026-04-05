@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "${config:PROJ_PATH}/scripts/build.bat",
             "args": [
-                "/r",
+                "/r"
             ],
             "problemMatcher": [],
             "group": {

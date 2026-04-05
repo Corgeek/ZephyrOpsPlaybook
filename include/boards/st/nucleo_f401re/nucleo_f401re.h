@@ -4,8 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #pragma once
-#include "drivers/serial/drv_uart_common.h"
+#include <zephyr/drivers/gpio.h>
+#include <zephyr/drivers/i2c.h>
+#include "drivers/gpio/drv_gpio_common.h"
 #include "drivers/i2c/drv_i2c_common.h"
+#include "drivers/serial/drv_uart_common.h"
+#include "modules/com_uart_host.h"
 
 #ifdef  __cplusplus
 extern "C" {
@@ -99,7 +103,7 @@ extern "C" {
 #define HOST_UART                   DEVICE_DT_GET(DT_NODELABEL(usart1))
 #define I2C_100KHZ_BUS              DEVICE_DT_GET(DT_NODELABEL(i2c1))
 #define USER_BUTTON                 GPIO_DT_SPEC_GET(DT_ALIAS(sw0), gpios)
-#define	GREEN_LED                   GPIOA_PIN05
+#define GREEN_LED                   GPIOA_PIN05
 #define TOF_XSHUT                   GPIOA_PIN00
 
 #ifdef  __cplusplus

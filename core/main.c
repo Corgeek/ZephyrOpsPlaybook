@@ -9,11 +9,11 @@
 
 int main(void)
 {
-	uni_board_init();
+    uni_board_init();
 
-	while (true) {
-		k_msleep(100);
-	}
+    while (true) {
+        k_msleep(100);
+    }
 
-	return 0;
+    return 0;
 }

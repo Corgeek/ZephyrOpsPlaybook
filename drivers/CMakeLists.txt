@@ -3,10 +3,10 @@
 
 cmake_minimum_required(VERSION 3.13.1)
 
-if (CONFIG_I2C)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/gpio)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/i2c)
-endif()
-
-if (CONFIG_SERIAL)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/pwm)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/sensor)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/serial)
-endif()
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/spi)
+
