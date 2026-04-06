@@ -1,34 +1,11 @@
-# ZephyrOpsPlaybook (minimal)
+# ZephyrOpsPlaybook
 
-## 1. 機能概要
-公式の手順を簡略・軽量化して、手軽に開発を始められる環境を提供することを目的としています。
-* コマンドプロンプトと bash 両方で使えるようにしておき、VSCode によるデバッグ環境を提供
-* ボード間の差異を減らし、移植性を維持した実装例の提案
-* サンプルドライバ群も用意し、すぐにアプリケーション開発に注力できる環境を提供
-* 開発の際はターゲットが決まっていることが多く、ターゲットを絞り込んだ環境構築の例示
-* バージョンやリビジョンを固定して足並みをそろえた開発が必要で、その固定させる方法を提供
+## 1. 概要
 
-master ブランチは現在 v4.1.0 で固定していますが、LTS 版や最新環境で利用したい方向けに、下記ブランチも用意しています。
-
-| ブランチ名 | 概要 |
-|---|---|
-| [dev/newest](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/newest) | Zephyr 最新リビジョンベースの環境を構築 |
-| [dev/minimal](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/minimal) | Zephyr 最新リビジョンで、main 関数のみの最小構成の環境 |
-| [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | Zephyr の LTS 版である v3.7.0 ベースの環境 |
-
-また、作業ミスを減らすため、README.md を環境ごとに分割していますので、環境に合わせて参照してください。
-
-| 環境 | 概要 |
-|------|------|
-| [Ubuntu 向け](README.md) | Ubuntu ネイティブやWSLを含む仮想環境(現在のページ) |
-| [Windows 向け](README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
-| [Addon 向け](README_addon.md) | 公式の Zephyr 環境を既に構築済みで、それを流用したい場合 |
-
-> [!TIP]
-WSL は USB 機器の制御を理由に公式で推奨されていませんが、デバイスの管理等の知識がある方は一通り利用できます。<br>
-また、そもそもターゲットをUSB経由で制御できる仕組みがない場合などは、Windows ネイティブより断然軽量な WSL を選択肢として考慮に入れて良いかもしれません。
+このページでは Linux 向け(WSL含む)の環境構築手順を示しています。
 
 ## 2. 環境構築
+
 ### 2.1. 事前準備
 **Ubuntu 22.04 より古い Ubuntu の場合**、下記コマンドで apt 用リポジトリの追加を行います。
 
@@ -56,7 +33,8 @@ sudo apt install --no-install-recommends git cmake ninja-build gperf \
 mkdir zephyrproject
 cd zephyrproject
 git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
-git checkout origin/dev/minimal -b dev/minimal
+cd playbook
+git checkout origin/sample/osc2025_tokyo -b sample/osc2025_tokyo
 ```
 
 ### 2.4. Zephyr 環境用の python 環境を構築
@@ -80,10 +58,10 @@ pip install -r zephyr/scripts/requirements.txt
 ```
 
 ### 2.6. SDK のダウンロードと設定
-Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。また、本リポジトリは 0.17.0 までで動作確認が取れています。
+Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。インストール先はデフォルトだと` ${HOME}` 直下です。を指定する場合は `-b 任意の親ディレクトリ` で可能です。
 
 ```
-west sdk install --version 0.17.0 -t arm-zephyr-eabi
+west sdk install -t arm-zephyr-eabi -b ${HOME}
 ```
 
 > [!NOTE]
