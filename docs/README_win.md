@@ -62,11 +62,11 @@ pip install -r zephyr/scripts/requirements.txt
 Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。
 
 ```
-west sdk install -t arm-zephyr-eabi -b C:\
+west sdk install -t arm-zephyr-eabi -b %SystemDrive%
 ```
 
 > [!CAUTION]
-インストール先未指定だとユーザーフォルダ直下にインストールされますが、ユーザー名にスペース文字を含んでいるとビルド時にエラーが発生します(e.g. ユーザー名：Yamada Taro)。無難な回避策は `-b C:\` でC:ドライブ直下にインストールです。(`-b C:\Program Files\` でもOKですが管理者権限が必要な点に注意)
+インストール先未指定だとユーザーフォルダ直下にインストールされますが、ユーザー名にスペース文字を含んでいるとビルド時にエラーが発生します(e.g. ユーザー名：Yamada Taro)。無難な回避策は `-b C:\` でC:ドライブ直下にインストールです。(`-b C:\Program Files\` でもOKですが管理者権限が必要)
 
 > [!NOTE]
 今の所本リポジトリでは ARM 系向けに絞っているため、ツールチェインも ARM 向けに絞っています。`-t arm-zephyr-eabi` を無くせば全アーキテクチャ向けをインストールできます(約9.2GB)
