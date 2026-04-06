@@ -8,16 +8,17 @@ cross_gdb_path = "${config:ZEPHYRSDK}/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb.ex
 
 sdk_base_paths = [
     Path(os.environ.get("HOMEPATH")),
-    Path(os.environ.get("PROGRAMFILES"))
+    Path(os.environ.get("PROGRAMFILES")),
+    Path(os.environ.get("SYSTEMDRIVE", "C:") + "\\")
 ]
 
 def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str):
     env_content = "\n".join([
-        f"set ZEPHYR_ROOT=\"{zephyr_root}\"",
-        f"set BOARD_TYPE=\"{BOARD_TYPE}\"",
-        f"set RUNNER_FLASH=\"{runner_flash}\"",
-        f"set RUNNER_DEBUG=\"{runner_debug}\"",
-        f"set ZEPHYR_SDK_INSTALL_DIR=\"{sdk_path}\""
+        f"set \"ZEPHYR_ROOT={zephyr_root}\"",
+        f"set \"BOARD_TYPE={BOARD_TYPE}\"",
+        f"set \"RUNNER_FLASH={runner_flash}\"",
+        f"set \"RUNNER_DEBUG={runner_debug}\"",
+        f"set \"ZEPHYR_SDK_INSTALL_DIR={sdk_path}\"",
         "",
         "call %ZEPHYR_ROOT%\\zephyr\\zephyr-env.cmd",
         "call %ZEPHYR_ROOT%\\.venv\\Scripts\\activate.bat",
