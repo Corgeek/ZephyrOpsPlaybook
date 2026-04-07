@@ -95,12 +95,13 @@ playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設
     │   ├── boards/               # ターゲット依存のファイル群
     │   ├── core/                 # main.c やスレッドや共有メモリ関連
     │   ├── docs/                 # このドキュメントや補助的な資料
-    │   ├── drivers/              # ドライバ関連
+    │   ├── modules/              # MCUよりも広範囲なベンダー固有機能を使った関数群
     │   ├── include/              # ヘッダーファイルはここに集約
     │   ├── prj.conf              # 汎用的な prj.conf
     │   ├── scripts/              # Bash / Command Prompt 用のスクリプト群
+    │   ├── utils/                # 汎用・便利機能、ユーティリティ
     │   └── west.yml              # west init -l で参照する設定
-    └── zephyr/                   # 公式の Zephyr リポジトリ
+    └── zephyr/                    # 公式の Zephyr リポジトリ
 ```
 
 ## 3. 開発フロー
@@ -127,3 +128,4 @@ playbook に移動しそれぞれ以下のコマンドを実行
 
 Debug 時は、port 3333 で待機しているので sdk 内にある gdb を用いてアタッチ
 
+<img width=90% alt="Image" src="https://github.com/user-attachments/assets/f3828f7d-cd9e-4650-a645-6fb811e70a29" />

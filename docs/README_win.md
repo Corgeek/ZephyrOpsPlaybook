@@ -2,7 +2,7 @@
 
 ## 1. 概要
 
-このページでは Linux 向け(WSL含む)の環境構築手順を示しています。
+このページでは Windows 向けの環境構築手順を示しています。
 
 ## 2. 環境構築
 
@@ -62,8 +62,11 @@ pip install -r zephyr/scripts/requirements.txt
 Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。
 
 ```
-west sdk install -t arm-zephyr-eabi
+west sdk install -t arm-zephyr-eabi -b %SystemDrive%
 ```
+
+> [!CAUTION]
+インストール先未指定だとユーザーフォルダ直下にインストールされますが、ユーザー名にスペース文字を含んでいるとビルド時にエラーが発生します(e.g. ユーザー名：Yamada Taro)。無難な回避策は `-b C:\` でC:ドライブ直下にインストールです。(`-b C:\Program Files\` でもOKですが管理者権限が必要)
 
 > [!NOTE]
 今の所本リポジトリでは ARM 系向けに絞っているため、ツールチェインも ARM 向けに絞っています。`-t arm-zephyr-eabi` を無くせば全アーキテクチャ向けをインストールできます(約9.2GB)
@@ -98,12 +101,13 @@ scripts\setup.bat
     │   ├── boards/               # ターゲット依存のファイル群
     │   ├── core/                 # main.c やスレッドや共有メモリ関連
     │   ├── docs/                 # このドキュメントや補助的な資料
-    │   ├── drivers/              # ドライバ関連
+    │   ├── modules/              # MCUよりも広範囲なベンダー固有機能を使った関数群
     │   ├── include/              # ヘッダーファイルはここに集約
     │   ├── prj.conf              # 汎用的な prj.conf
     │   ├── scripts/              # Bash / Command Prompt 用のスクリプト群
+    │   ├── utils/                # 汎用・便利機能、ユーティリティ
     │   └── west.yml              # west init -l で参照する設定
-    └── zephyr/                   # 公式の Zephyr リポジトリ
+    └── zephyr/                    # 公式の Zephyr リポジトリ
 ```
 
 ## 3. 開発フロー
@@ -130,3 +134,4 @@ playbook に移動しそれぞれ以下のコマンドを実行
 
 Debug 時は、port 3333 で待機しているので sdk 内にある gdb を用いてアタッチ
 
+<img width=90% alt="Image" src="https://github.com/user-attachments/assets/f3828f7d-cd9e-4650-a645-6fb811e70a29" />
