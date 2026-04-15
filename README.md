@@ -5,18 +5,20 @@
 主に以下の特徴を提供しています。
 * VSCode によるデバッグ環境(コマンドプロンプトとbashに対応)
 * H/W依存の実装部とアプリケーション部を分離させた、移植性を維持する実装例
-* バージョンやリビジョンを固定して足並みをそろえる方法
+* バージョンやリビジョンを固定してチーム内で足並みを揃えた開発環境
 * STM32やNXPなどターゲットを絞り込んだ環境の構築方法
 
 各ブランチの説明は以下の通りです。必要に応じてブランチを切り替えた上で作業を進めてください。
 
 | ブランチ名 | 概要 | 対象 | Zephyr のリビジョン |
 |---|---|---|---|
-| [master](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/master) | サンプルをすべて盛り込んだ環境 | とりあえず動かしてみたい方向け | v4.1.0 |
-| [dev/newest](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/newest) | master をベースに Zephyr 最新リビジョン | Zephyr の最新機能を試したい方向け | 最新 |
-| [dev/basic](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/basic) | サンプルを取り除いたシンプルな基本構成 | 基本構成を使って開発を進めたい方向け | v4.1.0 |
-| [dev/minimal](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/minimal) | Zephyr 最新リビジョンで、main 関数のみの最小構成の環境 | vscode 連携など最小限の機能を流用したい方向け | 最新 |
-| [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | master をベースに Zephyr の LTS 版である v3.7.0 環境 | Zephyr の LTS を採用したい場合 | v3.7.0 |
+| [main](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/template) | サンプルを取り除いたシンプルな基本構成 | 基本構成を使って開発を進めたい方向け | v4.4.0 |
+| [bbc_micorbit](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/bbc_microbit) | bbc_microbit, bbc_microbit_v2 に特化した環境 | 付属のセンサーなどを有効化 | v4.1.0 |
+| [rpi_pico](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/rpi_pico) | rpi_pico, rpi_pico2 に特化した環境 | main ブランチを rpi_pico 向けに west.yaml を最小限にした構成 | v4.4.0 |
+| [stm32](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/stm32) | STM が提供しているボードに特化した環境 | main ブランチを stm32 向けに west.yaml を最小限にした構成 | v4.4.0 |
+| [sample/drivers](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/drivers) | いろいろなドライバーのサンプル集 | main ブランチをベースにサンプルドライバを追加した構成 | v4.4.0 |
+| [sample/osc2025_tokyo](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/sample/osc2025_tokyo) | Open Source Conference 2025 で展示したサンプル | 付属LCDにBMPを表示 | v4.1.0 |
+| [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | main をベースに Zephyr の LTS 版である v3.7.0 環境 | Zephyr の LTS を採用したい場合 | v3.7.0 |
 
 また、作業ミスを減らすため、README.md を環境ごとに分割していますので、環境に合わせて参照してください。
 
@@ -24,7 +26,6 @@
 |------|------|
 | [Ubuntu 向け](docs/README_lnx.md) | Ubuntu ネイティブやWSLを含む仮想環境 |
 | [Windows 向け](docs/README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
-| [Addon 向け](docs/README_addon.md) | 公式の Zephyr 環境を既に構築済みで、それを流用したい場合 |
 
 > [!TIP]
 WSL は USB 機器の制御を理由に公式で推奨されていませんが、デバイスの管理等の知識がある方は一通り利用できます。<br>
