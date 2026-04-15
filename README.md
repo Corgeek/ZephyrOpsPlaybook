@@ -15,8 +15,8 @@
 |---|---|---|---|
 | [main](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/template) | サンプルを取り除いたシンプルな基本構成 | 基本構成を使って開発を進めたい方向け | v4.4.0 |
 | [bbc_micorbit](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/bbc_microbit) | bbc_microbit, bbc_microbit_v2 に特化した環境 | 付属のセンサーなどを有効化 | v4.1.0 |
-| [rpi_pico](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/rpi_pico) | rpi_pico, rpi_pico2 に特化した環境 | main ブランチを rpi_pico 向けに west.yaml を最小限にした構成 | v4.1.0 |
-| [stm32](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/stm32) | STM が提供しているボードに特化した環境 | main ブランチを stm32 向けに west.yaml を最小限にした構成 | v4.1.0 |
+| [rpi_pico](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/rpi_pico) | rpi_pico, rpi_pico2 に特化した環境 | main ブランチを rpi_pico 向けに west.yaml を最小限にした構成 | v4.4.0 |
+| [stm32](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/stm32) | STM が提供しているボードに特化した環境 | main ブランチを stm32 向けに west.yaml を最小限にした構成 | v4.4.0 |
 | [sample/drivers](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/drivers) | いろいろなドライバーのサンプル集 | main ブランチをベースにサンプルドライバを追加した構成 | v4.4.0 |
 | [sample/osc2025_tokyo](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/sample/osc2025_tokyo) | Open Source Conference 2025 で展示したサンプル | 付属LCDにBMPを表示 | v4.1.0 |
 | [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | main をベースに Zephyr の LTS 版である v3.7.0 環境 | Zephyr の LTS を採用したい場合 | v3.7.0 |

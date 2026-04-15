@@ -35,7 +35,7 @@ choco install openocd
 ```
 mkdir zephyrproject
 cd zephyrproject
-git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook
+git clone https://github.com/Corgeek/ZephyrOpsPlaybook.git playbook -b stm32
 ```
 
 ### 2.4. Zephyr 環境用の python 環境を構築
@@ -74,7 +74,7 @@ west sdk install -t arm-zephyr-eabi -b %SystemDrive%
 ### 2.7. west コマンドの簡略用スクリプトを準備
 
 playbook\scripts\setup.bat をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.bat を実行
-> set BOARD_TYPE=bbc_microbit_v2
+> set BOARD_TYPE=nucleo_f401re
 ```
 scripts\setup.bat
 ```
