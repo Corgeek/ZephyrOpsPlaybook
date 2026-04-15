@@ -16,16 +16,5 @@ manifest:
       west-commands: scripts/west-commands.yml
       import:
         name-allowlist:
-          - cmsis
           - cmsis_6
-          - fatfs
-          - hal_nordic
           - hal_rpi_pico
-          - hal_st
-          - hal_stm32
-          - littlefs
-          - lvgl
-          - mbedtls
-          - mcuboot
-          - tinycrypt
-          - trusted-firmware-m
