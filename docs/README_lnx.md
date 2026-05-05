@@ -25,9 +25,9 @@ sudo apt install --no-install-recommends git cmake ninja-build gperf \
 
 うまく行かなかった場合は、下記公式ページを参照
 
-[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
+[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.4.0/develop/getting_started/index.html#install-dependencies)
 
-### 2.3.リポジトリのクローン
+### 2.3. リポジトリのクローン
 作業用のディレクトリ zephyrproject を用意し、その中にこのリポジトリをクローン (zephyrproject と playbook は適宜変更してOK)
 ```
 mkdir zephyrproject
@@ -78,7 +78,7 @@ playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設
 
 以上で、初回の構築は完了です。
 
-### 2.7. 最終的なディレクトリ構成
+### 2.8. 最終的なディレクトリ構成
 
 ディレクトリ構成(一部)は以下のようになっており、SDK 以外はすべてこの中に内包しています。
 ```
@@ -96,6 +96,7 @@ playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設
     │   ├── boards/               # ターゲット依存のファイル群
     │   ├── core/                 # main.c やスレッドや共有メモリ関連
     │   ├── docs/                 # このドキュメントや補助的な資料
+    │   ├── drivers/              # サンプルドライバー群
     │   ├── modules/              # MCUよりも広範囲なベンダー固有機能を使った関数群
     │   ├── include/              # ヘッダーファイルはここに集約
     │   ├── prj.conf              # 汎用的な prj.conf
