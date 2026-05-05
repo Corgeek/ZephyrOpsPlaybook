@@ -7,7 +7,7 @@
 ## 2. 環境構築
 
 ### 2.1. 事前準備
-**Ubuntu 22.04 より古い Ubuntu の場合**、下記コマンドで apt 用リポジトリの追加を行います。
+**22.04 より古い Ubuntu の場合**、下記コマンドで apt 用リポジトリの追加を行います。
 
 ```
 wget https://apt.kitware.com/kitware-archive.sh
@@ -19,12 +19,12 @@ sudo bash kitware-archive.sh
 下記コマンドで必要なツールをインストール(公式の手順と同じ)
 ```
 sudo apt install --no-install-recommends git cmake ninja-build gperf \
-  ccache dfu-util device-tree-compiler wget \
-  python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
-  make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
+  ccache dfu-util device-tree-compiler wget python3-dev python3-venv python3-tk \
+  xz-utils file make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
 ```
 
-うまく行かなかった場合は、下記公式ページを参照<br>
+うまく行かなかった場合は、下記公式ページを参照
+
 [Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
 
 ### 2.3.リポジトリのクローン
@@ -52,7 +52,8 @@ pip install west
 ```
 west init -l playbook
 west update
-pip install -r zephyr/scripts/requirements.txt
+west zephyr-export
+west packages pip --install
 ```
 
 ### 2.6. SDK のダウンロードと設定
