@@ -24,10 +24,11 @@ choco install ninja gperf python311 git dtc-msys2 wget 7zip
 choco install openocd
 ```
 
-うまく行かなかった場合は、下記公式ページを参照。<br>
-[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
+うまく行かなかった場合は、下記公式ページを参照
 
-### 2.3.リポジトリのクローン
+[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.4.0/develop/getting_started/index.html#install-dependencies)
+
+### 2.3. リポジトリのクローン
 > [!IMPORTANT]
 ここからは通常のコマンドプロンプトを開いて作業をします。
 
@@ -104,7 +105,6 @@ scripts\setup.bat
     │   ├── docs/                 # このドキュメントや補助的な資料
     │   ├── modules/              # MCUよりも広範囲なベンダー固有機能を使った関数群
     │   ├── include/              # ヘッダーファイルはここに集約
-    │   ├── prj.conf              # 汎用的な prj.conf
     │   ├── scripts/              # Bash / Command Prompt 用のスクリプト群
     │   ├── utils/                # 汎用・便利機能、ユーティリティ
     │   └── west.yml              # west init -l で参照する設定
