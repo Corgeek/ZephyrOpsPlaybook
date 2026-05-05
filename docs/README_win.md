@@ -24,10 +24,11 @@ choco install ninja gperf python311 git dtc-msys2 wget 7zip
 choco install openocd
 ```
 
-うまく行かなかった場合は、下記公式ページを参照。<br>
-[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.0.0/develop/getting_started/index.html#install-dependencies)
+うまく行かなかった場合は、下記公式ページを参照
 
-### 2.3.リポジトリのクローン
+[Getting Started Guide: Install dependencies](https://docs.zephyrproject.org/4.4.0/develop/getting_started/index.html#install-dependencies)
+
+### 2.3. リポジトリのクローン
 > [!IMPORTANT]
 ここからは通常のコマンドプロンプトを開いて作業をします。
 

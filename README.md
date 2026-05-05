@@ -13,7 +13,7 @@
 | ブランチ名 | 概要 | 対象 | Zephyr のリビジョン |
 |---|---|---|---|
 | [main](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/main) | サンプルを取り除いたシンプルな基本構成 | 基本構成を使って開発を進めたい方向け | v4.4.0 |
-| [bbc_micorbit](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/bbc_microbit) | bbc_microbit, bbc_microbit_v2 に特化した環境 | 付属のセンサーなどを有効化 | v4.1.0 |
+| [bbc_microbit](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/bbc_microbit) | bbc_microbit, bbc_microbit_v2 に特化した環境 | 付属のセンサーなどを有効化 | v4.1.0 |
 | [rpi_pico](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/rpi_pico) | rpi_pico, rpi_pico2 に特化した環境 | main ブランチを rpi_pico 向けに west.yaml を最小限にした構成 | v4.4.0 |
 | [stm32](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/stm32) | STM が提供しているボードに特化した環境 | main ブランチを stm32 向けに west.yaml を最小限にした構成 | v4.4.0 |
 | [sample/osc2025_tokyo](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/sample/osc2025_tokyo) | Open Source Conference 2025 で展示したサンプル | 付属LCDにBMPを表示 | v4.1.0 |
