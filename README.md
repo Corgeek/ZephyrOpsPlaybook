@@ -12,11 +12,12 @@
 
 | ブランチ名 | 概要 | 対象 | Zephyr のリビジョン |
 |---|---|---|---|
-| [master](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/master) | サンプルをすべて盛り込んだ環境 | とりあえず動かしてみたい方向け | v4.1.0 |
-| [dev/newest](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/newest) | master をベースに Zephyr 最新リビジョン | Zephyr の最新機能を試したい方向け | 最新 |
-| [dev/basic](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/basic) | サンプルを取り除いたシンプルな基本構成 | 基本構成を使って開発を進めたい方向け | v4.1.0 |
-| [dev/minimal](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/minimal) | Zephyr 最新リビジョンで、main 関数のみの最小構成の環境 | vscode 連携など最小限の機能を流用したい方向け | 最新 |
-| [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | master をベースに Zephyr の LTS 版である v3.7.0 環境 | Zephyr の LTS を採用したい場合 | v3.7.0 |
+| [main](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/main) | サンプルを取り除いたシンプルな基本構成 | 基本構成を使って開発を進めたい方向け | v4.4.0 |
+| [bbc_micorbit](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/bbc_microbit) | bbc_microbit, bbc_microbit_v2 に特化した環境 | 付属のセンサーなどを有効化 | v4.1.0 |
+| [rpi_pico](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/rpi_pico) | rpi_pico, rpi_pico2 に特化した環境 | main ブランチを rpi_pico 向けに west.yaml を最小限にした構成 | v4.4.0 |
+| [stm32](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/stm32) | STM が提供しているボードに特化した環境 | main ブランチを stm32 向けに west.yaml を最小限にした構成 | v4.4.0 |
+| [sample/osc2025_tokyo](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/sample/osc2025_tokyo) | Open Source Conference 2025 で展示したサンプル | 付属LCDにBMPを表示 | v4.1.0 |
+| [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | main をベースに Zephyr の LTS 版である v3.7.0 環境 | Zephyr の LTS を採用したい場合 | v3.7.0 |
 
 また、作業ミスを減らすため、README.md を環境ごとに分割していますので、環境に合わせて参照してください。
 
@@ -24,7 +25,6 @@
 |------|------|
 | [Ubuntu 向け](docs/README_lnx.md) | Ubuntu ネイティブやWSLを含む仮想環境 |
 | [Windows 向け](docs/README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
-| [Addon 向け](docs/README_addon.md) | 公式の Zephyr 環境を既に構築済みで、それを流用したい場合 |
 
 > [!TIP]
 WSL は USB 機器の制御を理由に公式で推奨されていませんが、デバイスの管理等の知識がある方は一通り利用できます。<br>
@@ -48,3 +48,4 @@ WSL は USB 機器の制御を理由に公式で推奨されていませんが�
 14. [【Qiita記事】 Zephyr RTOS 〜 Devicetree ピンアサイン編 ～](https://qiita.com/Corgeek/items/150c02e6aeb4bb0c73a2)
 15. [【Qiita記事】 Zephyr RTOS 〜 リアルタイム性能について 〜](https://qiita.com/Corgeek/items/005a57f681ceca51b676)
 16. [【Qiita記事】 Zephyr RTOS 〜 Arduino UNO Q 向けの overlay 〜](https://qiita.com/Corgeek/items/c4fea6b40e78b25d6440)
+17. [【Qiita記事】 Zephyr RTOS 〜 リリースサイクルとメンテナンス期間 〜](https://qiita.com/Corgeek/items/da4518ad72188628d31a)

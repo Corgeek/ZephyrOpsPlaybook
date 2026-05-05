@@ -57,6 +57,7 @@ pip install west
 ```
 west init -l playbook
 west update
+west zephyr-export
 pip install -r zephyr/scripts/requirements.txt
 ```
 
