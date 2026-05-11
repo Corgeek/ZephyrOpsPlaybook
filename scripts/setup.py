@@ -72,13 +72,12 @@ def get_sdk_paths(zephyr_ver: str) -> str:
     for sdk_path in sorted_sdks:
         print("\t" + str(sdk_path[0]) + " : " + str(sdk_path[1]))
 
-    if zephyr_ver == "v3.7.0":
-        if "zephyr-sdk-0.16.8" in found_sdks:
-            print("USE:\r\n\t" + str(found_sdks["zephyr-sdk-0.16.8"].as_posix()))
-            selected_sdk = found_sdks["zephyr-sdk-0.16.8"]
+    if zephyr_ver == "v3.7.0" and "zephyr-sdk-0.16.8" in found_sdks:
+        selected_sdk = found_sdks["zephyr-sdk-0.16.8"]
     else:
-        print("USE:\r\n\t" + str(sorted_sdks[0][1]))
         selected_sdk = sorted_sdks[0][1]
+
+    print("USE:\r\n\t" + str(selected_sdk))
 
     return selected_sdk
 
