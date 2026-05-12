@@ -4,7 +4,10 @@ from pathlib import Path
 import os
 import shutil
 
-cross_gdb_path = "${config:ZEPHYRSDK}/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb.exe"
+def get_cross_gdb_path(sdk_path: Path, use_gnu: bool) -> str:
+    if use_gnu:
+        return str(sdk_path / "gnu" / "arm-zephyr-eabi" / "bin" / "arm-zephyr-eabi-gdb.exe")
+    return str(sdk_path / "arm-zephyr-eabi" / "bin" / "arm-zephyr-eabi-gdb.exe")
 
 sdk_base_paths = [
     Path(os.environ.get("HOMEPATH")),
