@@ -31,7 +31,7 @@ def get_zephyr_base_version(proj_dir: str) -> str:
 
     return zephyr_ver
 
-def set_west_env_file(zephyr_root: str, proj_dir: str, scripts_dir: str, sdk_path: str) -> tuple[str, str, str]:
+def set_west_env_file(zephyr_root: str, proj_dir: str, scripts_dir: str, sdk_path: str, build_opt: str) -> tuple[str, str, str]:
     runner_flash = runner.get_runner(cmd_type="flash", board_type=BOARD_TYPE)
     runner_debug = runner.get_runner(cmd_type="debug", board_type=BOARD_TYPE)
 
@@ -41,7 +41,8 @@ def set_west_env_file(zephyr_root: str, proj_dir: str, scripts_dir: str, sdk_pat
                                          BOARD_TYPE=BOARD_TYPE,
                                          runner_flash=runner_flash,
                                          runner_debug=runner_debug,
-                                         sdk_path=sdk_path
+                                         sdk_path=sdk_path,
+                                         build_opt=build_opt
                                          )
 
     west_env_path.write_text(env_content, encoding="utf-8")
@@ -81,6 +82,10 @@ def get_sdk_paths(zephyr_ver: str) -> str:
 
     return selected_sdk
 
+def sdk_requires_gnu_prefix(selected_sdk: Path) -> bool:
+    m = re.match(r"zephyr-sdk-(\d+)\.", selected_sdk.name)
+    return m is not None and int(m.group(1)) >= 1
+
 def update_settings(proj_dir: str, selected_sdk: str) -> None:
     vscode_dir = Path(proj_dir) / ".vscode"
     settings_file = vscode_dir / "settings.json"
@@ -95,10 +100,11 @@ def update_settings(proj_dir: str, selected_sdk: str) -> None:
     else:
         settings_json = {}
 
+    use_gnu = sdk_requires_gnu_prefix(selected_sdk)
     insert_settings = {
         "ZEPHYRSDK": str(selected_sdk),
         "PROJ_PATH": str(proj_dir),
-        "CROSS_GDB_PATH": str(os_dep.cross_gdb_path)
+        "CROSS_GDB_PATH": os_dep.get_cross_gdb_path(selected_sdk, use_gnu)
     }
 
     merged_settings = {**settings_json, **insert_settings}
@@ -108,16 +114,19 @@ def update_settings(proj_dir: str, selected_sdk: str) -> None:
         json.dump(merged_settings, file, indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         sys.exit(1)
 
     BOARD_TYPE = sys.argv[1]
+    BUILD_OPT = sys.argv[2] if len(sys.argv) >= 3 else ""
 
-    print ("BOARD_TYPE:\r\n\t" + str(BOARD_TYPE) + "\r\n")
+    print("BOARD_TYPE:\r\n\t" + str(BOARD_TYPE) + "\r\n")
+    if BUILD_OPT:
+        print("BUILD_OPT:\r\n\t" + BUILD_OPT + "\r\n")
     zephyr_root, proj_dir, scripts_dir = get_base_paths()
     zephyr_ver = get_zephyr_base_version(proj_dir=proj_dir)
     selected_sdk = get_sdk_paths(zephyr_ver)
 
-    set_west_env_file(zephyr_root=zephyr_root, proj_dir=proj_dir, scripts_dir=scripts_dir, sdk_path=selected_sdk)
+    set_west_env_file(zephyr_root=zephyr_root, proj_dir=proj_dir, scripts_dir=scripts_dir, sdk_path=selected_sdk, build_opt=BUILD_OPT)
     update_settings(proj_dir=proj_dir, selected_sdk=selected_sdk)
     os_dep.duplicate_scripts(zephyr_root=zephyr_root, proj_dir=proj_dir, scripts_dir=scripts_dir)

@@ -4,7 +4,10 @@ from pathlib import Path
 import os
 import shutil
 
-cross_gdb_path = "${config:ZEPHYRSDK}/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb"
+def get_cross_gdb_path(sdk_path: Path, use_gnu: bool) -> str:
+    if use_gnu:
+        return str(sdk_path / "gnu" / "arm-zephyr-eabi" / "bin" / "arm-zephyr-eabi-gdb")
+    return str(sdk_path / "arm-zephyr-eabi" / "bin" / "arm-zephyr-eabi-gdb")
 
 sdk_base_paths = [
     Path(os.environ.get("HOME")),
@@ -15,12 +18,13 @@ sdk_base_paths = [
     Path("/usr/local"),
 ]
 
-def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str):
+def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str, build_opt: str = ""):
     env_content = "\n".join([
         f"ZEPHYR_ROOT={zephyr_root}",
         f"BOARD_TYPE={BOARD_TYPE}",
         f'RUNNER_FLASH="{runner_flash}"',
         f'RUNNER_DEBUG="{runner_debug}"',
+        f'BUILD_OPT="{build_opt}"',
         f'export ZEPHYR_SDK_INSTALL_DIR="{sdk_path}"'
         "",
         "if [ ! -e ${ZEPHYR_ROOT}/zephyr/zephyr-env.sh ]; then",
