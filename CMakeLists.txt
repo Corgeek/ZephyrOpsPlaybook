@@ -21,7 +21,7 @@ elseif (BOARD STREQUAL "rpi_pico")
 elseif (BOARD STREQUAL "rpi_pico2")
   set(CONF_FILE ${CMAKE_CURRENT_SOURCE_DIR}/boards/raspberrypi/rpi_pico2/prj.conf)
 else()
-  set(CONF_FILE prj.conf)
+  set(CONF_FILE ${CMAKE_CURRENT_SOURCE_DIR}/boards/generic/prj.conf)
 endif()
 
 ## Main Process
