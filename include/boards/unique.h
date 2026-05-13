@@ -23,6 +23,10 @@
 #include "boards/raspberrypi/rpi_pico/rpi_pico.h"
 #elif defined(CONFIG_BOARD_RPI_PICO2)
 #include "boards/raspberrypi/rpi_pico2/rpi_pico2.h"
+#elif defined(CONFIG_BOARD_TEENSY40)
+#include "boards/pjrc/teensy4/teensy41.h"
+#elif defined(CONFIG_BOARD_TEENSY41)
+#include "boards/pjrc/teensy4/teensy41.h"
 #else
 #include "boards/generic/generic_board.h"
 #endif

@@ -1,0 +1,10 @@
+/*
+ * Copyright (c) 2025 Takayuki Goto <goto.takayuki@space-entry.co.jp>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+&lpuart6 {
+	current-speed = <115200>;
+};
+

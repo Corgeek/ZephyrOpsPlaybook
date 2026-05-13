@@ -11,8 +11,11 @@ int main(void)
 {
     uni_board_init();
 
+//  gpio_pin_configure(USER_LED.port, USER_LED.pin, GPIO_OUTPUT_ACTIVE);
+
     while (true) {
-        k_msleep(100);
+//      gpio_pin_toggle(USER_LED.port, USER_LED.pin);
+        k_msleep(1000);
     }
 
     return 0;

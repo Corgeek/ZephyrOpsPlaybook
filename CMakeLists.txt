@@ -40,7 +40,7 @@ PRIVATE
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/boards)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/core)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/drivers)
+#add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/drivers)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/modules)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/utils)
 
