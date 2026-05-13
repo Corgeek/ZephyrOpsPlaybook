@@ -296,6 +296,7 @@ extern "C" {
 #define ORANGE_LED                  GPIOI_PIN13
 #define RED_LED                     GPIOI_PIN14
 #define BLUE_LED                    GPIOI_PIN15
+#define USER_LED                    GREEN_LED
 
 #define JOY_RIGHT                   GPIOK_PIN05
 #define JOY_LEFT                    GPIOK_PIN04

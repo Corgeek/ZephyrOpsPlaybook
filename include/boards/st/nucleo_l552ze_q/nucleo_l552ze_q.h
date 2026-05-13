@@ -169,6 +169,7 @@ extern "C" {
 #define GREEN_LED                   GPIOC_PIN07
 #define BLUE_LED                    GPIOB_PIN07
 #define RED_LED                     GPIOA_PIN09
+#define USER_LED                    GREEN_LED
 
 #ifdef  __cplusplus
 }
