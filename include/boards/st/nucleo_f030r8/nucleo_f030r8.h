@@ -105,6 +105,7 @@ extern "C" {
 #define USER_BUTTON                 GPIO_DT_SPEC_GET(DT_ALIAS(sw0), gpios)
 #define GREEN_LED                   GPIOA_PIN05
 #define TOF_XSHUT                   GPIOA_PIN00
+#define USER_LED                    GREEN_LED
 
 #ifdef  __cplusplus
 }
