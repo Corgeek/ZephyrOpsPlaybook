@@ -15,7 +15,7 @@ struct gpio_spec {
 static const struct gpio_spec s_gpio_list[] = {
 };
 
-void unq_board_init(void)
+void uni_board_init(void)
 {
     for (size_t i = 0; i < ARRAY_SIZE(s_gpio_list); ++i) {
         if (device_is_ready(s_gpio_list[i].gpio.port) == false)
