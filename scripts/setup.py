@@ -51,7 +51,7 @@ def set_west_env_file(zephyr_root: str, proj_dir: str, scripts_dir: str, sdk_pat
 
 def get_sdk_paths(zephyr_ver: str) -> str:
     found_sdks = {}
-    sdk_pattern = re.compile(r"zephyr-sdk-(\d+\.\d+\.\d+)")
+    sdk_pattern = re.compile(r"zephyr-sdk-(\d+\.\d+\.\d+)$")
 
     for base_path in os_dep.sdk_base_paths:
         if base_path.exists():
