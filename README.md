@@ -17,6 +17,7 @@
 | [bbc_microbit](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/bbc_microbit) | bbc_microbit, bbc_microbit_v2 に特化した環境 | 付属のセンサーなどを有効化 | v4.1.0 |
 | [rpi_pico](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/rpi_pico) | rpi_pico, rpi_pico2 に特化した環境 | main ブランチを rpi_pico 向けに west.yaml を最小限にした構成 | v4.4.0 |
 | [stm32](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/stm32) | STM が提供しているボードに特化した環境 | main ブランチを stm32 向けに west.yaml を最小限にした構成 | v4.4.0 |
+| [nxp](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/nxp) | NXP が提供しているボードに特化した環境 | main ブランチを nxp 向けに west.yaml を最小限にした構成 | v4.4.0 |
 | [sample/osc2025_tokyo](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/sample/osc2025_tokyo) | Open Source Conference 2025 で展示したサンプル | 付属LCDにBMPを表示 | v4.1.0 |
 | [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | main をベースに Zephyr の LTS 版である v3.7.0 環境 | Zephyr の LTS を採用したい場合 | v3.7.0 |
 
@@ -30,6 +31,9 @@
 > [!TIP]
 WSL は USB 機器の制御を理由に公式で推奨されていませんが、デバイスの管理等の知識がある方は一通り利用できます。<br>
 また、そもそもターゲットをUSB経由で制御できる仕組みがない場合などは、Windows ネイティブより断然軽量な WSL を選択肢として考慮に入れて良いかもしれません。
+
+> [!TIP]
+v4.4.0 から Zephyr-SDK が v1.0.0 以上を要求され、それに伴いベンダー側も大きな変更が入っています。特に NXP 系は modules/hal/nxp/mcux/mcux-sdk-ng に切り替わっており、これの影響でユーザーアプリ側に drivers/gpio といったパスを作ると衝突が起きてビルドが通らなくなりました。そのため、現時点では NXP 系のブランチでは drivers 以下をビルド対象外としています。
 
 本リポジトリの簡単な解説と、広く Zephyr についても触れていますので、よろしければ以下の記事も参考にしていただければ幸いです。
 
