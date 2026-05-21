@@ -15,7 +15,7 @@ sdk_base_paths = [
     Path(os.environ.get("SYSTEMDRIVE", "C:") + "\\")
 ]
 
-def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str):
+def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str, build_opt: str = ""):
     env_content = "\n".join([
         f"set \"ZEPHYR_ROOT={zephyr_root}\"",
         f"set \"BOARD_TYPE={BOARD_TYPE}\"",
