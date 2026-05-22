@@ -21,6 +21,7 @@ def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner
         f"set \"BOARD_TYPE={BOARD_TYPE}\"",
         f"set \"RUNNER_FLASH={runner_flash}\"",
         f"set \"RUNNER_DEBUG={runner_debug}\"",
+        f"set \"BUILD_OPT={build_opt}\"",
         f"set \"ZEPHYR_SDK_INSTALL_DIR={sdk_path}\"",
         "",
         "call %ZEPHYR_ROOT%\\zephyr\\zephyr-env.cmd",
