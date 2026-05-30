@@ -18,14 +18,15 @@ sdk_base_paths = [
     Path("/usr/local"),
 ]
 
-def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str, build_opt: str = ""):
+def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str, build_opt: str = "", adb_device: str = ""):
     env_content = "\n".join([
         f"ZEPHYR_ROOT={zephyr_root}",
         f"BOARD_TYPE={BOARD_TYPE}",
         f'RUNNER_FLASH="{runner_flash}"',
         f'RUNNER_DEBUG="{runner_debug}"',
         f'BUILD_OPT="{build_opt}"',
-        f'export ZEPHYR_SDK_INSTALL_DIR="{sdk_path}"'
+        f'ADB_DEVICE="{adb_device}"',
+        f'export ZEPHYR_SDK_INSTALL_DIR="{sdk_path}"',
         "",
         "if [ ! -e ${ZEPHYR_ROOT}/zephyr/zephyr-env.sh ]; then",
         "    echo \"zephyr-env.sh is not found\"",
@@ -40,7 +41,7 @@ def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner
 
     return env_content
 
-def duplicate_scripts(zephyr_root: str, proj_dir: str, scripts_dir: str) -> None:
+def duplicate_scripts(zephyr_root: str, proj_dir: str, scripts_dir: str, board_type: str) -> None:
     dst_vscode_dir = Path(zephyr_root) / ".vscode"
     dst_vscode_dir.mkdir(parents=True, exist_ok=True)
 
@@ -48,5 +49,9 @@ def duplicate_scripts(zephyr_root: str, proj_dir: str, scripts_dir: str) -> None
     for file_name in src_vscode_dir.glob("*.json"):
         shutil.copy(file_name, dst_vscode_dir / file_name.name)
 
+    linux_dir = scripts_dir / "linux"
+    prefix = board_type.replace("/", "_").split("_")[0]
     for cmd in ["build", "flash", "debug", "stop"]:
-        shutil.copy(scripts_dir / "linux" / f"generic_{cmd}.sh", scripts_dir / f"{cmd}.bat")
+        specific = linux_dir / f"{prefix}_{cmd}.sh"
+        src = specific if specific.exists() else linux_dir / f"generic_{cmd}.sh"
+        shutil.copy(src, scripts_dir / f"{cmd}.bat")
