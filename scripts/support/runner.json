@@ -8,7 +8,7 @@
         "nucleo_f030r8": "--runner openocd",
         "nucleo_f401re": "--runner openocd",
         "nucleo_l552ze_q": "--runner openocd",
-		"stm32h747i_disco/stm32h747xx/m7": "--runner openocd"
+        "stm32h747i_disco/stm32h747xx/m7": "--runner openocd"
     },
     "debug": {
         "bbc_microbit": "--runner openocd",
@@ -19,7 +19,7 @@
         "nucleo_f030r8": "--runner openocd",
         "nucleo_f401re": "--runner openocd",
         "nucleo_l552ze_q": "--runner openocd",
-		"stm32h747i_disco/stm32h747xx/m7": "--runner openocd"
+        "stm32h747i_disco/stm32h747xx/m7": "--runner openocd"
     },
     "install": {
         "rpi_pico": ""
