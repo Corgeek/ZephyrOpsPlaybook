@@ -16,11 +16,11 @@ sudo bash kitware-archive.sh
 
 ### 2.2. 必要なツールのインストール
 
-下記コマンドで必要なツールをインストール(公式の手順と同じ)
+下記コマンドで必要なツールをインストール(公式の手順に adb を追加しています)
 ```
 sudo apt install --no-install-recommends git cmake ninja-build gperf \
   ccache dfu-util device-tree-compiler wget python3-dev python3-venv python3-tk \
-  xz-utils file make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
+  xz-utils file make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 adb
 ```
 
 うまく行かなかった場合は、下記公式ページを参照
