@@ -113,15 +113,10 @@ scripts\setup.bat
 
 ## 3. 開発フロー
 ### 3.1. VS Code による開発
-1. VS Code で zephyrproject ディレクトリを開く
-   ```
-   cd zephyrproject
-   code .
-   ```
-2. Ctrl + Shift + B で、「Rebuild」もしくは「Build」を選びビルドを実施
-3. 正常にビルドが完了したら Ctrl + Shift + B で出てくる「Flash」を選択し、実機に書き込む
-4. gdb デバッガを用いたデバッグを行う場合は、Ctrl + Shift + B で出てくる「Debug」を選び gdbserver で待機状態に入る。その状態のまま F5 を押すことでアタッチ
-   1. (VSCode のバージョンによっては、デバッグを終了後も gdbserver が待機状態のままになります。適宜画面右下の debug プロセスを終了(ゴミ箱アイコン)してください)
+
+外部記事ですが手順や解説を下記に記しました。
+
+[【Qiita記事】 Zephyr RTOS 〜 debug with VSCode 〜](https://qiita.com/Corgeek/items/0ac73e5eb7d773193219)
 
 ### 3.2. コマンドによる開発
 playbook に移動しそれぞれ以下のコマンドを実行
