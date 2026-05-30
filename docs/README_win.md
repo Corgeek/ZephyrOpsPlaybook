@@ -130,7 +130,7 @@ playbook に移動しそれぞれ以下のコマンドを実行
 |-----|----|
 | Rebuild | ./scripts/build.bat /r |
 | Build | ./scripts/build.bat |
-| Flash | ./scripts/build.bat /f |
+| Flash | ./scripts/flash.bat |
 | Debug | ./scripts/debug.bat |
 
 Debug 時は、port 3333 で待機しているので sdk 内にある gdb を用いてアタッチ
