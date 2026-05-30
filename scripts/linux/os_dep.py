@@ -16,6 +16,7 @@ sdk_base_paths = [
     Path(os.environ.get("HOME")) / "bin",
     Path("/opt"),
     Path("/usr/local"),
+    Path("/usr"),
 ]
 
 def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str, build_opt: str = "", adb_device: str = ""):

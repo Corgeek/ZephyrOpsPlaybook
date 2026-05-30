@@ -9,10 +9,15 @@ def get_cross_gdb_path(sdk_path: Path, use_gnu: bool) -> str:
         return str(sdk_path / "gnu" / "arm-zephyr-eabi" / "bin" / "arm-zephyr-eabi-gdb.exe")
     return str(sdk_path / "arm-zephyr-eabi" / "bin" / "arm-zephyr-eabi-gdb.exe")
 
+SYSTEMDRIVE = os.environ.get("SYSTEMDRIVE", "")
+
 sdk_base_paths = [
-    Path(os.environ.get("HOMEPATH")),
-    Path(os.environ.get("PROGRAMFILES")),
-    Path(os.environ.get("SYSTEMDRIVE", "C:") + "\\")
+    Path(p) for p in [
+        os.environ.get("USERPROFILE"),
+        SYSTEMDRIVE + "\\" if SYSTEMDRIVE else None,
+        os.environ.get("PROGRAMFILES"),
+        os.environ.get("ProgramFiles(x86)"),
+    ] if p
 ]
 
 def gen_env_content(zephyr_root: str, BOARD_TYPE: str, runner_flash: str, runner_debug: str, sdk_path: str, build_opt: str = "", adb_device: str = ""):
