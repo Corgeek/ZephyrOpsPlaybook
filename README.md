@@ -18,6 +18,7 @@
 | [rpi_pico](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/rpi_pico) | rpi_pico, rpi_pico2 に特化した環境 | main ブランチを rpi_pico 向けに west.yaml を最小限にした構成 | v4.4.0 |
 | [stm32](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/stm32) | STM が提供しているボードに特化した環境 | main ブランチを stm32 向けに west.yaml を最小限にした構成 | v4.4.0 |
 | [nxp](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/nxp) | NXP が提供しているボードに特化した環境 | main ブランチを nxp 向けに west.yaml を最小限にした構成 | v4.4.0 |
+| [nordic](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/nordic) | Nordic が提供しているボードに特化した環境 | main ブランチを Nordic 向けに west.yaml を最小限にした構成 | v4.4.0 |
 | [sample/osc2025_tokyo](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/sample/osc2025_tokyo) | Open Source Conference 2025 で展示したサンプル | 付属LCDにBMPを表示 | v4.1.0 |
 | [dev/v3.7-branch](https://github.com/Corgeek/ZephyrOpsPlaybook/tree/dev/v3.7-branch) | main をベースに Zephyr の LTS 版である v3.7.0 環境 | Zephyr の LTS を採用したい場合 | v3.7.0 |
 
@@ -54,3 +55,4 @@ v4.4.0 から Zephyr-SDK が v1.0.0 以上を要求され、それに伴いベ�
 15. [【Qiita記事】 Zephyr RTOS 〜 リアルタイム性能について 〜](https://qiita.com/Corgeek/items/005a57f681ceca51b676)
 16. [【Qiita記事】 Zephyr RTOS 〜 Arduino UNO Q 向けの overlay 〜](https://qiita.com/Corgeek/items/c4fea6b40e78b25d6440)
 17. [【Qiita記事】 Zephyr RTOS 〜 リリースサイクルとメンテナンス期間 〜](https://qiita.com/Corgeek/items/da4518ad72188628d31a)
+18. [【Qiita記事】 Zephyr RTOS 〜 debug with VSCode 〜](https://qiita.com/Corgeek/items/0ac73e5eb7d773193219)
