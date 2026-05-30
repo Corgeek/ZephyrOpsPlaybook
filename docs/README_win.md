@@ -10,18 +10,11 @@
 開発に必要なツール群のインストールを行います。
 
 ### 2.2. 必要なツールのインストール
-1. chocolatery のインストール ([公式参照](https://chocolatey.org/install))
-2. **管理者権限**でコマンドプロンプトを開き、下記実行により必要なツールをインストール。
-(公式手順に加えて openocd も指定してあります。書き込みやデバッグに於いて数多くのボードをサポートしており、追加インストール推奨です)
-
-> [!IMPORTANT]
-**管理者権限**は、「コマンドプロンプトを右クリック」から「管理者として実行」、もしくは「スタートキーを押しながら + X」 で出てくるコンテキストメニューから、「ターミナル(管理者)」でも開けます。また、**管理者権限**で行う作業はここで終わりです。ミスを避けるため閉じておきましょう。
+1. 比較的新しい Windows であれば winget が標準インストールされています。利用できない場合は別途インストールしてください。[install winget](https://aka.ms/getwinget)
+2. 以下のコマンドで必要なツールをインストール。公式手順に加え adb が含まれる Google.PlatformTools を追加しています。
 
 ```
-choco feature enable -n allowGlobalConfirmation
-choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-choco install ninja gperf python311 git dtc-msys2 wget 7zip
-choco install openocd
+winget install Kitware.CMake Ninja-build.Ninja oss-winget.gperf Python.Python.3.12 Git.Git oss-winget.dtc wget 7zip.7zip Google.PlatformTools
 ```
 
 うまく行かなかった場合は、下記公式ページを参照
@@ -57,14 +50,14 @@ pip install west
 west init -l playbook
 west update
 west zephyr-export
-pip install -r zephyr/scripts/requirements.txt
+cmd /c zephyr\scripts\utils\west-packages-pip-install.cmd
 ```
 
 ### 2.6. SDK のダウンロードと設定
 Zephyr v4.0.0 から下記コマンドで SDK をインストールできるようになりました。
 
 ```
-west sdk install -t arm-zephyr-eabi -b %SystemDrive%
+west sdk install -t arm-zephyr-eabi
 ```
 
 > [!CAUTION]
