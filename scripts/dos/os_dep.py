@@ -43,5 +43,5 @@ def duplicate_scripts(zephyr_root: str, proj_dir: str, scripts_dir: str) -> None
     for file_name in src_vscode_dir.glob("*.json"):
         shutil.copy(file_name, dst_vscode_dir / file_name.name)
 
-    for script in ["build", "debug", "stop"]:
-        shutil.copy(scripts_dir / "dos" / f"{script}.bat", scripts_dir / f"{script}.bat")
+    for cmd in ["build", "flash", "debug", "stop"]:
+        shutil.copy(scripts_dir / "dos" / f"generic_{cmd}.bat", scripts_dir / f"{cmd}.bat")
