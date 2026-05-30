@@ -17,10 +17,8 @@
         {
             "label": "Flash",
             "type": "shell",
-            "command": "${config:PROJ_PATH}/scripts/build.bat",
-            "args": [
-                "/f"
-            ],
+            "command": "${config:PROJ_PATH}/scripts/flash.bat",
+            "args": [],
             "problemMatcher": [],
             "group": {
                 "kind": "build",
