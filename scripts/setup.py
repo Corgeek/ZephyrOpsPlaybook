@@ -31,9 +31,19 @@ def get_zephyr_base_version(proj_dir: str) -> str:
 
     return zephyr_ver
 
+def get_adb_device(board_type: str) -> str:
+    if board_type == "arduino_uno_q":
+        from support import adb_devices
+        serial = adb_devices.find_device("Arduino UnoQ")
+        if serial:
+            return f"-s {serial}"
+
+    return ""
+
 def set_west_env_file(zephyr_root: str, proj_dir: str, scripts_dir: str, sdk_path: str, build_opt: str) -> tuple[str, str, str]:
     runner_flash = runner.get_runner(cmd_type="flash", board_type=BOARD_TYPE)
     runner_debug = runner.get_runner(cmd_type="debug", board_type=BOARD_TYPE)
+    adb_device = get_adb_device(BOARD_TYPE)
 
     west_env_path = scripts_dir / "west_env.bat"
 
@@ -42,7 +52,8 @@ def set_west_env_file(zephyr_root: str, proj_dir: str, scripts_dir: str, sdk_pat
                                          runner_flash=runner_flash,
                                          runner_debug=runner_debug,
                                          sdk_path=sdk_path,
-                                         build_opt=build_opt
+                                         build_opt=build_opt,
+                                         adb_device=adb_device
                                          )
 
     west_env_path.write_text(env_content, encoding="utf-8")
@@ -129,4 +140,4 @@ if __name__ == "__main__":
 
     set_west_env_file(zephyr_root=zephyr_root, proj_dir=proj_dir, scripts_dir=scripts_dir, sdk_path=selected_sdk, build_opt=BUILD_OPT)
     update_settings(proj_dir=proj_dir, selected_sdk=selected_sdk)
-    os_dep.duplicate_scripts(zephyr_root=zephyr_root, proj_dir=proj_dir, scripts_dir=scripts_dir)
+    os_dep.duplicate_scripts(zephyr_root=zephyr_root, proj_dir=proj_dir, scripts_dir=scripts_dir, board_type=BOARD_TYPE)
