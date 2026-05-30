@@ -69,12 +69,12 @@ west sdk install -t arm-zephyr-eabi -b ${HOME}
 ### 2.7. west コマンドの簡略用スクリプトを準備
 
 playbook/scripts/setup.sh をエディタで開き、下記ターゲットの設定を適宜変更して保存(最後のBOARD_TYPEが有効になります)。その後 setup.sh を実行
-> BOARD_TYPE=nucleo_f401re
+> BOARD_TYPE=arduino_uno_q
 ```
 ./scripts/setup.sh
 ```
 
-問題がなければ、.vscode 用の設定と scripts 以下に west_env.bat, build.bat, debug.bat, stop.bat が生成されています。
+問題がなければ、.vscode 用の設定と scripts 以下に west_env.bat, build.bat, flash.bat, debug.bat, stop.bat が生成されています。
 
 以上で、初回の構築は完了です。
 
