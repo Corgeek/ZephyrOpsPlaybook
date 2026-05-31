@@ -2,7 +2,6 @@
 
 import sys
 import platform
-import yaml
 import json
 from pathlib import Path
 import re
@@ -23,13 +22,20 @@ def get_base_paths() -> tuple[str, str, str]:
     return zephyr_root, proj_dir, scripts_dir
 
 def get_zephyr_base_version(proj_dir: str) -> str:
-    zephyr_ver = ""
     west_path = Path(proj_dir) / "west.yml"
-    with open(west_path) as west_file:
-        west_yml = yaml.safe_load(west_file)
-        zephyr_ver = west_yml.get("manifest", {}).get("projects", [])[0].get("revision", {})
+    revision_re = re.compile(r"^\s*revision:\s*(\S+)")
+    in_projects = False
+    with open(west_path, encoding="utf-8") as west_file:
+        for line in west_file:
+            if re.match(r"^\s*projects:\s*$", line):
+                in_projects = True
+                continue
+            if in_projects:
+                m = revision_re.match(line)
+                if m:
+                    return m.group(1).strip().strip('"').strip("'")
 
-    return zephyr_ver
+    return ""
 
 def get_adb_device(board_type: str) -> str:
     if board_type == "arduino_uno_q":
