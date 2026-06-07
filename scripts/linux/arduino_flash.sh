@@ -7,6 +7,7 @@ PROJ_PATH=`readlink -f .`
 source scripts/west_env.bat
 
 adb ${ADB_DEVICE} push build/zephyr/zephyr.bin /tmp
-adb ${ADB_DEVICE} shell /opt/openocd/bin/arduino-flash.sh /tmp/zephyr.bin
+adb ${ADB_DEVICE} push build/zephyr/zephyr.elf /tmp
+adb ${ADB_DEVICE} shell /opt/openocd/bin/arduino-flash.sh /tmp/zephyr.elf /tmp/zephyr.bin
 
 popd > /dev/null

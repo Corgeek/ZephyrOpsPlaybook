@@ -14,7 +14,8 @@ if %ERRORLEVEL% neq 0 exit /b 1
 
 @echo on
 adb %ADB_DEVICE% push build/zephyr/zephyr.bin /tmp
-adb %ADB_DEVICE% shell /opt/openocd/bin/arduino-flash.sh /tmp/zephyr.bin
+adb %ADB_DEVICE% push build/zephyr/zephyr.elf /tmp
+adb %ADB_DEVICE% shell /opt/openocd/bin/arduino-flash.sh /tmp/zephyr.elf /tmp/zephyr.bin
 @echo off
 
 popd
