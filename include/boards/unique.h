@@ -23,6 +23,10 @@
 #include "boards/raspberrypi/rpi_pico/rpi_pico.h"
 #elif defined(CONFIG_BOARD_RPI_PICO2)
 #include "boards/raspberrypi/rpi_pico2/rpi_pico2.h"
+#elif defined(CONFIG_BOARD_NRF54L15DK_NRF54L15_CPUAPP)
+#include "boards/nordic/nrf54l15dk/nrf54l15dk_nrf54l10_cpuapp.h"
+#elif defined(CONFIG_BOARD_ARDUINO_UNO_Q_STM32U585XX)
+#include "boards/arduino/uno_q/arduino_uno_q.h"
 #else
 #include "boards/generic/generic_board.h"
 #endif
