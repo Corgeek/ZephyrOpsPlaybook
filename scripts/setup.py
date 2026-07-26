@@ -119,10 +119,20 @@ def update_settings(proj_dir: str, selected_sdk: str) -> None:
         settings_json = {}
 
     use_gnu = sdk_requires_gnu_prefix(selected_sdk)
+    zephyr_root = Path(proj_dir).parent
+    sca_dir = Path(proj_dir) / "build" / "sca" / "codechecker"
+
     insert_settings = {
         "ZEPHYRSDK": str(selected_sdk),
         "PROJ_PATH": str(proj_dir),
-        "CROSS_GDB_PATH": os_dep.get_cross_gdb_path(selected_sdk, use_gnu)
+        "CROSS_GDB_PATH": os_dep.get_cross_gdb_path(selected_sdk, use_gnu),
+        "codechecker.executor.executablePath": os_dep.get_codechecker_path(zephyr_root),
+        "codechecker.backend.outputFolder": str(sca_dir),
+        "codechecker.backend.compilationDatabasePath": str(Path(proj_dir) / "build" / "compile_commands.json"),
+        "codechecker.analyze.arguments": "--analyzers cppcheck --keep-gcc-include-fixed --keep-gcc-intrin",
+        "codechecker.analyze.runOnSave": False,
+        "codechecker.editor.showDatabaseDialog": False,
+        "codechecker.editor.enableCodeLens": True
     }
 
     merged_settings = {**settings_json, **insert_settings}

@@ -48,6 +48,17 @@
             }
         },
         {
+            "label": "Analyze",
+            "type": "shell",
+            "command": "${config:PROJ_PATH}/scripts/analyze.bat",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "label": "Stop",
             "type": "shell",
             "command": "${config:PROJ_PATH}/scripts/stop.bat",
