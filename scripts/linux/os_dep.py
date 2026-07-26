@@ -9,6 +9,9 @@ def get_cross_gdb_path(sdk_path: Path, use_gnu: bool) -> str:
         return str(sdk_path / "gnu" / "arm-zephyr-eabi" / "bin" / "arm-zephyr-eabi-gdb")
     return str(sdk_path / "arm-zephyr-eabi" / "bin" / "arm-zephyr-eabi-gdb")
 
+def get_codechecker_path(zephyr_root: Path) -> str:
+    return str(Path(zephyr_root) / ".venv" / "bin" / "CodeChecker")
+
 sdk_base_paths = [
     Path(os.environ.get("HOME")),
     Path(os.environ.get("HOME")) / ".local",
@@ -52,7 +55,7 @@ def duplicate_scripts(zephyr_root: str, proj_dir: str, scripts_dir: str, board_t
 
     linux_dir = scripts_dir / "linux"
     prefix = board_type.replace("/", "_").split("_")[0]
-    for cmd in ["build", "flash", "debug", "stop"]:
+    for cmd in ["build", "flash", "debug", "stop", "analyze"]:
         specific = linux_dir / f"{prefix}_{cmd}.sh"
         src = specific if specific.exists() else linux_dir / f"generic_{cmd}.sh"
         shutil.copy(src, scripts_dir / f"{cmd}.bat")
