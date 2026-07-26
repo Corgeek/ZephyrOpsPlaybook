@@ -16,6 +16,7 @@ scripts/setup.sh
 scripts/debug.bat
 scripts/build.bat
 scripts/flash.bat
+scripts/analyze.bat
 scripts/stop.bat
 
 # Prerequisites
