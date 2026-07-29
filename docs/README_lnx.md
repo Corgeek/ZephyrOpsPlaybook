@@ -118,6 +118,7 @@ playbook に移動しそれぞれ以下のコマンドを実行
 
 | 機能 | コマンド |
 |-----|----|
+| Analyze | ./scripts/analyze.bat |
 | Rebuild | ./scripts/build.bat /r |
 | Build | ./scripts/build.bat |
 | Flash | ./scripts/flash.bat |
