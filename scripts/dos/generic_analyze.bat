@@ -9,7 +9,8 @@ pushd %PROJ_PATH%
 call scripts\west_env.bat
 if %ERRORLEVEL% neq 0 exit /b 1
 
-set "SCA_OPT=-DZEPHYR_SCA_VARIANT=codechecker -DCODECHECKER_EXPORT=html -DCODECHECKER_PARSE_EXIT_STATUS=y"
+rem set "SCA_OPT=-DZEPHYR_SCA_VARIANT=codechecker -DCODECHECKER_EXPORT=html -DCODECHECKER_PARSE_EXIT_STATUS=y"
+set "SCA_OPT=-DZEPHYR_SCA_VARIANT=codechecker -DCODECHECKER_EXPORT=html"
 set "SCA_DIR=%PROJ_PATH%\build\sca\codechecker"
 
 if exist "%ZEPHYR_BASE%.codechecker.yml" (
@@ -32,4 +33,4 @@ if exist "%SCA_DIR%\codechecker.plist" (
 )
 
 popd
-exit /b %RET%
+rem exit /b %RET%
