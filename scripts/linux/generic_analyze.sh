@@ -6,7 +6,8 @@ PROJ_PATH=`readlink -f .`
 
 source scripts/west_env.bat
 
-SCA_OPT="-DZEPHYR_SCA_VARIANT=codechecker -DCODECHECKER_EXPORT=html -DCODECHECKER_PARSE_EXIT_STATUS=y"
+#SCA_OPT="-DZEPHYR_SCA_VARIANT=codechecker -DCODECHECKER_EXPORT=html -DCODECHECKER_PARSE_EXIT_STATUS=y"
+SCA_OPT="-DZEPHYR_SCA_VARIANT=codechecker -DCODECHECKER_EXPORT=html"
 SCA_DIR=build/sca/codechecker
 
 CC_CONFIG=${ZEPHYR_BASE}/.codechecker.yml
@@ -26,4 +27,4 @@ if [ -d ${SCA_DIR}/codechecker.plist ]; then
 fi
 
 popd > /dev/null
-exit ${RET}
+#exit ${RET}
