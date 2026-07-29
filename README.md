@@ -29,6 +29,9 @@
 | [Ubuntu 向け](docs/README_lnx.md) | Ubuntu ネイティブやWSLを含む仮想環境 |
 | [Windows 向け](docs/README_win.md) | コマンドプロンプトを使った Windows ネイティブ環境 |
 
+また、外部記事ですが、画像つきで詳細に解説をしていますのでこちらを参照ください。
+[【Qiita記事】 Zephyr RTOS 〜 debug with VSCode 〜](https://qiita.com/Corgeek/items/0ac73e5eb7d773193219)
+
 > [!TIP]
 WSL は USB 機器の制御を理由に公式で推奨されていませんが、デバイスの管理等の知識がある方は一通り利用できます。<br>
 また、そもそもターゲットをUSB経由で制御できる仕組みがない場合などは、Windows ネイティブより断然軽量な WSL を選択肢として考慮に入れて良いかもしれません。
@@ -56,3 +59,5 @@ v4.4.0 から Zephyr-SDK が v1.0.0 以上を要求され、それに伴いベ�
 16. [【Qiita記事】 Zephyr RTOS 〜 Arduino UNO Q 向けの overlay 〜](https://qiita.com/Corgeek/items/c4fea6b40e78b25d6440)
 17. [【Qiita記事】 Zephyr RTOS 〜 リリースサイクルとメンテナンス期間 〜](https://qiita.com/Corgeek/items/da4518ad72188628d31a)
 18. [【Qiita記事】 Zephyr RTOS 〜 debug with VSCode 〜](https://qiita.com/Corgeek/items/0ac73e5eb7d773193219)
+19. [【Qiita記事】 Zephyr RTOS 〜 Arduino Uno Q を VSCode でビルド・書き込み・デバッグ 〜](https://qiita.com/Corgeek/items/e4462207e97f4dea29fc)
+20. [【Qiita記事】 Zephyr RTOS 〜 静的解析ツールの導入 〜](https://qiita.com/Corgeek/items/4aaea7d5ca326a43e263)
